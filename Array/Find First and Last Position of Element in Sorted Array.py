@@ -1,15 +1,15 @@
 # Two binary searches to find lower and upper bound
 # Time: O(nlogn); space: O(1)
-import collections
 class Solution:
-    def searchRange(self, nums: List[int], target: int) -> List[int]:
-        lower_bound = self.findBound(nums, target, True)
+    def searchRange(self, nums: list[int], target: int) -> list[int]:
+        lower_bound = Solution.find_bound(nums, target, True)
         if lower_bound == -1:
             return [-1, -1]
-        upper_bound = self.findBound(nums, target, False)
+        upper_bound = Solution.find_bound(nums, target, False)
         return [lower_bound, upper_bound]
 
-    def findBound(self, nums: List[int], target: int, find_lower_bound: bool) -> int:
+    @staticmethod
+    def find_bound(nums: list[int], target: int, find_lower_bound: bool) -> int:
         low, high = 0, len(nums) - 1
         while low <= high:
             mid = (low + high) // 2
