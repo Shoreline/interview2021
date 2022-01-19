@@ -1,7 +1,7 @@
-# Elements in candidates may have repeated value. Also one result can have repeated value.
-# key: i > pos and candidates[i] == candidates[i - 1]: continue
-#   For elements of the same value, don't repeat neither picking/dropping, just skip it.
-#   Not saying both elements of the same value can't be in a result array at the same time.
+# Elements in candidates may have repeated value. Also, one result can have repeated value. key: i > pos and
+# candidates[i] == candidates[i - 1]: continue In one for loop that i in [pos, len(candidates)), for repeated
+# elements only proceed to process the first one of each repeated set. Because processing any one of a set of
+# repeated elements is equivalent. Note that this way elements of the same value can still be in res[].
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
