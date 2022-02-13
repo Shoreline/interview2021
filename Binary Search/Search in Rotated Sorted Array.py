@@ -11,7 +11,7 @@ class Solution:
         low = 0
         high = len(nums) - 1
 
-        while (low <= high):
+        while low <= high:
             mid = (high + low) // 2
             # mid = low + (high - low) // 2 # also works
 
