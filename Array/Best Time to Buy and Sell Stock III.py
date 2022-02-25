@@ -30,7 +30,16 @@ class Solution:
 
         return t2_profit
 
-    # General solution of for k transactions
+# General solution of for k transactions
+#
+# one transaction contains two operations: buy and sell.
+# But we are not allow to buy again before selling.
+#
+# We are looking for most profitable of k-separated transactions
+#
+# k: the merged transaction of k transactions
+# cost[k]: So far (till price[today]), the dip after the overall most profitable k-1 transactions
+# profit[k]: So far (till price[today]), the highest overall profit for k transactions
 #     def maxProfit(self, k: int, prices: List[int]) -> int:
 #         if k == 0:
 #             return 0
