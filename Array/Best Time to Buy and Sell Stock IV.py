@@ -12,14 +12,13 @@ class Solution:
         if k == 0:
             return 0
 
-        costs = [float('inf')] * (k)
-        max_profits = [0] * (k)  # max_profit[i] : max profit for i+1 separated transactions
+        costs = [float('inf')] * k
+        max_profits = [0] * k  # max_profit[i] : max profit for i+1 separated transactions
 
-        for price in prices:
-            profit_after = 0  # max profit after previous i - 1 transactions
+        for p in prices:
+            profit = 0  # max profit after previous i - 1 transactions
             for i in range(k):
-                costs[i] = min(costs[i], price - profit_after)  # price in earlier best profit
-                max_profits[i] = max(max_profits[i], price - costs[i])
-                profit_after = max_profits[i]
+                costs[i] = min(costs[i], p - profit)  # price in earlier best profit
+                max_profits[i] = max(max_profits[i], p - costs[i])
+                profit = max_profits[i]
         return max_profits[-1]
-
