@@ -5,7 +5,7 @@
 # refresh_head(key) is also responsible for dropping tail node if bypassing capacity.
 
 # A class for double linkedlist node
-class Node():
+class Node:
     def __init__(self, key: int, value: int, pre: 'Node' = None, next: 'Node' = None):
         self.key = key
         self.val = value
