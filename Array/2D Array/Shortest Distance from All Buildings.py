@@ -1,4 +1,6 @@
+# Similar to best meeting point, but 1) this problem has obstackles; 2) can only build (meet) on empty land
 # BFS, use queue
+# Compute the shortest total dist of each land to ALL buildings (sum(min_dist(a_land, house))) | house is one of the house.
 # From houses to reach empty land -> faster when there are less houses than land
 
 from collections import deque
@@ -17,7 +19,7 @@ class Solution:
         # The value that represents an empty land. Will decrement once done traversing a house
         # The reason to change value representing empty land is to differenciate rounds of BFS
         # Initial value is defined by the problem statement (which is 0)
-        empty_land = 0
+        empty_land = 0  # will go from 0, to -1, -2, -3, ...
 
         for i in range(rows):
             for j in range(cols):
@@ -26,8 +28,7 @@ class Solution:
                 if grid[i][j] != 1:
                     continue
 
-                q = deque()
-                q.append([i, j])
+                q = deque([[i, j]])  # same as q = deque() and q.append([i,j])
                 steps = 0
                 # Keep resetting the min_dist for every house.
                 # So only the last house will output meaningful min_dist

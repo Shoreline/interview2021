@@ -1,4 +1,5 @@
-# Note that it is ok to meet at a '1' tile.
+# 1) No obstackle!
+# 2) ok to meet at a both '0' and '1' tile.
 # BFS is too slow: T O((mn)^2); S: O(mn)
 # Math: the optimal meeting point is any point that separates two equal number of points
 #   For points like this, if it is closer to group 1 means it is farther from group 2
