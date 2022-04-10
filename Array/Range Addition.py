@@ -3,8 +3,7 @@
 class Solution:
     def getModifiedArray(self, length: int, updates: List[List[int]]) -> List[int]:
         res = [0] * length
-        for update in updates:
-            start, end, inc = update
+        for start, end, inc in updates:
             res[start] += inc
 
             if end + 1 < length:
