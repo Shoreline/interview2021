@@ -1,6 +1,9 @@
-# prefix sum technique for the problems like "Find a number of continuous subarrays/submatrices/tree paths that sum to target".
+# prefix sum technique for the problems like "Find a number of CONTINUOUS subarrays/submatrices/tree paths that sum to target".
 # Say n1, n2 are two nodes, and n1 is the ascendant of n2. Then prefix_sum_n2 - prefix_sum_n1 = sum_of_nodes_between_n1_n2 (sum(n1, n2])
-# prefix_sum_count<int, int>: key is prefix_sum of all nodes till the current one; value is the count of paths
+#
+# prefix_sum_count<prefix_sum_val, path_count>
+#   key is prefix_sum of all nodes till the current one; value is the count of paths
+#   prefix_sum_count only saves info about the path from the root to current node
 
 
 # Definition for a binary tree node.
@@ -54,7 +57,7 @@ class Solution:
 #             ans[0]+= 1
 
 #         # if in prefix_sum there is any prefix_sum = curSum - targetSum; then targetSum = curSum - prefix_sum -> matching path
-#         ans[0] += prefix_sum[curSum - targetSum]
+#         ans[0] += prefix_sum[curSum - targetSum]   
 #         prefix_sum[curSum] += 1
 
 #         self.helper(root.left, targetSum, curSum, prefix_sum, ans)
