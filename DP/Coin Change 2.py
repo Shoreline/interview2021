@@ -1,5 +1,7 @@
 # Combination sum problem
-# Switched the inner/outer sequence of the for loops, as in combination sum IV (the permutation sum version of this problem.)
+# bottom-up DP
+# Switched the inner/outer order of the for loops, as in combination sum IV (the permutation sum version of this problem.)
+
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         dp = [0] * (amount + 1)
