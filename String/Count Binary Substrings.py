@@ -1,9 +1,10 @@
-# The qualified sub-strings can only be the sub-strings of sub-strings that already group together AND have equal number of 0s and 1s in the input string.
-# First, count the number of 1 or 0 already group together in the input string.
-# For example "0110001111" will be [1, 2, 3, 4].
+# Target substrings centers at the edge of 0 and 1, either "01" or "10" Count max(1s, 0s) on both sides to know
+# qualified strings centers at this specific "01"/"10" location The qualified sub-strings can only be the sub-strings
+# of sub-strings that already group together AND have equal number of 0s and 1s in the input string. First,
+# count the number of 1 or 0 already group together in the input string. For example "0110001111" will be [1, 2, 3, 4].
 
-# Second, for any possible substrings with 1 and 0 grouped consecutively, the number of valid substring will be the minimum number of 0 and 1.
-# For example "0001111", will be min(3, 4) = 3, ("01", "0011", "000111")
+# Second, for any possible substrings with 1 and 0 grouped consecutively, the number of valid substring will be the
+# minimum number of 0 and 1. For example "0001111", will be min(3, 4) = 3, ("01", "0011", "000111")
 
 
 # Complexity
@@ -11,7 +12,7 @@
 # Space O(1)
 class Solution:
     def countBinarySubstrings(self, s: str) -> int:
-        pre_count, cur_count = 0, 0
+        pre_count, cur_count = 0, 0  # counts previous/current 0s or 1s
         result = 0
 
         for i, c in enumerate(s):

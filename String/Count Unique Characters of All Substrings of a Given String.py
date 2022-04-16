@@ -33,23 +33,24 @@
 # For the 3rd "A": (9-6) * (6-3)"
 # For the 4th "A": (N-9) * (9-6)"
 
-# Don't forget at the end, len(s) can be considered as an occurrence of all chars
+# Don't forget at the end, len(s) can be considered as a occurence of all chars
 
 class Solution:
     def uniqueLetterString(self, s: str) -> int:
-        # Record last two occurrence index for every character in s
-        index = {c: [-1, -1] for c in s}
+        # Records the most recent two occurrences index for every character in s
+        last_occurs = {c: [-1, -1] for c in s}  # Initial value is -1 and -1 (not yet shown at all)
 
         res = 0
 
         for i, c in enumerate(s):
-            m, n = index[c]
-            res += (i - n) * (n - m)
-            index[c] = [n, i]
+            m, n = last_occurs[c]
+            # location: m, n, i -> To let s[n] to be the unique char, there are (n-m) * (i - n) ways
+            res += (n - m) * (i - n)
+            last_occurs[c] = [n, i]  # update the most recent occurences
 
-        for c in index:
-            k, j = index[c]
-            m, n = index[c]
+        # The end of s is naturally another right boundary of substrings with unique char
+        for c in last_occurs:
+            m, n = last_occurs[c]
             res += (len(s) - n) * (n - m)
 
         return res  # % (10**9 + 7) to avoid overflow
