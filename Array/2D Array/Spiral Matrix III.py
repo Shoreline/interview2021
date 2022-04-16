@@ -1,10 +1,9 @@
-# 885. Spiral Matrix III
 # Intuition:
 # Take steps one by one.
 # If the location is inside of grid, add it to res.
 # But how to simulate the path?
 
-# It seems to be annoying, but if we observe the path:
+# It seems to be annoying, but if we observer the path:
 
 # move right 1 step, turn right
 # move down 1 step, turn right
@@ -47,21 +46,22 @@
 # Space O(R*C) for output
 
 class Solution:
-    def spiralMatrixIII(self, R, C, x, y):
+    def spiralMatrixIII(self, rows: int, cols: int, rStart: int, cStart: int) -> List[List[int]]:
         res = []
         n = 0  # number of turns so far
-        directions = ((0, 1), (1, 0), (0, -1), (-1, 0))
-        direction_index = 0
+        directions = ((0, 1), (1, 0), (0, -1), (-1, 0))  # order matters! The sequence of 4 turn-rights.
 
-        while len(res) < R * C:
-            dx, dy = directions[direction_index % 4]
+        x, y = rStart, cStart
+        while len(res) < rows * cols:
+            dx, dy = directions[n % 4]
 
-            for i in range(n // 2 + 1):
-                if 0 <= x < R and 0 <= y < C:
+            for i in range(n // 2 + 1):  # width of current square
+                if 0 <= x < rows and 0 <= y < cols:
                     res.append([x, y])
                 x, y = x + dx, y + dy
 
             n += 1
-            direction_index += 1
 
         return res
+
+
