@@ -18,7 +18,12 @@ class Solution:
             if s[i] == '0':
                 cnt0 -= 1
             elif s[i] == '1':
-                res = min(res, cnt1 + cnt0)
                 cnt1 += 1
-
+            res = min(res, cnt1 + cnt0)
         return res
+
+    # thought 2:
+# The result is always like s = '0'*i + '1'*j
+# 2 scans for s, one from the start, one from the end
+# count how many 1s is before each s[i] and how many 0s after s[i]
+# So we can tell for each s[i], the flipping cost to make it the boundary between 0s and 1s.
