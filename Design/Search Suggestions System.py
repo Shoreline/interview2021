@@ -25,7 +25,7 @@ class Solution:
             for w in products[i:i + 3]:
                 if w.startswith(prefix):
                     tmp.append(w)
-            res.append(tmp[:])
+            res.append(tmp)
             # Equivalent to:
             # res.append([w for w in products[i:i + 3] if w.startswith(prefix)])
 

@@ -5,6 +5,7 @@ class Solution:
         sqrt_n = int(sqrt(n))
 
         for d in range(1, sqrt_n + 1):
+            # When n%d == 0, we actually found two divisors: d and n//d
             if n % d == 0:
                 k -= 1
                 divisors.append(d)
@@ -12,10 +13,13 @@ class Solution:
                     return d
 
         # If n is a perfect square (4, 9, 16, 25, 36, etc)
-        # we have to increment k to avoid double counting
+        # we have to increment k to since sqrt_n will show up twice but shall be counted once
         if (sqrt_n * sqrt_n == n):
             k += 1
 
-        # If reaching here, it means the result factor is > sqrt_n
-        # We know that res * some_guy_in_divisors == n
-        return n // divisors[len(divisors) - k] if len(divisors) - k >= 0 else -1
+        # len(divisors) has all first half divisors. If the remaining k is bigger than the number
+        # of first half divisors, then even count all 2nd half divisors we still can't reach k.
+        if k > len(divisors):
+            return -1
+        else:
+            return n // divisors[len(divisors) - k]
