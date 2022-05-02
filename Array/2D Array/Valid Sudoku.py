@@ -2,7 +2,7 @@
 # type_identifier is some custom number, like 1 indicates row type, 2 indicates column type
 class Solution:
     def isValidSudoku(self, board: list[list[str]]) -> bool:
-        seen = set()  # saves observed (-1, num, row) or (-2, num, col) or (-3, num, i // 3, j // 3)
+        seen = set()  # saves observed (1, num, row) or (2, num, col) or (3, num, i // 3, j // 3)
         for i in range(len(board)):
             for j in range(len(board[0])):
                 if board[i][j] == '.':
