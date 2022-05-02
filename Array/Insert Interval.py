@@ -6,23 +6,25 @@ class Solution:
             return [newInterval]
 
         # Find a place to insert the newInterval, keep intervals sorted by interval[0]
-        left, right = 0, len(intervals) - 1
-        res = 0
-        while left <= right:
-            mid = left + (right - left) // 2
-            if newInterval[0] == intervals[mid][0]:
-                left = mid
-                break
-            elif newInterval[0] < intervals[mid][0]:
-                right -= 1
-            else:
-                left += 1
+        left = bisect.bisect_left(intervals, newInterval)
+        # OR, write your own binary search function
+        # left,right = 0, len(intervals) - 1
+        # res = 0
+        # while left <= right:
+        #     mid = left + (right - left) // 2
+        #     if newInterval[0] == intervals[mid][0]:
+        #         left = mid
+        #         break
+        #     elif newInterval[0] < intervals[mid][0]:
+        #         right -= 1
+        #     else:
+        #         left += 1
 
         insert_index = left
 
         # Merge the interseted intervals
         intervals.insert(insert_index, newInterval)
-        res = [intervals[0]]  # Shallow copy, which is ok I guess
+        res = [intervals[0][:]]
 
         for i in range(1, len(intervals)):
             if res[-1][-1] >= intervals[i][0]:

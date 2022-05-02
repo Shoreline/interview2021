@@ -2,13 +2,16 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
 
+        intervals.sort()
+        # (actually no need to use customized sort() in this case)
         # https://cloud.tencent.com/developer/article/1760142?from=article.detail.1435388
-        intervals.sort(key=lambda x: x[0])  # sort by the [0] element
+        # intervals.sort(key=lambda x:x[0]) # sort by the [0] element
+        #
         # Alternative:
         # def compare(interval: List[int]):
         #     return interval[0]
         # intervals.sort(key=compare)
-
+        #
         # Java:  Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
         # C++: sort(intervals.begin(), intervals.end());
 

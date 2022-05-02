@@ -1,3 +1,4 @@
+# Nested iterations, no need to do recursion.
 class Solution:
     def countAndSay(self, n: int) -> str:
         if n < 1:
@@ -18,3 +19,4 @@ class Solution:
             tmp.clear()
 
         return s
+
