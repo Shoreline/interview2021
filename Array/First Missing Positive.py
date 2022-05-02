@@ -1,5 +1,5 @@
 # 3 iterations. Time: O(n); Space O(1)
-# Let nums[i] < 0 represent i + 1 exists. Note that the absolute value of nums[i] shall not be erased.
+# If integer i exists, let nums[i-1] has negative value. Note that the absolute value of nums[i-1] shall be kept.
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         # 1st iteration, setting all irrelevant elements to 0
@@ -15,7 +15,7 @@ class Solution:
                 continue
 
             found_int = abs(nums[i])  # abs(nums[i]) is found_int. Set nums[fount_int - 1] to negative
-            if nums[found_int - 1] == 0:  # free to use
+            if (nums[found_int - 1] == 0):  # free to use
                 nums[found_int - 1] = -found_int
             else:
                 nums[found_int - 1] = -abs(

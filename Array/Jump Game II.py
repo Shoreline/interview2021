@@ -9,14 +9,14 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
         jumps = 0
-        i = 0  # index to try jumping
+        pos = 0  # current position
         cur_reach = 0
-        while (cur_reach < len(
-                nums) - 1):  # we are told that we can surely reach the end, so ok to use this as while loop condition
+        # we are told that we can surely reach the end, so ok to use this as while loop condition
+        while (cur_reach < len(nums) - 1):
             next_reach = cur_reach
-            while i <= cur_reach:
-                next_reach = max(next_reach, i + nums[i])  # from i, you can jump at most nums[i], to reach i + nums[i]
-                i += 1
+            while pos <= cur_reach:
+                next_reach = max(next_reach, pos + nums[pos])
+                pos += 1
 
             cur_reach = next_reach
             jumps += 1
