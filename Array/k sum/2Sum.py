@@ -2,9 +2,9 @@
 # Array is not sorted, so use hashset is faster. Sorting costs nlogn
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        index_map = {}
-        for i, num in enumerate(nums):
-            if target - num in index_map:
-                return [index_map[target - num], i]
+        val_to_index_map = {}
+        for i, val in enumerate(nums):
+            if target - val in val_to_index_map:
+                return [i, val_to_index_map[target - val]]
             else:
-                index_map[num] = i
+                val_to_index_map[val] = i
