@@ -3,7 +3,8 @@
 # result tuple is made of 4 indices, which will never be the same
 
 # T/S: O(2*n^2) -> O(n^2)
-# Count all a + b in nums1 and nums2; For all c + d from nums3 and nums4, see how many count do we have for -(c+d)
+# Count the frequency of all a + b values from nums1 and nums2;
+# For all c + d from nums3 and nums4, see how many count do we have for -(c+d)
 class Solution:
     def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
         count = 0
@@ -15,7 +16,7 @@ class Solution:
 
         for c in nums3:
             for d in nums4:
-                count += m[-(c + d)]
+                count += m[-(c + d)] # if -(c+d) does not exist in m, m[-(c+d)] = 0
         return count
 
 # Generalized solution for k-Sum II issues Divide k arrays into two groups. For the first group, we will have k/2

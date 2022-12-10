@@ -9,13 +9,18 @@ class Solution:
         res = []
 
         for low in range(len(nums) - 2):
-            if low > 0 and nums[low] == nums[low - 1]:  # avoid duplicates
+            # avoid duplicates
+            if low > 0 and nums[low] == nums[low - 1]:
                 continue
 
             mid = low + 1
             high = len(nums) - 1
             while mid < high:
-                if mid > low + 1 and nums[mid] == nums[mid - 1]:  # avoid duplicates
+                # avoid duplicates
+                # No need to do the same for nums[high]. Because after de-duplicating nums[low] and nums[mid], the sum
+                # of next nums[low] + nums[mid_2] must be different from sum(nums[low], nums[mid]), meaning a there can
+                # only be a different nums[high]
+                if mid > low + 1 and nums[mid] == nums[mid - 1]:
                     mid += 1
                     continue
 

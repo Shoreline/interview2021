@@ -1,3 +1,4 @@
+# T: O(n^3)
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         res = []
@@ -33,9 +34,9 @@ class Solution:
         return res
 
 
-# General solution ofr kSum problems.
+# General solution for kSum problems.
 #
-# Time: O(n^3). For kSum(), the time is O(n^(k-1)) when k>=3
+# Time: O(n^3). For kSum(), the time is O(n^(k-1)) when k>=3, so 5Sum is O(n^4)
 # Space: O(n). O(k) for recursion, worst case k = n
 class Solution_gen:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
@@ -58,18 +59,21 @@ class Solution_gen:
 
             return res
 
-        def twoSum(nums: List[int], target: int) -> List[List[int]]:
-            i, j = 0, len(nums) - 1
+        def twoSum(nums:List[int], target:int) -> List[List[int]]:
             res = []
-            while (i < j):
-                sum1 = nums[i] + nums[j]
-                if (sum1 < target or (i > 0 and nums[i] == nums[i - 1])):
-                    i += 1
-                elif (sum1 > target or (j < len(nums) - 1 and nums[j] == nums[j + 1])):
-                    j -= 1
-                else:
+            i, j = 0, len(nums) - 1
+            while i < j:
+                if i > 0 and nums[i] == nums[i-1]:
+                    i+=1
+                    continue
+                sum = nums[i] + nums[j]
+                if sum == target:
                     res.append([nums[i], nums[j]])
                     i += 1
+                    j -= 1
+                elif sum < target:
+                    i += 1
+                else:
                     j -= 1
             return res
 
