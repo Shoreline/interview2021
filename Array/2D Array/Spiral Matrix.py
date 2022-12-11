@@ -1,6 +1,7 @@
 # /* * Unlike rotate image problem, here there is a chance that top == bottom or left==right. For these cases,
 # need to avoid duplicate adding elements. * * (For rotating image, top and bottom will never be equal, same for *
 # left and right) */
+# 上下长， 两侧短
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         top, left = 0, 0

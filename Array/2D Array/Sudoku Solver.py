@@ -1,6 +1,8 @@
-# Different from normal backtracking, the pre-filled numbers in the board are not eligible to be changed.
-# So can't use the common dfs(x+1, y), dfs(x-1, y), ... to get to next stage
-# Instead, use a specific find_next(x,y) function to find the next unfilled tile.
+# Different from normal backtracking, the pre-filled numbers in the board are fixed and cannot be altered.
+# The usual way of getting to next stage dfs(x+1, y), dfs(x-1, y), ... is bonded to problems that related to
+# "adjacent cell xxx"
+# But in Sudoku problem, the next stage (cell) of DFS does not have to be an adjacent cell, so use a
+# find_next_empty_cell() function.
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
         """
@@ -11,11 +13,12 @@ class Solution:
         for i in range(9):
             for j in range(9):
                 if board[i][j] != '.':
-                    seen.add((1, i, board[i][j]))
-                    seen.add((2, j, board[i][j]))
-                    seen.add((3, i // 3, j // 3, board[i][j]))
+                    seen.add((1, i, board[i][j])) # 1 means this is a row
+                    seen.add((2, j, board[i][j])) # 2 means this is a column
+                    seen.add((3, i // 3, j // 3, board[i][j])) # 3 means this is a sub-board
 
-        def find_next():
+        # Find the next empty cell
+        def find_next_empty_cell():
             for i in range(9):  # cant do trimming like range(x, 9) -> that's wrong!
                 for j in range(9):
                     if board[i][j] == '.':
@@ -25,7 +28,7 @@ class Solution:
             if x < 0 or x >= 9 or y < 0 or y >= 9:
                 return
 
-            tmp = find_next()
+            tmp = find_next_empty_cell()
             if not tmp:
                 return True
             else:

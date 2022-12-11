@@ -5,12 +5,12 @@ from functools import lru_cache
 
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
-        DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+        dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 
-        @lru_cache(None)  # TLE if use @lru_cache()
+        @lru_cache(None)  # TLE if use @lru_cache(). None means no maxsize for the cache.
         def dfs(i, j) -> int:
             res = 1  # at least count this cell itself
-            for d in DIRS:
+            for d in dirs:
                 r, c = i + d[0], j + d[1]
                 if 0 <= r < len(matrix) and 0 <= c < len(matrix[0]) and matrix[r][c] > matrix[i][j]:
                     res = max(res, 1 + dfs(r, c))

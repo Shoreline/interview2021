@@ -1,4 +1,4 @@
-# Avoid duplicatly adding the same node to queue -> use tobe_visited(), not visited()!
+# Avoid duplicate adding the same node to queue -> use tobe_visited(), not visited()!
 from collections import deque
 
 
@@ -10,7 +10,7 @@ class Solution:
         m, n = len(rooms), len(rooms[0])
         for i in range(m):
             for j in range(n):
-                if rooms[i][j] == 0:
+                if rooms[i][j] == 0: # when sees a gate, start a BFS
                     queue = deque()
                     queue.append((i, j))
                     lvl_len, next_lvl_len = 1, 0  # lvl_len: size of this level. Increment step while a level is done.
@@ -18,13 +18,13 @@ class Solution:
                     tobe_visited = set()
 
                     while queue:
-                        r, c = queue.popleft()
+                        x, y = queue.popleft()
                         lvl_len -= 1
-                        rooms[r][c] = dist
+                        rooms[x][y] = dist
 
-                        for x, y in [[1, 0], [-1, 0], [0, 1], [0, -1]]:
-                            if 0 <= r + x < m and 0 <= c + y < n and rooms[r + x][c + y] > 0 and dist + 1 < \
-                                    rooms[r + x][c + y] and (r + x, c + y) not in tobe_visited:
+                        for d in [[1, 0], [-1, 0], [0, 1], [0, -1]]:
+                            r, c = x + d[0], y + d[1]
+                            if 0 <= r < m and 0 <= c < n and rooms[r][c] not in (-1, 0) and rooms[r][c] > dist + 1 and (r, c) not in tobe_visited:
                                 queue.append((r + x, c + y))
                                 tobe_visited.add((r + x, c + y))
                                 next_lvl_len += 1

@@ -1,14 +1,19 @@
-# 1) No obstackle!
+# 1) No obstacle!
 # 2) ok to meet at a both '0' and '1' tile.
-# BFS is too slow: T O((mn)^2); S: O(mn)
+# Usually use BFS for this sort of problems: T O((mn)^2); S: O(mn)
+#   (or O(N^2) and O(N), where N is the total number of elements in the grid)
+# But there are faster ways for this problem:
 # Math: the optimal meeting point is any point that separates two equal number of points
 #   For points like this, if it is closer to group 1 means it is farther from group 2
 #   -> The problem becomes finding the median of x and y coordinates
 #       1) We can use sort(), but there is some more efficient way: finding the k-th smallest element (O(mn))
-#       2) Pick any two points from the two groups, the total distance is always p2 - p1.
-#          So no need to really find the median! O(mn)
+#       2) Pick any two points from the two groups, the total distance of say x_axis is always p2_x - p1_x
+#           No matter where you set a 3rd meeting point, where total distance is (p2_x - p3_x) + (p3_x - p1_x)
+#           So no need to really find that meeting point! O(mn)
 
 # Best O(mn) and O(mn) solution
+# No need to actually find the meeting point, we can compute minimal distance.
+# To actually find the meeting point we have to do below sorting solution.
 class Solution:
     def minTotalDistance(self, grid: List[List[int]]) -> int:
         rows, cols = [], []
@@ -35,6 +40,7 @@ class Solution:
         return res
 
 # Sorting solution: T O(mnlog(mn)); S O(mn) (there can be at most m*n points)
+# This solution does find the best meeting point.
 # class Solution(object):
 #     def minTotalDistance(self, grid: List[List[int]]) -> int:
 #         M,N = len(grid),len(grid[0])

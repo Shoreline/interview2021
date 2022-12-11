@@ -1,7 +1,7 @@
 # /*
 #  * Flood fill
 #  *
-#  * Idea: do not looking for surrounded regions directly. Flood fill all 'O'
+#  * Idea: do not look for surrounded regions directly. Flood fill all 'O'
 #  * regions that connected to an edge with the third color. Except these regions,
 #  * all other 'O' regions shall be flipped to 'X'
 #  *

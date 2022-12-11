@@ -7,15 +7,17 @@ from collections import deque
 
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        queue = deque()  # a queue to save (i,j) tuple representing a cell
+        queue = deque()  # The queue tracking rotten cells
         fresh_oranges = 0
+        # Add all initial rotten cells to the queue as queue's starting status
+        # They will start to infect neighboring oranges at the same time.
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 2:
                     queue.append((i, j))
                 elif grid[i][j] == 1:
                     fresh_oranges += 1
-        queue.append((-1, -1))  # use (-1,-1) as a separtor between two rounds
+        queue.append((-1, -1))  # use (-1,-1) as a separator between two rounds
 
         time = 0
         directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
@@ -30,8 +32,8 @@ class Solution:
             else:
                 for d in directions:
                     x2, y2 = x + d[0], y + d[1]
-                    if x2 >= 0 and x2 < len(grid) and y2 >= 0 and y2 < len(grid[0]) and grid[x2][y2] == 1:
-                        grid[x2][y2] = 2  # flip this cell
+                    if 0 <= x2 < len(grid) and 0 <= y2 < len(grid[0]) and grid[x2][y2] == 1:
+                        grid[x2][y2] = 2  # label this cell as rotten
                         fresh_oranges -= 1  # decrement number of fresh oranges after flipping
                         queue.append((x2, y2))
 
