@@ -40,8 +40,8 @@ class Solution:
                     cur_queue_length = len(q)
                     for k in range(cur_queue_length):
                         x, y = q.popleft()
-                        for direction in directions:
-                            r, c = x + direction[0], y + direction[1]
+                        for d in directions:
+                            r, c = x + d[0], y + d[1]
                             if 0 <= r < rows and 0 <= c < cols and grid[r][c] == empty_land:
                                 # mark it with the next round's empty_land value
                                 grid[r][c] = empty_land - 1
