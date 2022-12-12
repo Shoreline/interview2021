@@ -1,8 +1,9 @@
+# Only allow one [buy-sell] pair
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        cur_min = prices[0]
-        profit = 0
+        min_sofar = prices[0]
+        max_profit = 0
         for i in range(1, len(prices)):
-            cur_min = min(cur_min, prices[i])
-            profit = max(profit, prices[i] - cur_min)
-        return profit
+            min_sofar = min(min_sofar, prices[i])
+            max_profit = max(max_profit, prices[i] - min_sofar)
+        return max_profit

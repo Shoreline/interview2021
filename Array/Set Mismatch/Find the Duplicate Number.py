@@ -1,22 +1,33 @@
 # Key point: nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
-# Here all numbers appear once except for one; the XOR problem all numbers appear twice except for one
+# Here all numbers appear ONCE except for one; the XOR problem all numbers appear TWICE except for one
 
 # Array as hashmap
 # T:O(n); S:O(1)
-# Note that the integers in nums are from 1 to n inlcusive. So try to move numbers around till nums[0] = nums[nums[0]]
-# The swap of nums[0] and nums[nums[0]]: move the value of nums[0] to the same index (nums[nums[0]]) so that after swapping nums[nums[0]] has index of nums[0], and value is nums[0]
+# Keep setting nums[k] = k; stop while finding nums[0] = nums[k]. Obviously, now nums[0] = nums[k] = that_duplicated_num
+# Note that the integers in nums are from 1 to n inclusive. So try to move numbers around till nums[0] = nums[nums[0]]
+# The swap of nums[0] and nums[nums[0]], say nums[0]=k:
+#   -> let nums[k] = k
+#   move the value of nums[0] to the same index (nums[nums[0]]) so that after swapping nums[nums[0]] has index of nums[0], and value is nums[0]
 #
 # There is only one duplicated value. So if nums[0] = any nums[k], then nums[0] is the duplicated value
+
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        while nums[0] != nums[nums[0]]:
-            # Swap value of nums[0] and nums[nums[0]]
-            # Note that changing nums[0]'s value will also change nums[nums[0]] at the same time
-            # So we have to update nums[nums[0]] first
+        k = nums[0]
+        while k != nums[k]:
+            nums[k], k = k, nums[k] # k, nums[k] = nums[k], k is wrong!
 
-            nums[nums[0]], nums[0] = nums[0], nums[nums[0]]
-            # nums[0], nums[nums[0]] = nums[nums[0]], nums[0] #does not work !
-        return nums[0]
+        return k
+# class Solution:
+#     def findDuplicate(self, nums: List[int]) -> int:
+#         while nums[0] != nums[nums[0]]:
+#             # Swap value of nums[0] and nums[nums[0]]
+#             # Note that changing nums[0]'s value will also change nums[nums[0]] at the same time
+#             # So we have to update nums[nums[0]] first
+#
+#             nums[nums[0]], nums[0] = nums[0], nums[nums[0]]
+#             # nums[0], nums[nums[0]] = nums[nums[0]], nums[0] #does not work !
+#         return nums[0]
 
 # Cycle detection. Same as linked list cycle II
 # T:O(n); S:O(1)

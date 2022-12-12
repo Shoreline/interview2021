@@ -1,17 +1,26 @@
+# For each user, find all patterns from his/her browsing history
+# Then count pattern frequency based on all users
+#
+# itertools.combinations(a_list, num):
+#   Each combination is a list
+#   elements in each returned combination are kept the same sequence as in the input list
 class Solution:
     def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
-        by_user = collections.defaultdict(list)
+        # <username, list<website>> map. We want website to be added by time sequence
+        user_to_sitelist = collections.defaultdict(list)
         for t, u, w in sorted(zip(timestamp, username, website)):  # sort by time
-            by_user[u].append(w)
+            user_to_sitelist[u].append(w)  # note that sites in sitelist can be duplicated
 
         # Count for all patterns (all combinations of every 3 sites), how many user visited it.
-        cnt = Counter()  # key is a set of 3 sites
-        for site in by_user.values():
-            cnt += Counter(set(itertools.combinations(site, 3)))  # we are told each pattern has 3 sites
+        patterns = Counter()  # key is a set of 3 sites
+        for sites in user_to_sitelist.values():
+            unique_site_combos = set(itertools.combinations(sites, 3))
+            patterns.update(Counter(unique_site_combos))  # we are told each pattern has 3 sites
 
         # Two sorts: 1) sort by the counter's value; 2) sort by the key
-        # return min(cnt, key=lambda k: (-cnt[k], k))
-        return max(sorted(cnt), key=cnt.get)
+        # return max(sorted(patterns), key=patterns.get)
+        # return min(patterns, key=lambda k: (-patterns[k], k))
+        return min(patterns.items(), key=lambda x: (-x[1], x[0]))[0]
 
 # Here is the complete solution without explanation.
 # Detailed explanation can be found below.

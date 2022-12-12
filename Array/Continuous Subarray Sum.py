@@ -11,17 +11,24 @@
 # Time complexity: O(n), space complexity: O(min(k, n)) if k != 0, else O(n).
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        dic = {0: -1}  # <prefix_sum % k, index> (not index to prefix_sum!) 0:-1, special treatment for k = 0
+        if k == 0:
+            return len(nums) >= 2
+        # <prefix_sum % k, first_shown_index>
+        # 0:-1: to catch sum[nums[:i]] % k == 0
+        remainder_to_index = {0:-1}
         prefix_sum = 0
         for i in range(len(nums)):
             prefix_sum += nums[i]
-            remainder = prefix_sum % k if k != 0 else prefix_sum
+            remainder = prefix_sum % k
 
-            if remainder not in dic:
-                dic[remainder] = i
-            elif i - dic[remainder] >= 2:  # need >=2 since the problem says subarray must have at least 2 elements
+            if remainder not in remainder_to_index:
+                remainder_to_index[remainder] = i
+            elif i - remainder_to_index[remainder] >= 2:
+                 # need >=2 since the problem says subarray must have at least 2 elements
                 return True
         return False
+
+
     # class Solution:
 #     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
 #         dic = {0:-1} # <prefix_sum % k, index> (not index to prefix_sum!)

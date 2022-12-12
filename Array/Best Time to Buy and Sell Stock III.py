@@ -1,30 +1,54 @@
+# At most two [buy, sell] pairs (meaning you can only buy-sell once)
 # can only allow to do [buy, sell, buy, sell], cannot do [buy, buy, sell, sell]
 # Note: ok to do <= 2 transactions. So if the stock keeps going south then just return 0
 # [5, 85, 84, 105, 110] -> 106
 # 1st traction is not necessarily the most profitable transaction.
-# We are not seeking most and 2nd most profitable transactions (can't do that since we can only hold one share at a time)
 #
+# We are not seeking the most and the 2nd most profitable transactions!
+#   (can't do that since we can only hold one share at a time)
 # We are looking for most profitable of two-separated transactions
 #
 # t_k: the merged transaction of k transactions
 # t_k_cost: So far (till price[i]), the dip after the overall most profitable k-1 transactions
 # t_k_profit: So far (till price[i]), the highest overall profit for k transactions
 #
-# t1 is the most profitable singular transaction
-# t2 is the most overall profitable two-seprated transactions. It dost NOT ensure the 2nd buy in t2 happens after t1 (the most profitable one). And we shall NOT seek that sort of ensurance
+# t1 is the most profitable singular transaction (so far)
+# t2 is the most overall profitable two-separated transactions (so far).
+#   It dost NOT ensure the 2nd buy in t2 happens after t1 (the most profitable one). And we shall NOT seek that sort of
+#   ensurance.
+#   But, t2 is computed on top of t1 (why?)
+
+
+# Another simpler explanation
+# t1_cost: the minimal cost of buying the stock in transaction #1.
+# The minimal cost to acquire a stock would be the minimal price value that we have seen so far at each step.
+#
+# t1_profit: the maximal profit of selling the stock in transaction #1.
+# Actually, at the end of the iteration, this value would be the answer for the first problem in the series, i.e. Best
+# Time to Buy and Sell Stock.
+#
+# t2_cost: the minimal cost of buying the stock in transaction #2,
+# while taking into account the profit gained from the previous transaction #1. One can consider this as the cost of
+# reinvestment. Similar with t1_cost, we try to find the lowest price so far, which in addition would be partially
+# compensated by the profits gained from the first transaction.
+#
+# t2_profit: the maximal profit of selling the stock in transaction #2.
+# With the help of t2_cost as we prepared so far, we would find out the maximal profits with at most two transactions at
+# each step.
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         t1_cost, t2_cost = float('inf'), float('inf')
         t1_profit, t2_profit = 0, 0
 
         for price in prices:
-            # the first transaction
+            # the best singular transaction (sofar)
             t1_cost = min(t1_cost, price)
             t1_profit = max(t1_profit, price - t1_cost)
 
-            # compute the most profitable two-separated transactions
+            # Compute the most profitable two-separated transactions
             # For the 2nd transaction, the cost of a stock can be treated in this way:
-            # - Since I already got some profit from the first transaction, the cost of 2nd buy is cheaper FOR ME: it will be price[i] - current_profit
+            # - Since I already got some profit from the first transaction, the cost of 2nd buy is cheaper FOR ME:
+            #       it will be price[i] - current_profit
             t2_cost = min(t2_cost, price - t1_profit)  # t2_cost can be negative
             t2_profit = max(t2_profit, price - t2_cost)
 

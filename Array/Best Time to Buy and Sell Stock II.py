@@ -1,3 +1,4 @@
+# Unlimited [buy, sell] pairs
 # The profit is the sum of all positive increment between prices[i] and prices[i-1]
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
