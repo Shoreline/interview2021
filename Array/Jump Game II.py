@@ -12,7 +12,7 @@ class Solution:
         pos = 0  # current position
         cur_reach = 0
         # we are told that we can surely reach the end, so ok to use this as while loop condition
-        while (cur_reach < len(nums) - 1):
+        while cur_reach < len(nums) - 1:
             next_reach = cur_reach
             while pos <= cur_reach:
                 next_reach = max(next_reach, pos + nums[pos])

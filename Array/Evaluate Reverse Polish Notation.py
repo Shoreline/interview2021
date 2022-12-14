@@ -15,4 +15,4 @@ class Solution:
                     stack.append(l*r)
                 else:
                     stack.append(int(l/r))
-        return stack.pop()        
+        return stack.pop()

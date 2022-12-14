@@ -1,5 +1,6 @@
 # O(N)
-# Find a place to insert the newInterval, then classic merging intervals.
+# Use binary search to find the place to insert the newInterval based on interval[0], then classic intervals merging.
+#   Binary search doesn't need to care interval[1]
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         if not intervals:
@@ -22,7 +23,7 @@ class Solution:
 
         insert_index = left
 
-        # Merge the interseted intervals
+        # Merge the interested intervals
         intervals.insert(insert_index, newInterval)
         res = [intervals[0][:]]
 

@@ -6,7 +6,7 @@
 # We are told that there is at most ONE celebrity, making our lives much easier
 #   - if knows(a, b) = True: a is not a celebrity;
 #   - if knows(a, b) = False: b is not a celebrity
-# Therefore, by running knows() once we can always eleminate one person
+# Therefore, by running knows() once we can always eliminate one person
 class Solution:
     def findCelebrity(self, n: int) -> int:
         candidate = 0

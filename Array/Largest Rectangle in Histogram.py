@@ -9,6 +9,7 @@
 #  */
 
 # t&s: O(n)
+# stack is a descending array
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         stack = []  # The stack saves the index of previous biggest rectangle's right side (non-decreasing)

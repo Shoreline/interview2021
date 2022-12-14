@@ -8,18 +8,19 @@ class Solution:
             if nums[i] < 1 or nums[i] > len(nums):
                 nums[i] = 0
 
-        # 2nd iteration, for each integer found at found_int = nums[i], flipping nums[found_int - 1] to be negative
+        # 2nd iteration, label found integers
+        # for each integer found at found_int = nums[i], flipping nums[found_int - 1] to be negative
         # After this iteration, nums[i] > 0? {i+1 exist in original nums} : {i+1 doesn't exist in original nums}
         for i in range(len(nums)):
             if nums[i] == 0:
                 continue
 
             found_int = abs(nums[i])  # abs(nums[i]) is found_int. Set nums[fount_int - 1] to negative
-            if (nums[found_int - 1] == 0):  # free to use
+            if nums[found_int - 1] == 0:  # free to use
                 nums[found_int - 1] = -found_int
             else:
-                nums[found_int - 1] = -abs(
-                    nums[found_int - 1])  # keeps the integer saved in nums[index], but marking it as negative
+                # keeps the integer saved in nums[index], but marking it as negative
+                nums[found_int - 1] = -abs(nums[found_int - 1])
 
         # 3rd iteration, find the first missing positive
         for i in range(len(nums)):
