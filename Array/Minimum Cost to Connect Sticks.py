@@ -1,7 +1,6 @@
 # Always pick two of the smallest sticks to connect and continue doing this until you get only one stick
 # T: nlogn, S: 1
-import heapq as hq
-
+import heapq
 
 class Solution:
     def connectSticks(self, sticks: List[int]) -> int:
@@ -17,7 +16,7 @@ class Solution:
 
         return cost
 
-# import heapq as hq
+# import heapq as
 # class Solution:
 #     def connectSticks(self, sticks: List[int]) -> int:
 #         heapq.heapify(sticks)
