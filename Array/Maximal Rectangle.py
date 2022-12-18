@@ -1,4 +1,4 @@
-# Convert into the problem of Largest Rectangle in Histogram#
+# Convert into the problem of the Largest Rectangle in Histogram#
 class Solution:
     def maximalRectangle(self, matrix: List[List[str]]) -> int:
         if len(matrix) == 0 or len(matrix[0]) == 0:
@@ -14,7 +14,7 @@ class Solution:
             res = max(res, self.largestRectangleArea(heights))
         return res
 
-    # Slightly different than the solution of largest rectangle in histogram
+    # Slightly different from the solution of the largest rectangle in histogram
     def largestRectangleArea(self, heights: List[int]) -> int:
         stack = []
         res = 0

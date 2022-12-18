@@ -9,7 +9,7 @@
 #  */
 
 # t&s: O(n)
-# stack is a descending array
+# Maintain a strict ascending stack, that the top element stack[-1] is heights[i], which is the largest
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         stack = []  # The stack saves the index of previous biggest rectangle's right side (non-decreasing)
@@ -19,10 +19,13 @@ class Solution:
         heights.append(0)
 
         for i in range(len(heights)):
-            # Check all possible bigger rectangles
+            # a constant in this while loop
+            right = i - 1
+
+            # Check all possible big rectangles ends at i - 1
+            # Note the bar of heights[i] is not included! These rectangles end at heights[i-1] (inclusive)
             while len(stack) > 0 and heights[i] < heights[stack[-1]]:
                 h = heights[stack.pop()]
-                right = i - 1  # a constant in this while loop
                 left = 0 if len(stack) == 0 else stack[-1] + 1
                 res = max(res, (right - left + 1) * h)
 

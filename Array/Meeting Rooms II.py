@@ -1,5 +1,5 @@
 # We need a room once a new meeting starts, and returns a room when a meeting finishes
-# So sort all start and end times, and count the max number of rooms needed simultaneously
+# So mix all start and end times and sort them, then count the max number of rooms needed simultaneously
 # To distinguish start and end times, mark all end times negative.
 # But this way we need to write our own comparator
 class Solution:
@@ -7,7 +7,8 @@ class Solution:
         times = [val if i == 0 else -val for interval in intervals for i, val in enumerate(interval)]
         # Can't just do times.sort(key=lambda x: abs(x)).
         # Need to put negative val ahead when equal: [-10, 10] ([10, -10] will be wrong)
-        times.sort(key=lambda x: [abs(x), 0 if x < 0 else 1])
+        times.sort(key=lambda x: [abs(x), x])
+        #times.sort(key=lambda x: [abs(x), 0 if x < 0 else 1])
 
         max_rooms, cur_rooms = 0, 0
         for t in times:
