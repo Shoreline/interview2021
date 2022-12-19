@@ -4,7 +4,7 @@
 #  */
 class Solution:
     def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[str]:
-        nums = [lower - 1] + nums + [upper + 1]  # We are told that all elements in nums are within [lower, higher]
+        nums = [lower - 1] + nums + [upper + 1]  # Add lower_bound and upper_bond elements to nums
         res = []
 
         # Only react when there is a gap (nums[i+1] - nums[i] > 1)

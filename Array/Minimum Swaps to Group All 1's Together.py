@@ -1,5 +1,5 @@
 # 1. Count how many 1s in the array (c)
-# 2. Run a sliding window of size c, return the window has least amount of 0s
+# 2. Run a sliding window of size c, return the window has the least amount of 0s
 # T O(n), S O(1)
 class Solution:
     def minSwaps(self, data: List[int]) -> int:
