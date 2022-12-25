@@ -46,9 +46,9 @@ class Solution:
 
             # 对于高度增加到 h 的时间(neg_h < 0), 我们需要添加一个 skyline, 他将持续到 r 即 endposition
             # If this is a left event (starts a new building's height), add it to the heap
-            if neg_h < 0:
+            #if neg_h < 0: # optional
                 # print(l, neg_h, r)
-                heapq.heappush(heights_heap, (neg_h, r))
+            heapq.heappush(heights_heap, (neg_h, r))
 
             # 由于 res[-1][1] 记录了在当前事件触发之前一直保持的 skyline height
             # 如果当前事件触发后 skyline 发生了改变
