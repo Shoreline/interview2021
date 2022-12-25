@@ -8,13 +8,13 @@ class Solution:
         #     2. 在 right position, 高度从 h 降低到 0.
         # 由此引出了 event 的结构: 在某一个 position p, 它引入了一个高度为 h 的 skyline, 将一直持续到另一 end postion
 
-        # 对于在 right position 高度降为 0 的 event, 它的持续长度时无效的
+        # 对于在 right position 高度降为 0 的 event, 它的持续长度是无效的
         # 只保留一个 right position event, 就可以同时触发不同的两个 building 在同一 right position 从各自的 h 降为 0 的 event, 所以对 right position events 做集合操作会减少计算量
 
         # 由于需要从左到右触发 event, 所以按 postion 对 events 进行排序
         # 并且, 对于同一 positon, 我们需要先触发更高 h 的事件, 先触发更高 h 的事件后, 那么高的 h 相比于低的 h 会占据更高的 skyline, 低 h 的 `key point` 就一定不会产生; 相反, 可能会从低到高连续产生冗余的 `key point`
         # 所以, event 不仅需要按第一个元素 position 排序, 在 position 相同时, 第二个元素 h 也是必须有序的
-        # event: [start_indx, height, end_index]
+        # event: [start_indx, negative_height, end_index]
         # events = [(l, -h, r) for l, r, h in buildings]
         # events.extend(set({(r, 0, r) for l, r, h in buildings})) # Use a set to avoid duplicated events
         events = []
