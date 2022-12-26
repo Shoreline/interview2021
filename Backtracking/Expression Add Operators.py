@@ -5,7 +5,10 @@
 # There are total 3 operators:
 # + operator: newResult = resSoFar + num
 # - operator: newResult = resSoFar - num. # prevNum = -num!!
-# * operator: newResult = resSoFar - prevNum + prevNum * num. We need to keep the prevNum so that to calculate newResult we need to minus prevNum then plus with prevNum * num. So newResult = resSoFar - prevNum + prevNum * num.
+# * operator: newResult = resSoFar - prevNum + prevNum * num. 
+#   For *: * has higher priority than +/-. But we assume all operators are + until we see a * ( - val is considered + neg_val). 
+#   So at this time, preNum was added to resSoFar. Then to comply with the new *, we need to do resSoFar - preNum, then do + preNum * num.
+#   We need to keep the prevNum so that to calculate newResult we need to minus prevNum then plus with prevNum * num. So newResult = resSoFar - prevNum + prevNum * num.
 
 class Solution:
     def addOperators(self, num: str, target: int) -> List[str]:
