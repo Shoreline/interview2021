@@ -11,7 +11,7 @@ class Solution:
             for i in range(len(exp)):
                 if exp[i] in '+-*':
                     left = dfs(exp[:i])
-                    right = dfs(exp[i + 1:])
+                    right = dfs(exp[i + 1:]) # skip exp[i] itself!
 
                     for l in left:
                         for r in right:
