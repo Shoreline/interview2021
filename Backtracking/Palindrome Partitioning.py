@@ -1,27 +1,46 @@
 # Backtracking
 # T: O(n * 2^n). n is the string length.
+# Keep cutting pieces from the input string, make sure each piece is a palindrome. If not palindrome drop that piece; if true continue cutting.
 # For each character in the string we have 2 choices to create new palindrom substrings, one is to join with previous substring (for(...end++)) and another is to start a new palindrom substring (dfs(..end+1..)). Thus in the worst case there are 2^N palindrom substrings. Each substring will take O(N) time to check if it's palindrom and O(N) time to generate substring from start to end indexes.
 
 # S: O(n). At most n layers of recursions
 
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        res = []
-
-        def dfs(pos: int, tmp: list[str]):
-            if pos >= len(s):
+        def cut(start, tmp):
+            if start == len(s):
                 res.append(tmp[:])
                 return
 
-            for i in range(pos, len(s)):
-                substring = s[pos:i + 1]
-                if substring == substring[::-1]:  # This substring is a palindrome
-                    tmp.append(substring)
-                    dfs(i + 1, tmp)
+            for i in range(start+1, len(s)+1):
+                piece = s[start:i]
+                if piece == piece[::-1]:
+                    tmp.append(piece)
+                    cut(i, tmp)
                     tmp.pop()
-
-        dfs(0, [])
+        
+        res = []
+        cut(0, [])
         return res
+
+# class Solution:
+#     def partition(self, s: str) -> List[List[str]]:
+#         res = []
+
+#         def dfs(pos: int, tmp: list[str]):
+#             if pos >= len(s):
+#                 res.append(tmp[:])
+#                 return
+
+#             for i in range(pos, len(s)):
+#                 substring = s[pos:i + 1]
+#                 if substring == substring[::-1]:  # This substring is a palindrome
+#                     tmp.append(substring)
+#                     dfs(i + 1, tmp)
+#                     tmp.pop()
+
+#         dfs(0, [])
+#         return res
 
 # class Solution:
 #     def partition(self, s: str) -> List[List[str]]:
