@@ -12,7 +12,7 @@ class Solution:
             if not root:
                 return
 
-            tmp.append(str(root.val))
+            tmp.append(str(root.val))   # every append() must be followed by a pop()!
             if (not root.left) and (not root.right):
                 res.append("->".join(tmp))
             else:
