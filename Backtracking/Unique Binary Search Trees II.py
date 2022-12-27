@@ -31,7 +31,7 @@ class Solution:
         @lru_cache(None)
         def dfs(left, right):
             if left > right:
-                return [None]  # can't be []
+                return [None]  # can't be []. None is a null element.
             if left == right:
                 return [TreeNode(left)]  # BST has only one node, with val == left= =right
 
