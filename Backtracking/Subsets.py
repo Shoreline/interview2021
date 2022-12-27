@@ -1,26 +1,43 @@
 # t: o(n * 2^n): call dfs 2^n times, each time deepcopy takes n
 # s: o(n * 2^n) (to save all result)
-# For subset, don't wait till pos == len(nums) to add tmp[] to res[]
+# For subset, don't wait till pos == len(nums) to add tmp[:] to res[]
+
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
 
-        def dfs(pos: int, tmp: list[int]):
-            # WRONG
-            # if pos == len(nums):
-            #     res.append(tmp[:])
-            #     return
-
+        def bt(pos, tmp):            
             # 1) add none of the remaining elements
-            res.append(tmp[:])
-            # 2) add one of the remaining elements and continue dfs
+            res.append(tmp[:]) 
+            # 2) add one of the remaining elements and continue
             for i in range(pos, len(nums)):
                 tmp.append(nums[i])
-                dfs(i + 1, tmp)
+                bt(i+1, tmp)
                 tmp.pop()
-
-        dfs(0, [])
+        
+        bt(0, [])
         return res
+
+# class Solution:
+#     def subsets(self, nums: List[int]) -> List[List[int]]:
+#         res = []
+
+#         def dfs(pos: int, tmp: list[int]):
+#             # WRONG
+#             # if pos == len(nums):
+#             #     res.append(tmp[:])
+#             #     return
+
+#             # 1) add none of the remaining elements
+#             res.append(tmp[:])
+#             # 2) add one of the remaining elements and continue dfs
+#             for i in range(pos, len(nums)):
+#                 tmp.append(nums[i])
+#                 dfs(i + 1, tmp)
+#                 tmp.pop()
+
+#         dfs(0, [])
+#         return res
 
 # class Solution:
 #     def subsets(self, nums: List[int]) -> List[List[int]]:
@@ -57,6 +74,7 @@ class Solution:
 
 # Wrong: repeated adding
 # Try to cover two possible cases: skip nums[i] or add nums[i] to tmp. But later will repeatedly do some adding.
+# e.g. for [1,2]: there are 6 outcome, not 4! when initial pos = 0, 4 outcome; then when inital pos = 1, 2 outcome -> 6 in total
 # class Solution:
 #     def subsets(self, nums: List[int]) -> List[List[int]]:
 #         res = []
