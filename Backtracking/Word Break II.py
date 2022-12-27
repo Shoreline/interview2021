@@ -14,7 +14,6 @@ from functools import lru_cache
 
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-
         @lru_cache(None)
         def helper(s: str) -> List[str]:
             if not s:  # if s is empty
@@ -22,18 +21,17 @@ class Solution:
 
             res = []
             for word in wordDict:
-                if not s.startswith(word):
-                    continue
-                if len(word) == len(s):  # find an exact match
+                if word == s: # find an exact match
                     res.append(word)
+                elif not s.startswith(word):
+                    continue
                 else:
                     resultOfTheRest = helper(s[len(word):])
                     for item in resultOfTheRest:
-                        item = word + ' ' + item  # add current word back to the head of each item
-                        res.append(item)
+                        res.append(word + ' ' + item) # add current word back to the head of each item
             return res
 
-        return helper(s)
+        return helper(s)   
 
 # 2) Use our own map as the memory
 # class Solution:
