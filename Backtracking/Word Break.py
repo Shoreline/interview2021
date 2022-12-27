@@ -3,21 +3,36 @@
 # space: O(n)
 from functools import lru_cache
 
-
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         word_set = frozenset(wordDict)
 
-        @lru_cache
-        def helper(s: str, start: int):
-            if start == len(s):
-                return True
-            for end in range(start + 1, len(s) + 1):
-                if s[start:end] in word_set and helper(s, end):
+        @lru_cache(None)
+        def breakable(word):
+            for i in range(len(word)):
+                if i == 0 and word in word_set:
                     return True
-            return False
+                elif breakable(word[:i]) and breakable(word[i:]):
+                    return True
 
-        return helper(s, 0)
+            return False
+        
+        return breakable(s)
+    
+# class Solution:
+#     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+#         word_set = frozenset(wordDict)
+
+#         @lru_cache
+#         def helper(s: str, start: int):
+#             if start == len(s):
+#                 return True
+#             for end in range(start + 1, len(s) + 1):
+#                 if s[start:end] in word_set and helper(s, end):
+#                     return True
+#             return False
+
+#         return helper(s, 0)
 
 # 2) DP
 # dp[i]: the first i chars of input string can be broken or not. dp[0] = true
