@@ -13,7 +13,7 @@
 #         self.left = left
 #         self.right = right
 
-# $PrefixSum: a map saves from root to current node, <prefix_sum_val, num_paths>
+# $PrefixSum: a map saves from root to current node (CURRENT PATH ONLY!), <prefix_sum_val, num_paths>
 #   Initial state: Counter({0:1})
 from collections import Counter
 
@@ -22,7 +22,7 @@ class Solution:
     def pathSum(self, root: TreeNode, targetSum: int) -> int:
         self.res = 0
 
-        # The prefix_sum_count is a counter of how many paths for each prefix_sum value.
+        # The prefix_sum_count counts prefix_sum for CURRENT PATH ONLY!
         # It is just like the usual tmp[] used in dfs()
         def dfs(root: TreeNode, curSum: int, prefix_sum_count: Counter[int]):
             if not root:
@@ -33,12 +33,12 @@ class Solution:
             #   Then targetSum = curSum - prefix_sum -> matching path
             self.res += prefix_sum_count[curSum - targetSum]
 
-            prefix_sum_count[curSum] += 1
+            prefix_sum_count[curSum] += 1 # Must be done after self.res += prefix_sum_count[curSum - targetSum]
             dfs(root.left, curSum, prefix_sum_count)
             dfs(root.right, curSum, prefix_sum_count)
-            prefix_sum_count[curSum] -= 1
+            prefix_sum_count[curSum] -= 1 # prefix_sum_count is only for the current path. So need to -1 once root is no longer part of the path.
 
-        dfs(root, 0, Counter({0: 1}))  # important initial state!
+        dfs(root, 0, Counter({0: 1}))  # important initial state! Meaning: there is always an empty path that has targetSum = 0.
         return self.res;
 
     # class Solution:
