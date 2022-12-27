@@ -6,7 +6,7 @@ class Solution:
             if pos == len(s) and len(tmp) == 4:
                 res.append(".".join(tmp))
                 return
-            elif len(tmp) > 4:
+            elif len(tmp) == 4:
                 return
 
             for i in range(pos, pos + 3):
