@@ -6,11 +6,11 @@ class Solution:
         # @lru_cache(None) wrong if use lru_cache!
         def bt(pos, x, y):
             if pos == len(word):
-                return True            
+                return True
 
-            if 0<=x < len(board) and 0 <= y < len(board[0]) and board[x][y] == word[pos]:
+            if 0 <= x < len(board) and 0 <= y < len(board[0]) and board[x][y] == word[pos]:
                 board[x][y] = '.'
-                for i, j in [(x+1,y), (x-1, y), (x, y+1), (x, y-1)]:
+                for i, j in [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]:
                     if bt(pos + 1, i, j):
                         return True
                 board[x][y] = word[pos]

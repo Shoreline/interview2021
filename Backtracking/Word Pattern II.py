@@ -8,9 +8,10 @@ class Solution:
         if len(pattern) == len(s) == 0:
             return True
 
-        # Optional optimization:
-        # for end in range(1, len(s) + 1 - (len(pattern) - 1) ): # +2 because it is the "end of an end"
-        # there is no sense to match a 5-character pattern to a str with 4 characters. Thus the first letter can map first k letters of the str. Here len(str) - k <= len(pattern) -1, thus k max is len(str) - len(pattern) + 1.
+        # Optional optimization: for end in range(1, len(s) + 1 - (len(pattern) - 1) ): # +2 because it is the "end
+        # of an end" there is no sense to match a 5-character pattern to a str with 4 characters. Thus the first
+        # letter can map first k letters of the str. Here len(str) - k <= len(pattern) -1, thus k max is len(str) -
+        # len(pattern) + 1.
 
         for end in range(1, len(s) + 1):
             if pattern[0] not in p_to_w and s[:end] not in p_to_w.values():
@@ -22,4 +23,4 @@ class Solution:
                 if self.dfs(pattern[1:], s[end:], p_to_w):
                     return True
 
-        return False        
+        return False
