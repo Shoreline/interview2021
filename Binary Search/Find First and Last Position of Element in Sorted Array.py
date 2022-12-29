@@ -1,37 +1,64 @@
 # Two binary searches to find lower and upper bound
 # Time: O(nlogn); space: O(1)
 class Solution:
-    def searchRange(self, nums: list[int], target: int) -> list[int]:
-        lower_bound = Solution.find_bound(nums, target, True)
-        if lower_bound == -1:
-            return [-1, -1]
-        upper_bound = Solution.find_bound(nums, target, False)
-        return [lower_bound, upper_bound]
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
 
-    @staticmethod
-    def find_bound(nums: list[int], target: int, find_lower_bound: bool) -> int:
-        low, high = 0, len(nums) - 1
-        while low <= high:
-            mid = (low + high) // 2
-            if nums[mid] == target:
-                if find_lower_bound:
-                    # If there is no same value element on the left, then this is the leftmost target
-                    if mid == low or nums[mid] != nums[mid - 1]:
-                        return mid
-                    else:  # There is at least one element with the same target on the left
-                        high = mid - 1  # Using mid - 1 won't miss the target. Since at here we know nums[mid-1] == nums[mid] == target
-                else:
-                    if mid == high or nums[mid] != nums[mid + 1]:
-                        return mid
-                    else:
-                        low = mid + 1
+        def find(find_first) -> int:
+            left, right = 0, len(nums) - 1
 
-            elif nums[mid] < target:
-                low = mid + 1
-            else:
-                high = mid - 1
+            while left <= right:
+                mid = left + (right - left) // 2
+                if nums[mid] < target:
+                    left = mid + 1
+                elif nums[mid] > target:
+                    right = mid - 1
+                else: # nums[mid] == target
+                    if find_first:
+                        if mid == 0 or nums[mid] != nums[mid-1] :
+                            return mid
+                        else: # Here mid > 0 and nums[mid] == nums[mid - 1]
+                            right = mid - 1
+                    else: # find last
+                        if mid == len(nums) - 1 or nums[mid] != nums[mid + 1]:
+                            return mid
+                        else: # Here mid < len(nums) - 1 and nums[mid] == nums[mid + 1]
+                            left = mid + 1
+            return -1
 
-        return -1
+        return [find(True), find(False)]
+
+# class Solution:
+#     def searchRange(self, nums: list[int], target: int) -> list[int]:
+#         lower_bound = Solution.find_bound(nums, target, True)
+#         if lower_bound == -1:
+#             return [-1, -1]
+#         upper_bound = Solution.find_bound(nums, target, False)
+#         return [lower_bound, upper_bound]
+#
+#     @staticmethod
+#     def find_bound(nums: list[int], target: int, find_lower_bound: bool) -> int:
+#         low, high = 0, len(nums) - 1
+#         while low <= high:
+#             mid = (low + high) // 2
+#             if nums[mid] == target:
+#                 if find_lower_bound:
+#                     # If there is no same value element on the left, then this is the leftmost target
+#                     if mid == low or nums[mid] != nums[mid - 1]:
+#                         return mid
+#                     else:  # There is at least one element with the same target on the left
+#                         high = mid - 1  # Using mid - 1 won't miss the target. Since at here we know nums[mid-1] == nums[mid] == target
+#                 else:
+#                     if mid == high or nums[mid] != nums[mid + 1]:
+#                         return mid
+#                     else:
+#                         low = mid + 1
+#
+#             elif nums[mid] < target:
+#                 low = mid + 1
+#             else:
+#                 high = mid - 1
+#
+#         return -1
 
 # Use more than two binary searches, not ideal
 # class Solution:
