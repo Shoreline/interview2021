@@ -12,16 +12,16 @@ class Solution:
                     left = mid + 1
                 elif nums[mid] > target:
                     right = mid - 1
-                else: # nums[mid] == target
+                else:  # nums[mid] == target
                     if find_first:
-                        if mid == 0 or nums[mid] != nums[mid-1] :
+                        if mid == 0 or nums[mid] != nums[mid - 1]:
                             return mid
-                        else: # Here mid > 0 and nums[mid] == nums[mid - 1]
+                        else:  # Here mid > 0 and nums[mid] == nums[mid - 1]
                             right = mid - 1
-                    else: # find last
+                    else:  # find last
                         if mid == len(nums) - 1 or nums[mid] != nums[mid + 1]:
                             return mid
-                        else: # Here mid < len(nums) - 1 and nums[mid] == nums[mid + 1]
+                        else:  # Here mid < len(nums) - 1 and nums[mid] == nums[mid + 1]
                             left = mid + 1
             return -1
 

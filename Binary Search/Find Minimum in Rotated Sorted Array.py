@@ -9,6 +9,10 @@ class Solution:
         low, high = 0, len(nums) - 1
         while low < high:
             mid = low + (high - low) // 2
+
+            if mid > 0 and nums[mid] < nums[mid - 1]:  # early return, optional
+                return nums[mid]
+
             if nums[mid] > nums[high]:
                 low = mid + 1
             else:

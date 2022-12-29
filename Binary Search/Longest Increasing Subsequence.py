@@ -3,7 +3,9 @@
 # if num > res[-1]: res.append(num)
 # otherwise (num <= res[-1]): replace the smallest element in res which >= num
 # O(NlogN) time.
-# The final res[] is not guranteed to be the actual maximum length LIS. But its length is the same as the the actual maximum length LIS.
+#
+# The final res[] is not guaranteed to be the actual maximum length LIS. But its length is the same as the actual
+# maximum length LIS.
 
 # 1)
 # Use Python's build-in binary search function bisect
