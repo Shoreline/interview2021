@@ -6,6 +6,8 @@
 #
 # The final res[] is not guaranteed to be the actual maximum length LIS. But its length is the same as the actual
 # maximum length LIS.
+# res[: last_update_index+1] is the LIS contains nums[i].
+# In the end, len(res) is the longest ever LIS.
 
 # 1)
 # Use Python's build-in binary search function bisect
@@ -31,16 +33,15 @@ class Solution:
                 res[self.binarysearch(res, nums[i])] = nums[i]
         return len(res)
 
+    # Return the leftmost insertion point?
     def binarysearch(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums) - 1
-        while left <= right:
+        while left < right:
             mid = (left + right) // 2
-            if nums[mid] == target:
-                return mid
-            elif nums[mid] < target:
+            if nums[mid] < target:
                 left = mid + 1
             else:
-                right = mid - 1
+                right = mid
 
         return left
 

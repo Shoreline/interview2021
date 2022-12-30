@@ -2,7 +2,8 @@
 
 # Prefix sum + binary search insert
 # Where to insert depends on the weights of each number
-# Get a radom number target in [0, total_weight), then do a binary search to find the index to insert target in the prefix sum array
+# Get a random number target in [0, total_weight), then do a binary search to find the index to insert target in the
+# prefix sum array.
 
 class Solution:
     def __init__(self, w: List[int]):

@@ -5,15 +5,9 @@
 # If target is not within the range of the sorted half, it can only be in the other half.
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        if (len(nums) == 0):
-            return -1
-
-        low = 0
-        high = len(nums) - 1
-
+        low, high = 0, len(nums) - 1
         while low <= high:
-            mid = (high + low) // 2
-            # mid = low + (high - low) // 2 # also works
+            mid = low + (high - low) // 2
 
             if target == nums[mid]:
                 return mid
