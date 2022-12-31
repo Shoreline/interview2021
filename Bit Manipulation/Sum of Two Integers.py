@@ -1,3 +1,6 @@
+# Hard issue.
+#   sneaky short cut: (a + b) = log(e^a * e^b)
+
 # Break + (or -) into bit operations for each bit; also compute carry/borrow
 # Continue to + or - with the carry/borrow until new carry/borrow is 0
 
