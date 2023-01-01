@@ -2,9 +2,9 @@
 #  * DP from bottom right corner.
 #  *
 #  * dp[i][j]: the lowest HP needed to reach bottom right corner (m-1,n-1) from
-#  * (i,j). (allow zeor hp. so eventually return dp[0][0] + 1)
+#  * (i,j). (allow zero hp. so eventually return dp[0][0] + 1)
 #  *
-#  * dp[i][j] = max(0, min(dp[i+1][j],dp[i][j+1]) - dungeon[i][j] );
+#  * dp[i][j] = max(0, min(dp[i+1][j], dp[i][j+1]) - dungeon[i][j]);
 #  *
 #  * For point (i,j), pick the route needs smaller HP from (i+1,j) and (i,j+1). If
 #  * at point (i,j) there is an orb to heal, the hero needs even less HP (minus
@@ -31,7 +31,7 @@ class Solution:
 
         return dp[0] + 1
 
-    # Wrong solution
+# Wrong solution
 # class Solution:
 #     def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
 #         if not dungeon:

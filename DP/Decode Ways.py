@@ -1,10 +1,11 @@
+# Don't start with the first char but the 2nd one.
 # /*
 #  * Be careful about how to handle initial status: set them both to 1!
 #  *
 #  * The two if blocks are parallel, not nested.
 #  */
 # dp[i]: how many decode ways for the first i characters.
-# dp[i]= dp[i-1] + dp[i-2]; But note that only eligible dp[i-1] and dp[i-2] can be added
+# dp[i] = dp[i-1] + dp[i-2]; But note that only eligible dp[i-1] and dp[i-2] can be added
 class Solution:
     def numDecodings(self, s: str) -> int:
         if s[0] == '0':  # corner case!
@@ -12,7 +13,7 @@ class Solution:
         dp1 = 1  # 1 way to decode the first 0 char
         dp2 = 1  # still 1 way to decode the first char
 
-        for i in range(1, len(s)):
+        for i in range(1, len(s)): # s[1] is the 2nd character
             dp3 = 0  # dp[i] of the next round
 
             # s[i] is a valid number, so we can add valid decodings before s[i]

@@ -1,6 +1,9 @@
 # Combination sum problem
 # bottom-up DP
 # Switched the inner/outer order of the for loops, as in combination sum IV (the permutation sum version of this problem.)
+#   If iterate amount first, we will double count.
+#   E.g. amount= 3, and coins = [1,2]. Then [1,2] and [2,1] are counted as two ways to get 3.
+# dp[i]: ways to make up i amount
 
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
