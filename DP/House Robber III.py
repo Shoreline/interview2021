@@ -6,29 +6,26 @@
 #         self.right = right
 
 # For one node, you either rob it and not rob its children; or do not rob it, and keep the option to rob its children
-#   - Therefore, for each node (or say sub-tree) return two values: max money you can rob 1) if you rob this node, or
+#   - Therefore, for each node (or say subtree) return two values: max money you can rob 1) if you rob this node, or
 #     2) you do not rob this node
+
 class Solution:
-    def rob(self, root: TreeNode) -> int:
-        res = self.helper(root)
-        return max(res)
+    def rob(self, root: Optional[TreeNode]) -> int:
 
-        # returns a two-value tuple of (not_rob the root, rob the root)
+        # Returns (rob_root, not_rob_root)
+        @lru_cache(None)
+        def helper(root) -> tuple[int, int]:
+            if not root:
+                return 0, 0
+            # 1) If rob the root, you can't rob left and right
+            rob_root = root.val + helper(root.left)[1] + helper(root.right)[1]
+            # 2) If don't rob the root, you get to do whatever you want for its children.
+            #    Rob/not_rob the left and rob/not_rob the right
+            not_rob_root = max(helper(root.left)) + max(helper(root.right))
 
-    def helper(self, root: TreeNode) -> tuple[int]:
-        if not root:
-            return (0, 0)
+            return rob_root, not_rob_root
 
-        left = self.helper(root.left)
-        right = self.helper(root.right)
-
-        # 1) If rob the root, you can't rob left and right
-        rob = root.val + left[0] + right[0]
-
-        # 2) If don't rob the root, you get to do whatever you want for its children. rob/not_rob the left and rob/not_rob the right
-        not_rob = max(left) + max(right)
-
-        return (not_rob, rob)
+        return max(helper(root))
 
 # class Solution:
 #     def rob(self, root: TreeNode) -> int:

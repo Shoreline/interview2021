@@ -3,8 +3,9 @@
 # dp[i][j] =
 #   1) 0 if matrix[i][j] == 0
 #   2) 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])
-# -> Those 3 squares overlapp with each other if side length > 1.
-# -> if we want to +1 for any one of the 3 surrounding squares, then the side length of the other two squres cannot be smaller than that square
+# -> Those 3 squares overlap with each other if side length > 1.
+# -> if we want to +1 for any one of the 3 surrounding squares, then the side length of the other two squres cannot be
+#    smaller than that square
 class Solution:
     def maximalSquare(self, matrix: List[List[str]]) -> int:
         if not matrix or (not matrix[0]):
