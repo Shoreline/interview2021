@@ -1,7 +1,7 @@
 # The output is a list saving the maximum value within each sliding window
 
 # DP of another type
-# Use two additional helper arrays to save supporting info
+# Use two additional helper arrays (both are the same size as nums[]) to save supporting info
 # Divide nums[] into blocks of length k. So it is guaranteed that a sliding window
 # can be either in one block or 2 adjacent blocks.
 # The helper arrays saves 1) the max of the right block (left[j]); 2) the max from the left block (right[i])
@@ -11,7 +11,7 @@
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         # left: the maximum value so far in a block (starting from left)
-        # right: the maximum vlaue so far in a block (starting from right)
+        # right: the maximum value so far in a block (starting from right)
         left, right = [0] * len(nums), [0] * len(nums)
         rem = len(nums) % k
 
@@ -23,8 +23,10 @@ class Solution:
 
             j = len(nums) - 1 - i
             # j == len(nums) - 1: corner case: the last special block
-            # if j == len(nums) - 1 or (j + 1) % k == 0:
-            if i == 0 or (i - rem) % k == 0:
+            # When j is the last element of a block, then j+1 is the first element of the next block
+            #   So when (j + 1) % k == 0, j is the last element of a block
+            # Alternative: if i == 0 or (i - rem) % k == 0:
+            if j == len(nums) - 1 or (j + 1) % k == 0:
                 right[j] = nums[j]
             else:
                 right[j] = max(nums[j], right[j + 1])
