@@ -1,8 +1,8 @@
 # copied
 # Sort the jobs by endTime.
 # DP array is a list, not a fixed size array.
-# dp[[time, max_profit]] means that by the end of "time", we can make at most "max_profit"
-# Intial dp[0] = 0, as we make profit = 0 at time = 0.
+# dp[[job_time, max_profit]] means that by the end of "job_time", we can make at most "max_profit"
+# Initial dp[0] = 0, as we make profit = 0 at time = 0.
 
 # For each job = [s, e, p], where s,e,p are its start time, end time and profit,
 # Then the logic is similar to the knapsack problem.
@@ -24,16 +24,19 @@ import bisect
 
 class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
-        # sort by the 2nd element, which are elements in the list of endTime
+        # sort by the 2nd element (endTime)
         # jobs is a list[list[int]]
         jobs = sorted(zip(startTime, endTime, profit), key=lambda v: v[1])
 
         dp = [[0, 0]]  # at time 0, max_profit is 0
         for s, e, p in jobs:
-            # If do this job, then need to find i that dp[i]'s end time is same or before this job's start time
+            # If we do this job, then need to find i that dp[i]'s end time is same or before this job's start time
             # i = bisect.bisect_left(dp, [s + 1, float('-inf')]) - 1 # build-in binary search
-            # Do -1 in the end: bisect_right gives the insertion point, so -1 is the last existing element in dp, which is the one we want to use in later comparison
+            # Do -1 in the end: bisect_right gives the insertion point, so -1 is the last existing element in dp, which
+            # is the one we want to use in later comparison
             i = bisect.bisect_right(dp, [s, float('inf')]) - 1
+
+            # we know that dp[-1][0] <= e, now dp[-1][1] als < dp[i][1]+ p, so dp[] is sorted.
             if dp[i][1] + p > dp[-1][1]:
                 dp.append([e, dp[i][1] + p])
-        return dp[-1][1]        
+        return dp[-1][1]

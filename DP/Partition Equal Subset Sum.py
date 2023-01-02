@@ -10,17 +10,24 @@ class Solution:
         total_sum = sum(nums)
         if total_sum % 2 == 1:
             return False
-        sub_sum = total_sum // 2
+        target = total_sum // 2
 
-        dp = [False] * (sub_sum + 1)
+        dp = [False] * (target + 1)
         dp[0] = True
         for num in nums:
-            for i in range(sub_sum, -1, -1):  # start from sub_sum instead of 1. avoid reusing num in each i-loop
-                # for i in range(1, sub_sum + 1): # wrong! In this way, we basically allow using num multiple times in the subset
-                # since dp[i] depends on dp[j] where j < i, so to avoid resuing num, start from behind.
+            for i in range(target, -1, -1):  # start from sub_sum instead of 1. avoid reusing num in each i-loop
+
+                # wrong! In this way, we basically allow using num multiple times in the subset
+                # for i in range(1, sub_sum + 1):
+                # since dp[i] depends on dp[j] where j < i, so to avoid reusing num, start from behind.
+
                 if i - num >= 0:
-                    dp[i] = dp[i] or dp[i - num]  # when i - num = 0 then dp[j-num] is surely true
-                if dp[sub_sum]:
+                    # dp[i - num]: some other non-empty subset that sums up to i - num.
+                    #   If there is such a subset, then dp[i] = True
+                    #   Since we can just add num to that set to get another subet suming up to i
+                    # when i = num, dp[i] is always true (just let that subset to be [num])
+                    dp[i] |= dp[i - num]
+                if dp[target]:
                     return True
 
         return False
