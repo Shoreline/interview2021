@@ -12,16 +12,15 @@ class Solution:
         visited = set()
         if self.has_cycle(0, -1, graph, visited):
             return False
-        if len(visited) != n:
-            return False
-        return True
+
+        return len(visited) == n
 
     def has_cycle(self, node, parent, graph, visited):
         visited.add(node)
         for nbr in graph[node]:
-            if nbr not in visited:
-                if self.has_cycle(nbr, node, graph, visited):
-                    return True
-            elif nbr in visited and nbr != parent:
+            if nbr == parent:
+                continue
+            elif nbr in visited or self.has_cycle(nbr, node, graph, visited):
                 return True
-        return False        
+
+        return False
