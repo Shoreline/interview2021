@@ -22,7 +22,7 @@ class Solution:
         for i in range(abs(lenA - lenB)):
             longer = longer.next
 
-        while longer and shorter and (longer != shorter):
+        while longer and shorter and longer != shorter:
             longer = longer.next
             shorter = shorter.next
 
