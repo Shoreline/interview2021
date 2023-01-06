@@ -9,32 +9,33 @@ class Node:
 
 
 # in-order traversal
+# Use a stack to save parent nodes for in-order traverse
 class Solution:
-    def treeToDoublyList(self, root: 'Node') -> 'Node':
+    def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root:
-            return
+            return None
 
-        dummy = Node(0, None, None)  # serves as preHead
-        pre = dummy
+        pre_head = Node(-1)
+        pre = pre_head
+        cur = root
         stack = []
-        cur = root  # current node
+
         while stack or cur:
             while cur:
                 stack.append(cur)
                 cur = cur.left
 
+            # link pre and cur as doubly-linked list
             cur = stack.pop()
-
-            # link pre and cur as doulbly-linked list
             pre.right = cur
             cur.left = pre
 
             # advance pre and cur
-            pre = cur  # or per = pre.right
+            pre = cur
             cur = cur.right  # cur.right can be null, if so cur will be stack.pop() next round
 
         # In the end, finish circular linking
-        dummy.right.left = pre  # now pre is the last element. (cur is already None)
-        pre.right = dummy.right
+        pre_head.right.left = pre  # now pre is the last element. (cur is already None)
+        pre.right = pre_head.right
 
-        return dummy.right
+        return pre_head.right

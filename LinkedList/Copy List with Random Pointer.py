@@ -7,10 +7,10 @@ class Node:
         self.random = random
 """
 
-# No need to use prehead
 # 1) Clone each node and insert the new node between original nodes in the list
 # 2) go back to head, replicate random pointer
 # 3) cut the cloned nodes out of the original list
+# No need to use prehead (since the original head is the prehead)
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
@@ -19,7 +19,6 @@ class Solution:
         cur = head
         while cur:
             new_node = Node(cur.val)
-            #new_node.val = cur.val
             new_node.next = cur.next
             cur.next = new_node
 
@@ -28,10 +27,9 @@ class Solution:
         cur = head
         while cur:
             new_node = cur.next
-            if cur.random: # easy to miss this check
-                new_node.random = cur.random.next
+            new_node.random = cur.random.next if cur.random else None # easy to miss this check
 
-            cur = cur.next.next
+            cur = new_node.next
 
         new_head = head.next
         cur = new_head
