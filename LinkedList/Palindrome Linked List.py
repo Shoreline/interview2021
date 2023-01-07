@@ -15,67 +15,95 @@
 #  * compared. So it is fine to ignore it.
 #  */
 class Solution:
-    def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        if not head:
-            return False
-        pre_head = ListNode()
-        pre_head.next = head
-        walker, runner = pre_head, pre_head
-        while runner.next and runner.next.next:
+    def isPalindrome(self, head: ListNode) -> bool:
+        walker, runner = head, head
+        half_list_len = 0
+        while runner and runner.next:
+            half_list_len += 1
             walker = walker.next
             runner = runner.next.next
 
-        cur = walker.next
+        # Now walker is the middle node (if list len is odd) or first node of the 2nd half (if even nodes)
+        # Reverse the 2nd half
+        cur = walker
         next = cur.next
-        walker.next = None
-        while cur and next:
+        while next:
             tmp = next.next
             next.next = cur
             cur = next
             next = tmp
 
-        while head and cur:
+        # Compare
+        for i in range(half_list_len):
             if head.val != cur.val:
                 return False
-            head = head.next
-            cur = cur.next
-            print(3)
+            else:
+                head = head.next
+                cur = cur.next
 
         return True
 
-
-class Solution2:
-    def isPalindrome(self, head: ListNode) -> bool:
-        # Measure the list length
-        list_len = 0
-        cur = head
-        while cur:
-            list_len += 1
-            cur = cur.next
-
-        # find the middle node
-        cur = head
-        for i in range(list_len // 2):
-            cur = cur.next
-
-        mid = cur
-
-        pre = None
-        cur = head
-        while cur and cur != mid:
-            tmp = cur.next
-            cur.next = pre
-            pre = cur
-            cur = tmp
-
-        cur = pre
-        if list_len % 2 == 1:
-            mid = mid.next
-        while cur:
-            if cur.val == mid.val:
-                cur = cur.next
-                mid = mid.next
-            else:
-                return False
-
-        return True        
+# class Solution:
+#     def isPalindrome(self, head: Optional[ListNode]) -> bool:
+#         if not head:
+#             return False
+#         pre_head = ListNode()
+#         pre_head.next = head
+#         walker, runner = pre_head, pre_head
+#         while runner.next and runner.next.next:
+#             walker = walker.next
+#             runner = runner.next.next
+#
+#         cur = walker.next
+#         next = cur.next
+#         walker.next = None
+#         while cur and next:
+#             tmp = next.next
+#             next.next = cur
+#             cur = next
+#             next = tmp
+#
+#         while head and cur:
+#             if head.val != cur.val:
+#                 return False
+#             head = head.next
+#             cur = cur.next
+#
+#         return True
+#
+#
+# class Solution2:
+#     def isPalindrome(self, head: ListNode) -> bool:
+#         # Measure the list length
+#         list_len = 0
+#         cur = head
+#         while cur:
+#             list_len += 1
+#             cur = cur.next
+#
+#         # find the middle node
+#         cur = head
+#         for i in range(list_len // 2):
+#             cur = cur.next
+#
+#         mid = cur
+#
+#         pre = None
+#         cur = head
+#         while cur and cur != mid:
+#             tmp = cur.next
+#             cur.next = pre
+#             pre = cur
+#             cur = tmp
+#
+#         cur = pre
+#         if list_len % 2 == 1:
+#             mid = mid.next
+#         while cur:
+#             if cur.val == mid.val:
+#                 cur = cur.next
+#                 mid = mid.next
+#             else:
+#                 return False
+#
+#         return True

@@ -5,7 +5,7 @@
 #         self.next = next
 
 # Merge sort
-# recursively call below steps, untill the list has only 0 or 1 node
+# recursively call below steps, until the list has only 0 or 1 node
 # 1) find the middle node
 # 2) break the linked list into two lists at the middle node. (middle node goes with the former list)
 # 3) sort each list separately
@@ -31,8 +31,22 @@ class Solution:
             fast = fast.next.next
         return slow
 
-        # easy to get wrong, can't just use the code from cycle I&II
+    # easy to get wrong, can't just use the code from cycle I&II
+    def merge(self, head1: ListNode, head2: ListNode) -> ListNode:
+        pre_head = ListNode()
+        tail = pre_head
 
+        while head1 and head2:
+            if head1.val < head2.val:
+                tail.next = head1
+                head1 = head1.next
+            else:
+                tail.next = head2
+                head2 = head2.next
+            tail = tail.next
+
+        tail.next = head1 if head1 else head2
+        return pre_head.next
     # ver3
     # def findMiddle(self, head: ListNode) -> ListNode:
     #     if not (head and head.next):
@@ -57,18 +71,3 @@ class Solution:
     #         runner = runner.next.next
     #     return walker
 
-    def merge(self, head1: ListNode, head2: ListNode) -> ListNode:
-        pre_head = ListNode()
-        tail = pre_head
-
-        while head1 and head2:
-            if head1.val < head2.val:
-                tail.next = head1
-                head1 = head1.next
-            else:
-                tail.next = head2
-                head2 = head2.next
-            tail = tail.next
-
-        tail.next = head1 if head1 else head2
-        return pre_head.next

@@ -7,13 +7,24 @@
 class Solution:
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         cur = head
-        while cur and cur.next:
-            if cur.val != cur.next.val:
-                cur = cur.next
-            else:
-                # can't advance cur yet: the next next element may still be the same as cur
+        while cur:
+            if cur.next and cur.val == cur.next.val:
                 cur.next = cur.next.next
+            else:
+                cur = cur.next
+
         return head
+
+# class Solution:
+#     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+#         cur = head
+#         while cur and cur.next:
+#             if cur.val != cur.next.val:
+#                 cur = cur.next
+#             else:
+#                 # can't advance cur yet: the next next element may still be the same as cur
+#                 cur.next = cur.next.next
+#         return head
 
 # Two pointers. Maintain ptr1 as the tail (ptr1.next = None) and keep attaching nodes to the tail.
 # class Solution:
