@@ -1,3 +1,4 @@
+# Keep comparing n vs 2^k
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
         x = 1

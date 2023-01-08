@@ -1,7 +1,7 @@
 # Find a pattern
 '''
 from up to down, then left to right
-(let each integer to be exactly one bit different than its neighbors)
+(let each integer be exactly one bit different from its neighbors)
 0   1   11  110
         10  111
             101
@@ -17,5 +17,15 @@ class Solution:
     def grayCode(self, n: int) -> List[int]:
         results = [0]
         for i in range(n):
-            results += [x + pow(2, i) for x in reversed(results)]
-        return results        
+            tmp = []
+            for x in reversed(results):
+                tmp.append( x + pow(2, i))
+            results += tmp
+        return results
+
+# class Solution:
+#     def grayCode(self, n: int) -> List[int]:
+#         results = [0]
+#         for i in range(n):
+#             results += [x + pow(2, i) for x in reversed(results)]
+#         return results

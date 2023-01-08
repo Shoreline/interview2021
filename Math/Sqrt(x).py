@@ -1,5 +1,6 @@
 # lgN binary search
-# I think this problem's key point is that we want to find the largest number, which num <= x/num, therefore we should use the binary search to find the upper bound within the range(1,x).
+# I think this problem's key point is that we want to find the largest number, which num <= x/num, therefore we should
+# use the binary search to find the upper bound within the range(1,x).
 class Solution:
     def mySqrt(self, x: int) -> int:
         low, high = 1, x

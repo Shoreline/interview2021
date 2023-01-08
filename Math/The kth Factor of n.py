@@ -5,16 +5,17 @@ class Solution:
         sqrt_n = int(sqrt(n))
 
         for d in range(1, sqrt_n + 1):
-            # When n%d == 0, we actually found two divisors: d and n//d
+            # When n % d == 0, we actually found two divisors: d and n//d
             if n % d == 0:
                 k -= 1
                 divisors.append(d)
                 if k == 0:
                     return d
 
-        # If n is a perfect square (4, 9, 16, 25, 36, etc)
-        # we have to increment k to since sqrt_n will show up twice but shall be counted once
-        if (sqrt_n * sqrt_n == n):
+        # If n is a perfect square (4, 9, 16, 25, 36, etc), then sqrt(n) and n // sqrt(n) is considered two
+        # divisors -> double counted.
+        # So we have to increment k by 1 to offset the double counting
+        if sqrt_n * sqrt_n == n:
             k += 1
 
         # len(divisors) has all first half divisors. If the remaining k is bigger than the number

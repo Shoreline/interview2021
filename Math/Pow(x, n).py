@@ -7,7 +7,7 @@ class Solution:
             return 1.0
         if n < 0:
             x = 1 / x
-            n = -n
+            n = abs(n)
 
         half = self.myPow(x, n // 2)
 
