@@ -1,7 +1,35 @@
 # A variant of merge sort
-#   - For each element i, use the merge_sort(i) function to return the number of elements jumping from i's right to i's left during the merge sort.
-#   -
+#   - For each element i, use the merge_sort(i) function to return the number of elements jumping from i's right to i's
+#   left during the merge sort.
+
 class Solution:
+    def countSmaller(self, nums):
+        # sort (index, value) pairs.
+        def sort(idx_val_list):
+            if len(idx_val_list) == 1:
+                return idx_val_list
+
+            mid = len(idx_val_list) // 2
+            left = sort(idx_val_list[:mid])
+            right = sort(idx_val_list[mid:])
+
+            # Merge (sort) from behind based on value (not index)
+            #   From the largest numbers to smaller numbers
+            for i in range(len(idx_val_list)-1, -1, -1):
+                # left and right start with at least one element. But after popping, left and right can be empty.
+                if not right or (left and left[-1][1] > right[-1][1]):
+                    # the last element of left needs to jump len(right)
+                    res[left[-1][0]] += len(right)
+                    idx_val_list[i] = left.pop()
+                else:
+                    idx_val_list[i] = right.pop()
+            return idx_val_list
+
+        res = [0] * len(nums)
+        sort(list(enumerate(nums)))
+        return res
+
+class Solution2:
     def countSmaller(self, nums: List[int]) -> List[int]:
         n = len(nums)
         # keeps tracking the value and index. Can't use map since same value can happen multiple times
@@ -48,7 +76,7 @@ class Solution:
                 temp.append(arr[j])
                 j += 1
 
-            # Copy the sorted temp to its conrresponding range of arr
+            # Copy the sorted temp to its corresponding range of arr
             for i in range(len(temp)):
                 arr[left + i] = temp[i]
 
