@@ -1,4 +1,5 @@
 # Note: Sort the words with the same frequency by their lexicographical order.
+# Let the counting result be part of the lambda function
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         count = Counter(words)

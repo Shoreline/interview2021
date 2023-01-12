@@ -1,6 +1,6 @@
 # Bucket sort
 # Time: O(N): N is the size of nums (not the distinct values in nums)
-# 1 Create list of empty lists for bucktes: for frequencies 1, 2, ..., n.
+# 1 Create a list of empty lists for buckets: for frequencies 1, 2, ..., n, saves corresponding numbers
 # 2 Use Counter to count frequencies of elements in nums
 # 3 Iterate over our Counter and add elements to corresponding buckets.
 # 4 buckets is list of lists now, create one big list out of it.

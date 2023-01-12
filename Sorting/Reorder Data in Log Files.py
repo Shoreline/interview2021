@@ -10,8 +10,8 @@ class Solution:
             if rest[0].isalpha():
                 return [0, rest, identifier]  # First sort by 0, then the text of rest, then identifier
             else:
-                return [
-                    1]  # For digit logs, just sort by 1 (after all letter logs), then keep their original sequence
+                # For digit logs, just sort by 1 (after all letter logs), then keep their original sequence
+                return [1]
 
         return sorted(logs, key=get_key)
 
