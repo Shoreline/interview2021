@@ -1,13 +1,11 @@
-# Palindromic questions thought: check all possible centers, instead of each characters in the string
+# Palindromic questions thought: check all possible centers, instead of each character in the string
 # Every time we successfully expand a p-string, a new p-string is generated.
 # T: O(n^2); S: O(1)
 class Solution:
     def countSubstrings(self, s: str) -> int:
-        def countPalindromes(left: int, right: int) -> int:
+        def expand_and_count_palindromes(left: int, right: int) -> int:
             p_count = 0
-            while left >= 0 and right < len(s):
-                if s[left] != s[right]:
-                    return p_count
+            while left >= 0 and right < len(s) and s[left] == s[right]:
                 p_count += 1
                 left -= 1
                 right += 1
@@ -15,8 +13,8 @@ class Solution:
 
         res = 0
         for i in range(len(s)):
-            res += countPalindromes(i, i)
-            res += countPalindromes(i - 1, i)
+            res += expand_and_count_palindromes(i, i)
+            res += expand_and_count_palindromes(i - 1, i)
         return res
 
 # class Solution:

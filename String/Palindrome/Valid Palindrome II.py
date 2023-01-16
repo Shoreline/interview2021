@@ -1,25 +1,37 @@
 # copy with change
-# "We can use the standard two-pointer approach that starts at the left and right of the string and move inwards. Whenever there is a mismatch, we can either exclude the character at the left or the right pointer. We then take the two remaining substrings and compare against its reversed and see if either one is a palindrome."
+# "We can use the standard two-pointer approach that starts at the left and right of the string and move inwards.
+# Whenever there is a mismatch, we can either exclude the character at the left or the right pointer.
+# We then take the two remaining substrings and compare against its reversed and see if either one is a palindrome."
 
 # t:O(n), s: O(1)
-# somehow it takes longer time than the solution below, although both of them shall be O(n)
 class Solution:
     def validPalindrome(self, s: str) -> bool:
-        def isPalindrome(i, j):
-            while i < j:
-                if s[i] != s[j]:
-                    return False
-                i += 1
-                j -= 1
-            return True
-
         i, j = 0, len(s) - 1
         while i < j:
             if s[i] != s[j]:
-                return isPalindrome(i + 1, j) or isPalindrome(i, j - 1)
+                return s[i:j] == s[i:j][::-1] or s[i + 1:j + 1] == s[i + 1:j + 1][::-1]
             i += 1
             j -= 1
         return True
+
+# somehow it takes longer time than the solution below, although both of them shall be O(n)
+# class Solution:
+#     def validPalindrome(self, s: str) -> bool:
+#         def isPalindrome(i, j):
+#             while i < j:
+#                 if s[i] != s[j]:
+#                     return False
+#                 i += 1
+#                 j -= 1
+#             return True
+#
+#         i, j = 0, len(s) - 1
+#         while i < j:
+#             if s[i] != s[j]:
+#                 return isPalindrome(i + 1, j) or isPalindrome(i, j - 1)
+#             i += 1
+#             j -= 1
+#         return True
 
 # t & s: O(n)
 # class Solution:
