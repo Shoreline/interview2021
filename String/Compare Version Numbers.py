@@ -1,3 +1,4 @@
+# convert the input strings into lists of integers.
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
         ver1_list = [int(ver) for ver in version1.split(".")]

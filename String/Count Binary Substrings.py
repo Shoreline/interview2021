@@ -1,4 +1,4 @@
-# Target substrings centers at the edge of 0 and 1, either "01" or "10" Count max(1s, 0s) on both sides to know
+# Target substrings centers at the edge of 0 and 1, either "01" or "10". Count max(1s, 0s) on both sides to know
 # qualified strings centers at this specific "01"/"10" location The qualified sub-strings can only be the sub-strings
 # of sub-strings that already group together AND have equal number of 0s and 1s in the input string. First,
 # count the number of 1 or 0 already group together in the input string. For example "0110001111" will be [1, 2, 3, 4].
