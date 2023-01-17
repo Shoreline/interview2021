@@ -1,41 +1,65 @@
 # Recursion with a static pos pointer!
 # Each segment starts with a number
 # digit and '[' always come in a pair
+# If there is nested segments, there will be a digit following the last character of the outer segment
 
 # The starting pos of helper() always is 0 or an index after '['
-# helper() handles everying in side a pair of '[]' (including other nested [], if there is any)
+# helper() handles everything in side a pair of '[]' (including other nested [], if there is any)
 # So, helper() needs to deal with ...abc3[def]ghi]....
 
+
 class Solution:
-    def decodeString(self, s: str) -> str:
-        pos = 0
+    def decodeString(self, s):
+        stack = []
+        cur_num = 0
+        cur_string = ''
+        for c in s:
+            if c == '[':
+                stack.append(cur_string)
+                stack.append(cur_num)
+                cur_string = ''
+                cur_num = 0
+            elif c == ']':
+                num = stack.pop()
+                prev_string = stack.pop()
+                cur_string = prev_string + num*cur_string
+            elif c.isdigit():
+                cur_num = cur_num*10 + int(c)
+            else:
+                cur_string += c
 
-        # For a "num[xxxx]" piece, return the decoded string
-        def decodeSegment() -> str:
-            nonlocal pos
-            res = ''
-            while pos < len(s):
-                if s[pos].isdigit():  #
-                    # Get the number
-                    num_str = ''
-                    while s[pos].isdigit():
-                        num_str += s[pos]
-                        pos += 1
-                    pos += 1  # the first char after digit must be '['. Skip it.
-                    seg = decodeSegment()
+        return cur_string
 
-                    for i in range(int(num_str)):
-                        res += seg
-                elif s[pos] in 'abcdefghijklmnopqrestuvwxyz':
-                    res += s[pos]
-                    pos += 1
-                else:  # s[pos] == ']'
-                    pos += 1  # the first char after a seg must be ']'. Skip it too.
-                    return res
-
-            return res
-
-        return decodeSegment()
+# class Solution:
+#     def decodeString(self, s: str) -> str:
+#         pos = 0
+#
+#         # For a "num[xxxx]" piece, return the decoded string
+#         def decodeSegment() -> str:
+#             nonlocal pos
+#             res = ''
+#             while pos < len(s):
+#                 if s[pos].isdigit():
+#                     # Get the number
+#                     num_str = ''
+#                     while s[pos].isdigit():
+#                         num_str += s[pos]
+#                         pos += 1
+#                     pos += 1  # the first char after digit must be '['. Skip it.
+#                     seg = decodeSegment()
+#
+#                     for i in range(int(num_str)):
+#                         res += seg
+#                 elif s[pos] in 'abcdefghijklmnopqrestuvwxyz':
+#                     res += s[pos]
+#                     pos += 1
+#                 else:  # s[pos] == ']'
+#                     pos += 1  # the first char after a seg must be ']'. Skip it too.
+#                     return res
+#
+#             return res
+#
+#         return decodeSegment()
 
 # class Solution:
 #     def decodeString(self, s: str) -> str:
@@ -59,7 +83,7 @@ class Solution:
 #                         pos+=1
 #                     pos +=1 # the first char after digit must be '['. Skip it.
 #                     seg = decodeSegment()
-#                     pos += 1 # skipe the ']'
+#                     pos += 1 # skip the ']'
 #                     for i in range(int(num_str)):
 #                         res += seg
 #             return res
