@@ -8,7 +8,7 @@ class Solution:
         res = []
 
         while columnNumber > 0:
-            columnNumber -= 1
+            columnNumber -= 1 # since sheet column title is 1-based, not 0-based
             c = chr(ord("A") + columnNumber % 26)
             res.append(c)
             columnNumber //= 26
