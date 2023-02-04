@@ -1,7 +1,8 @@
 # different cases
 # 1. sign, and abs() both numerator and denominator after finding out the sign
 # 2. whether need to handle fraction (does the result contain fractional numbers)
-# 3. Use a map of <numerator, index> to determine if there is a repeat and where the repeat starts. "index" is the index in the resulting string
+# 3. Use a map of <numerator, index> to determine if there is a repeat and where the repeat starts.
+#    "index" is the index in the resulting string
 class Solution:
     def fractionToDecimal(self, numerator: int, denominator: int) -> str:
         if numerator % denominator == 0:
@@ -13,7 +14,7 @@ class Solution:
 
         numerator %= denominator  # both nu and de are >=0 now, so no need to think about % for negative number
         i, part = 0, ''
-        m = {}  # <numerator, index> map. index is the index of numberator while inserting the "index" digit of part
+        m = {}  # <numerator, index> map. index is the index of numerator while inserting the "index" digit of part
         while numerator % denominator:
             if numerator in m:
                 index = m[numerator]

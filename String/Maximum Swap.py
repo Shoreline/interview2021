@@ -1,3 +1,4 @@
+# Only swap once!
 # Iterate through num.
 #   For each digit num[i], if there exist a digit d (d must in num), and d shows after nums[i], then swap them
 #   If there are multiple d shows after nums[i], swap with the last one.
