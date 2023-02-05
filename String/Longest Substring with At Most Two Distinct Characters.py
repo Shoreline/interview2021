@@ -23,5 +23,27 @@ class Solution:
 
         return res
 
-
+# class Solution:
+#     def lengthOfLongestSubstringTwoDistinct(self, s: str) -> int:
+#         if not s:
+#             return 0
+#
+#         # map<char, count> in the sliding window
+#         char_count = collections.defaultdict(int)
+#         start, end = 0, -1
+#         res = 0
+#         for i, c in enumerate(s):
+#             char_count[c] += 1
+#             end += 1
+#
+#             if len(char_count) > 2:
+#                 for j in range(start, i):
+#                     char_count[s[j]] -= 1
+#                     if char_count[s[j]] == 0:
+#                         del char_count[s[j]]
+#                         start = j + 1
+#                         break
+#             res = max(res, end - start + 1)
+#
+#         return res
 

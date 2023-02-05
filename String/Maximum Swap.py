@@ -3,6 +3,10 @@
 #   For each digit num[i], if there exist a digit d (d must in num), and d shows after nums[i], then swap them
 #   If there are multiple d shows after nums[i], swap with the last one.
 #   Once a swap is done, we have finished.
+
+# From left to right, pick current digit.
+#  - Find the biggest digit in the rest part that > cur digit and swap them.
+#  - If there is multiple such digits, always use the last one.
 class Solution:
     def maximumSwap(self, num: int) -> int:
         # a = list(map(int, str(num)))

@@ -1,3 +1,4 @@
+# Sliding window
 # T: O(n); S: O(k)
 class Solution:
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
@@ -7,8 +8,7 @@ class Solution:
         char_count = collections.defaultdict(int)  # map<char, count> in the sliding window
         start, end = 0, -1
         res = 0
-        for i in range(len(s)):
-            c = s[i]
+        for i, c in enumerate(s):
             char_count[c] += 1
             end += 1
 

@@ -1,3 +1,4 @@
+# "each letter appears in at most one part" -> Split s into substrings whose characters do not overlap.
 # We only need to keep tracking the last appearance of each letter.
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
