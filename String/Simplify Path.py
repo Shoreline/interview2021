@@ -7,14 +7,15 @@ class Solution:
         for seg in path.split("/"):
             if seg == "." or not seg:  # "." means current directory, so no need to do anything
                 continue
-
             # If the current component is a "..", then
             # we pop an entry from the stack if it's non-empty
             elif seg == "..":
                 if stack:
                     stack.pop()
+                else: # do nothing
+                    continue
             else:
                 stack.append(seg)  # found a normal directory name, add it to the stack
 
-        res = "/" + "/".join(stack)
+        res = "/" + "/".join(stack) # manually add the first '/'
         return res

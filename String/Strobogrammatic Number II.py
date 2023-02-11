@@ -1,15 +1,17 @@
 # There are limited strobogrammatic pairs:
 #   ("0", "0"), ("1", "1"), ("6", "9"), ("8", "8"), ("9", "6")
-# To expand an existing strobogrammatic number, attach the numbers in each pair to head and tail
-# Note that in the end we cant' a strobogrammatic number can't start with 0 or end with 0, unless
+# To expand an existing strobogrammatic number, attach the numbers in each stro-pair to head and tail
+# Note that in the end a strobogrammatic number can't start with 0 or end with 0, unless
 # the number itself is just 0
+#
+# 3 base cases!
 class Solution:
     def findStrobogrammatic(self, n: int) -> List[str]:
 
         # The helper function is almost the same as findStrobogrammatic(), but doesn't
-        # check for invlid cases of "0"
+        # check for invalid cases of "0"
         def helper(n):
-            # Base cases
+            # 3 base cases
             if n == 0:
                 return []
             if n == 1:
@@ -18,12 +20,12 @@ class Solution:
                 return ['00', '11', '88', '69', '96']
 
             res = []
-            for s_num in helper(n - 2):
-                res.append('0' + s_num + '0')
-                res.append('1' + s_num + '1')
-                res.append('8' + s_num + '8')
-                res.append('6' + s_num + '9')
-                res.append('9' + s_num + '6')
+            for stro_num in helper(n - 2):
+                res.append('0' + stro_num + '0')
+                res.append('1' + stro_num + '1')
+                res.append('8' + stro_num + '8')
+                res.append('6' + stro_num + '9')
+                res.append('9' + stro_num + '6')
 
             return res
 
@@ -31,7 +33,9 @@ class Solution:
         # s_num = 0 is a corner case
         res = []
         for s_num in helper(n):
-            if (s_num[0] != '0' and s_num[-1] != '0') or s_num == '0':
+            if s_num[0] == '0' and s_num != '0':
+                continue
+            else:
                 res.append(s_num)
 
         return res
