@@ -10,33 +10,35 @@
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
         transfer = {}  # state transfer map <(current_state_id, char), next_state_id>
-        state = 0  # state id.
+        state_id = 0  # state id.
 
         # 1) Construct state transfer map
         for char in p:
             if char == '*':
                 # Not going to the next state since * is reusable. So it means we can stay
                 # at this state
-                transfer[state, char] = state
+                transfer[(state_id, char)] = state_id
             else:
-                transfer[state, char] = state + 1  # else, takes us to the next state
-                state += 1
+                transfer[(state_id, char)] = state_id + 1  # else, takes us to the next state
+                state_id += 1
 
         # One state is pointed from an earlier state. So if you can reach the final state, you can reach every single
         # earlier state
-        accept = state  # final state
+        accept = state_id  # final state
         states = {0}  # Reachable states at this round
 
         # for char in s:
         #     states = {transfer.get((at, token)) for at in states if at is not None for token in (char, '*', '?')}
         for char in s:
             next_states = set()  # reachable states of the next round
-            for token in [char, '*', '?']:
-                for state in states:
-                    next_state = transfer.get((state, token))  # check if (state, token) can get us to the next state
-                    if next_state is not None:  # if this next state exists
+            for token in [char, '*', '?']: # 3 possibilities for having a match in p for the given char
+                for state_id in states:
+                    next_state = transfer.get((state_id, token))  # check if (state, token) can get us to the next state
+                    if next_state is not None:  # if this next state exists. NOTE: "if next_state" fails!
                         next_states.add(next_state)
 
+            if not next_states:
+                return False
             states = next_states
 
         return accept in states  # see if we can reach the final state of the given pattern from input s
