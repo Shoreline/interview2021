@@ -41,7 +41,7 @@ class Solution:
         res = []
         stack = []
         cur = root
-        while cur != None or stack:
+        while cur or stack:
             if cur:
                 stack.append(cur)
                 cur = cur.left

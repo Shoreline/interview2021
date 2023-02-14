@@ -5,13 +5,17 @@
 #         self.left = left
 #         self.right = right
 
-# The helper function does two things 1) computes the maximum path sum of root's subtrees (either left or right subtree);
-# 2) returns the maximum sum if "using node as part of the path sum of super-tree that includes the sub-tree rooting on node
+# The helper function does two things
+#   1) computes the maximum path sum of root's subtrees (either left or right subtree);
+#   2) returns the maximum sum if "using node as part of the path sum of super-tree that includes the sub-tree rooting
+#      on node
 class Solution:
     def maxPathSum(self, root: TreeNode) -> int:
         self.res = float('-inf')
 
-        # Returns the maximum path sum of root's subtrees (either left or right subtree)
+        # Returns the maximum path sum starting at root
+        # - If path is not empty, root must be included in this path.
+        # - Or, path is empty, then the path sum is 0.
         def helper(root: TreeNode) -> int:
             if not root:
                 return 0

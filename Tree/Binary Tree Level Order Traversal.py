@@ -1,5 +1,3 @@
-# Do level traverse, maintains a map of <col_val, [list node_val]>
-
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,22 +5,67 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
 
-        cols = collections.defaultdict(list)
-        q = deque([(root, 0)])  # queue saves a tuple of (node, column_value)
-        while q:  # Column_value is enough to tell vertical order, no need to have delimiter
-            node, col_val = q.popleft()
-            cols[col_val].append(node.val)
+        res = []
+        queue = deque([root])
+        while queue:
+            tmp = []
+            for i in range(len(queue)):
+                node = queue.popleft()
+                tmp.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            res.append(tmp)
 
-            if node.left:
-                q.append((node.left, col_val - 1))
-            if node.right:
-                q.append((node.right, col_val + 1))
+        return res
+# class Solution:
+#     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+#         if not root:
+#             return []
+#
+#         res = []
+#         cur_lvl = [root]
+#         next_lvl = []
+#         while cur_lvl:
+#             tmp = []
+#             for node in cur_lvl:
+#                 tmp.append(node.val)
+#                 if node.left:
+#                     next_lvl.append(node.left)
+#                 if node.right:
+#                     next_lvl.append(node.right)
+#             res.append(tmp[:])
+#             cur_lvl = next_lvl
+#             next_lvl = []
+#
+#         return res
 
-        return [cols[i] for i in sorted(cols)]
+# class Solution:
+#     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+#         if not root:
+#             return []
+#
+#         res = []
+#         cur_lvl = [root]
+#         next_lvl = []
+#         while cur_lvl:
+#             tmp = []
+#             for node in cur_lvl:
+#                 if node:
+#                     tmp.append(node.val)
+#                     next_lvl.append(node.left)
+#                     next_lvl.append(node.right)
+#             if tmp:  # easy to mistakenly insert empty tmp list
+#                 res.append(tmp[:])
+#             cur_lvl = next_lvl
+#             next_lvl = []
+#
+#         return res
 
     # class Solution:
 #     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:

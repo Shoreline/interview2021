@@ -32,3 +32,23 @@ class Solution:
 
         helper([root])
         return res
+
+# class Solution:
+#     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
+#         if not root:
+#             return []
+#
+#         res = []
+#         queue = deque([root])
+#         while queue:
+#             tmp = []
+#             for i in range(len(queue)):
+#                 node = queue.popleft()
+#                 tmp.append(node.val)
+#                 if node.left:
+#                     queue.append(node.left)
+#                 if node.right:
+#                     queue.append(node.right)
+#             res.append(tmp)
+#
+#         return reversed(res)
