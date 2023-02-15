@@ -42,13 +42,13 @@ class Solution:
         stack = []
         cur = root
         while cur or stack:
-            if cur:
-                stack.append(cur)
-                cur = cur.left
-            else:
+            if not cur:
                 cur = stack.pop()
                 res.append(cur.val)
                 cur = cur.right
+            else:
+                stack.append(cur)
+                cur = cur.left
 
         return res
 

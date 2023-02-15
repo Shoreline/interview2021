@@ -20,18 +20,32 @@
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
-        stack = [root]
-
-        while stack:
-            root = stack.pop()
-            if root:
-                res.append(root.val)
-
-                # First push the node you want to pop later
-                stack.append(root.right)
-                stack.append(root.left)
-
+        stack = []
+        cur = root
+        while cur or stack:
+            if not cur:
+                cur = stack.pop()
+            res.append(cur.val)
+            if cur.right:
+                stack.append(cur.right)
+            cur = cur.left
         return res
+
+# class Solution:
+#     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+#         res = []
+#         stack = [root]
+#
+#         while stack:
+#             root = stack.pop()
+#             if root:
+#                 res.append(root.val)
+#
+#                 # First push the node you want to pop later
+#                 stack.append(root.right)
+#                 stack.append(root.left)
+#
+#         return res
 
 # Moris traversal
 # class Solution:

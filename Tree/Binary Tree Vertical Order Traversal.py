@@ -8,13 +8,29 @@
 #         self.right = right
 class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+
         cols = collections.defaultdict(list)
         queue = [(root, 0)]  # queue saves a tuple of (node, column_value)
-        for node, i in queue:  # Column_value is enough to tell vertical order, no need to have delimiter
-            if node:
-                cols[i].append(node.val)
-                queue += (node.left, i - 1), (node.right, i + 1)
-        return [cols[i] for i in sorted(cols)]
+        # x is the x-axis value
+        for node, x in queue:  # Column_value is enough to tell vertical order, no need to have delimiter
+            cols[x].append(node.val)
+            if node.left:
+                queue.append((node.left, x - 1)) # add left first to keep order
+            if node.right:
+                queue.append((node.right, x + 1))
+
+        return [cols[x] for x in sorted(cols)]
+# class Solution:
+#     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+#         cols = collections.defaultdict(list)
+#         queue = [(root, 0)]  # queue saves a tuple of (node, column_value)
+#         for node, i in queue:  # Column_value is enough to tell vertical order, no need to have delimiter
+#             if node:
+#                 cols[i].append(node.val)
+#                 queue += (node.left, i - 1), (node.right, i + 1)
+#         return [cols[i] for i in sorted(cols)]
 
 # ?
 # class Solution:
