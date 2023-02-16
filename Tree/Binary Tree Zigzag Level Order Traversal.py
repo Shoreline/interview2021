@@ -10,31 +10,53 @@ from collections import deque
 
 class Solution:
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        res = []
         if not root:
-            return res
-
-        q = deque([root])
-        order = True
-        while q:
-            cur_lvl_len = len(q)
-            next_lvl = []
-            for i in range(cur_lvl_len):
-                node = q.popleft()
-                next_lvl.append(node.val)
-
+            return []
+        queue = deque([root])
+        res = []
+        while queue:
+            size = len(queue)
+            for i in range(size):
+                node = queue.popleft()
+                if i == 0:
+                    res.append([])
+                res[-1].append(node.val)
                 if node.left:
-                    q.append(node.left)
+                    queue.append(node.left)
                 if node.right:
-                    q.append(node.right)
-
-            if order:
-                res.append(next_lvl)
-            else:
-                res.append(next_lvl[::-1])
-            order = not order
+                    queue.append(node.right)
+            if len(res) % 2 == 0:
+                res[-1] = reversed(res[-1])
 
         return res
+
+# class Solution:
+#     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+#         res = []
+#         if not root:
+#             return res
+#
+#         q = deque([root])
+#         order = True
+#         while q:
+#             cur_lvl_len = len(q)
+#             next_lvl = []
+#             for i in range(cur_lvl_len):
+#                 node = q.popleft()
+#                 next_lvl.append(node.val)
+#
+#                 if node.left:
+#                     q.append(node.left)
+#                 if node.right:
+#                     q.append(node.right)
+#
+#             if order:
+#                 res.append(next_lvl)
+#             else:
+#                 res.append(next_lvl[::-1])
+#             order = not order
+#
+#         return res
 
 # Use two stacks
 # O(n) / O(n)
