@@ -5,6 +5,7 @@
 #         self.left = left
 #         self.right = right
 
+# Note that values in postorder[] and inorder[] are set to be unique
 # Key: build map<value, index> of the inorder traversal array
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:

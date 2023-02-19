@@ -5,17 +5,17 @@
 #         self.left = left
 #         self.right = right
 
-# Note that values in preorder[] and inorder[] must be unique
+# Note that values in preorder[] and inorder[] are set to be unique
 # 1) The first element in preorder[] is the root of the tree
 # 2) In inorder[], values before the root are the nodes of the left subtree; values after are the right subtree
 # So, the key is to find the root, and then find the index of the root in inorder[]
 
 # /*
-#  * Keep track of the index range of current sub-tree in int[] preorder and int[]
+#  * Keep track of the index range of current subtree in int[] preorder and int[]
 #  * inorder.
 #  *
 #  * Each time being invoked, the helper method build the root node of current
-#  * sub-tree, then call itself twice to continuously build root.left and
+#  * subtree, then call itself twice to continuously build root.left and
 #  * root.right
 #  */
 
