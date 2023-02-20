@@ -8,15 +8,11 @@
 # 1. Tree serialization: BFS or DFS
 # 2. For DFS of a binary tree, we know three ways: pre/in/post order traversal
 # 3. Pick DFS pre-order traversal. Since it also saves linkage sequences
-# list.pop(0) costs O(1)?
+# list.pop() costs O(1)
+
+# Pre-order to serialize, reversed-pre-order to deserialize.
 class Codec:
     def serialize(self, root):
-        """Encodes a tree to a single string.
-
-        :type root: TreeNode
-        :rtype: str
-        """
-
         def preorder(root, tmp: list[str]):
             if not root:
                 tmp.append('None,')
@@ -30,24 +26,21 @@ class Codec:
         return ''.join(res)
 
     def deserialize(self, data: string):
-        """Decodes your encoded data to tree.
-
-        :type data: str
-        :rtype: TreeNode
-        """
-
-        def preorder(data_list: list[string]):
+        def reversed_preorder(data_list: list[string]):
             if data_list[-1] == 'None':
                 data_list.pop()
                 return None
 
             node = TreeNode(data_list.pop())
-            node.left = preorder(data_list)
-            node.right = preorder(data_list)
+            node.left = reversed_preorder(data_list)
+            node.right = reversed_preorder(data_list)
 
             return node
 
-        return preorder(data.split(',')[::-1])
+        # data list is reversed!
+        # reversed(data) is not a list, but a list_reverseiterator object!
+        # data.split(',').reverse() is also wrong, since it does not return a list!
+        return reversed_preorder(data.split(',')[::-1])
 
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()
