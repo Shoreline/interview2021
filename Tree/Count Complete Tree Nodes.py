@@ -1,6 +1,8 @@
-# Compare the depth between left sub tree and right sub tree.
-# A, If it is equal, it means the left sub tree is a perfect  binary tree
-# B, It it is not, it means the right sub tree is a perfect  binary tree
+# We are told that the given tree is complete.
+# Compare the depth between left subtree and right subtree.
+#   - Here the leftmost node is always the deepest node (nature of complete tree).
+# A, If it is equal, it means the left subtree is a perfect binary tree
+# B, If it is not equal, it means the left subtree is 1-level deeper, and the right subtree is a perfect binary tree
 #
 # O(log(n) * log(n))
 
@@ -16,7 +18,7 @@ class Solution:
         if not root:
             return 0
 
-        # find the depth of a tree
+        # find the depth of a complete tree
         def findDepth(root: Optional[TreeNode]) -> int:
             if not root:
                 return 0
@@ -29,4 +31,4 @@ class Solution:
             # It is actually 1 (root) + [2^left_depth - 1] (left sub tree) + count(right sub tree)
             return pow(2, left_depth) + self.countNodes(root.right)
         else:
-            return self.countNodes(root.left) + pow(2, right_depth)
+            return pow(2, right_depth) + self.countNodes(root.left)

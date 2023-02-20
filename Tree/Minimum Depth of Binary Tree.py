@@ -16,7 +16,8 @@ class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
-
+        # if one child is None but the other child is not, then the depth including root is 1 + minDepth(non_none_child)
+        # if both children are None, then return 1
         if root.left and root.right:
             return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
         else:

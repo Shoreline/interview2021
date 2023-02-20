@@ -47,7 +47,7 @@ class Solution:
                 res.append(cur.val)
                 cur = cur.right
             else:
-                stack.append(cur)
+                stack.append(cur) # not cur.left nor cur.right!
                 cur = cur.left
 
         return res

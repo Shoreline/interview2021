@@ -8,7 +8,8 @@
 # Find the longest path between any two nodes in a tree.
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        # returns the maximum depth starting from the input node
+        # returns the depth starting from the input node
+        # Depth = maximum layer count
         def helper(root: Optional[TreeNode]) -> int:
             nonlocal res
             if not root:
@@ -16,15 +17,17 @@ class Solution:
             left = helper(root.left)
             right = helper(root.right)
 
-            # 1 + left/right: use node's ascendant as part of the path
-            # 1 + left + right: don't use node's ascendant as part of the path
-            res = max(res, 1 + left, 1 + right, 1 + left + right)
+            # When depth is left, the path length is left - 1.
+            # And there is one from root.left to root. So total left - 1 + 1
+            # Same for the right subtree
+            # length = (left - 1) 1 + (right - 1) + 1 = left + right
+            res = max(res, left + right)
 
             return 1 + max(left, right)
 
         res = 0
         helper(root)
-        return res - 1  # -1 since res is the number of nodes.
+        return res
 
 # class Solution:
 #     def diameterOfBinaryTree(self, root: TreeNode) -> int:

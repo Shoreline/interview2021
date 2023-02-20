@@ -4,30 +4,61 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+# Similar to iterative way to do pre-order traverse.
+# This time, instead of simply appending cur node's value to a list,
 class Solution:
-    def flatten(self, root: TreeNode) -> None:
-
-        # flatten the subtree rooted at root, and return the rightmost node (so we can use the rightmost node to connenct the other subtree)
-        def helper(root: TreeNode) -> TreeNode:
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        pre_head = TreeNode()
+        tail = pre_head
+        stack = []
+        while root or stack:
             if not root:
-                return None
-            elif not (root.left or root.right):  # if both left and right are none (root is a leaf node)
-                return root
+                root = stack.pop()
 
-            left_rightmost = helper(root.left)  # rightmost node of the left subtree
-            right_rightmost = helper(root.right)
+            # Processing part 1.
+            # For traverse, the only processing is to add root.val to res[]. But this time things are more complicated.
+            tail.right = root
 
-            if left_rightmost:  # if left subtree exists, move it to between root and root.right
-                left_rightmost.right = root.right
-                root.right = root.left
+            # Moving the pointer.
+            if root.right:
+                stack.append(root.right)
+            root = root.left
 
-            root.left = None
-            if right_rightmost:
-                return right_rightmost
-            else:
-                return left_rightmost
+            # Processing part 2
+            tail.left = None
+            tail = tail.right
 
-        helper(root)
+        return pre_head.right
+
+# class Solution:
+#     def flatten(self, root: TreeNode) -> None:
+#
+#         # flatten the subtree rooted at root, and return the rightmost node (so we can use the rightmost node to
+#         # connect the other subtree)
+#         def helper(root: TreeNode) -> TreeNode:
+#             if not root:
+#                 return None
+#             elif not (root.left or root.right):  # if both left and right are none (root is a leaf node)
+#                 return root
+#
+#             left_rightmost = helper(root.left)  # rightmost node of the left subtree
+#             right_rightmost = helper(root.right)
+#
+#             if left_rightmost:  # if left subtree exists, move it to between root and root.right
+#                 left_rightmost.right = root.right
+#                 root.right = root.left
+#
+#             root.left = None
+#             if right_rightmost:
+#                 return right_rightmost
+#             else:
+#                 return left_rightmost
+#
+#         helper(root)
 
 # class Solution:
 #     def flatten(self, root: TreeNode) -> None:

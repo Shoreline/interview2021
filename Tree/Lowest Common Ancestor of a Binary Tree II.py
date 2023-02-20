@@ -5,17 +5,28 @@
 #         self.left = None
 #         self.right = None
 
-# Note that p and q may NOT exist in the tree
-# Key: keep traversing before returnning anything
+# All values are unique!
+#
+# Note that this solution does NOT assume p and q always exist in the tree
+# Key: Traverse both subtrees before returning anything
+#
+# Time Complexity: O(N)
+# Space Complexity: O(H), H is the height of the tree
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        def helper(root):
+
+        # Returns the LCA, or p/q node any of them is found
+        # We don't know what's returned (LCA, or simply just p or q) unless checking the self.count
+        #
+        # If root is p or q, returns root
+        # If root is the answer (LCA of p/q), returns root
+        # If any of the dependent node under root is p or q or LCA, returns that node
+        def find_and_count(root):
             if not root:
                 return None
 
-            # keep traversing no matter if root is either p or q
-            left = helper(root.left)
-            right = helper(root.right)
+            left = find_and_count(root.left)
+            right = find_and_count(root.right)
 
             if root.val == p.val or root.val == q.val:
                 self.count += 1
@@ -27,6 +38,9 @@ class Solution:
             return left if left else right
 
         self.count = 0
-        res = helper(root)
-        return res if self.count == 2 else None
+        res = find_and_count(root)
+        if res and self.count == 2:
+            return res
+        else:
+            return None
 

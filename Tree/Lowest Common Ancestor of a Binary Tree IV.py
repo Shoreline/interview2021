@@ -5,8 +5,10 @@
 #         self.left = None
 #         self.right = None
 
-# "All the nodes will exist in the tree"
-#
+# This time, find the LCA of not just two, but a set of nodes. (set size can be just 1)
+# "All the nodes will exist in the tree" !!! So we can still return root as long as root is one of the node in node set.
+# All Node.val are unique
+# All nodes[i] are distinct.
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', nodes: 'List[TreeNode]') -> 'TreeNode':
 

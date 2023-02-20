@@ -5,7 +5,7 @@
 #         self.left = None
 #         self.right = None
 
-# It is ganranteed that there is an answer
+# It is guaranteed that there is an answer
 # Note that we don't know which is bigger, p.val or q.val
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':

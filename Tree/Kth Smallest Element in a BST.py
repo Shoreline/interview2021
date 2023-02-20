@@ -23,23 +23,40 @@
 # s: O(H): stack has at most H elements
 
 class Solution:
-    def kthSmallest(self, root: TreeNode, k: int) -> int:
-        count = 0
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
 
-        def inorder(root: TreeNode) -> int:
-            nonlocal count
+        stack = []
+        while root or stack:
             if not root:
-                return None
+                root = stack.pop()
+                if k == 1:
+                    return root.val
+                k -= 1
+                root = root.right
+            else:
+                stack.append(root)
+                root = root.left
 
-            val = inorder(root.left)
-            if val != None:  # "if val" does not work
-                return val
-            count += 1
-            if count == k:
-                return root.val
-            return inorder(root.right)
+        return -1
 
-        return inorder(root)
+# class Solution:
+#     def kthSmallest(self, root: TreeNode, k: int) -> int:
+#         count = 0
+#
+#         def inorder(root: TreeNode) -> int:
+#             nonlocal count
+#             if not root:
+#                 return None
+#
+#             val = inorder(root.left)
+#             if val != None:  # "if val" does not work
+#                 return val
+#             count += 1
+#             if count == k:
+#                 return root.val
+#             return inorder(root.right)
+#
+#         return inorder(root)
 
     # class Solution:
 #     def kthSmallest(self, root: TreeNode, k: int) -> int:
