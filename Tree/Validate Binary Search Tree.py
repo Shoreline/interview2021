@@ -8,15 +8,26 @@
 # t and s: O(n)
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def helper(root: Optional[TreeNode], min_val: int, max_val: int) -> bool:
+
+        def helper(root, high, low):
             if not root:
                 return True
-            elif root.val <= min_val or root.val >= max_val:
+            if not low < root.val < high:
                 return False
-            else:
-                return helper(root.left, min_val, root.val) and helper(root.right, root.val, max_val)
+            return helper(root.left, root.val, low) and helper(root.right, high, root.val)
 
-        return helper(root, -float('inf'), float('inf'))
+        return helper(root, float('inf'), float('-inf'))
+# class Solution:
+#     def isValidBST(self, root: Optional[TreeNode]) -> bool:
+#         def helper(root: Optional[TreeNode], min_val: int, max_val: int) -> bool:
+#             if not root:
+#                 return True
+#             elif root.val <= min_val or root.val >= max_val:
+#                 return False
+#             else:
+#                 return helper(root.left, min_val, root.val) and helper(root.right, root.val, max_val)
+#
+#         return helper(root, -float('inf'), float('inf'))
 
 # a wrong example, easy to make such mistake
 # class Solution:

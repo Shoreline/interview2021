@@ -26,12 +26,12 @@ class Solution:
         dfs(root, 0, 0)
         res = []
         for i in sorted(col_values):  # sorted(col_values) returns a sorted list of keys in col_values
-            col_values[
-                i].sort()  # sort a list of [(row1,val1), (row2,val2)...]. Sorting compares all first elements, then the 2nd.
+            # sort a list of [(row1,val1), (row2,val2)...]. Sorting compares all first elements, then the 2nd.
+            col_values[i].sort()
             res.append([val for row, val in col_values[i]])
         return res
 
-    # wrong answer. can't simply sort all values in a vertical, but first sort by row number, then for the same row number sort by value
+# wrong answer. can't simply sort all values in a vertical, but first sort by row number, then for the same row number sort by value
 # import collections
 # class Solution:
 #     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
