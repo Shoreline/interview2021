@@ -1,4 +1,5 @@
-# Label each island: by giving them a unique value
+# Fill island with its island_id (instead of its area).
+#   Save island area in a <island_id, area> map.
 # 1. Explore every island using DFS, count its area, replace its cell value with another "island_index" and save the
 # result to a {index: area} map.
 # 2. Loop every cell == 0, check its connected islands and calculate total islands' area.

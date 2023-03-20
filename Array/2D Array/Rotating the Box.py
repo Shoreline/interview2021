@@ -10,8 +10,32 @@
 
 # possible_cell and i are two pointers row[possible_cell] is a POSSIBLE empty cell, but not necessarily true. It is on
 # the left of a certainly not available cell (obstacle or dropped stone)
-
 class Solution:
+    def rotateTheBox(self, box: List[List[str]]) -> List[List[str]]:
+        for i in range(len(box)):
+            pos = len(box[0]) - 1  #
+            for j in range(len(box[0]) - 1, -1, -1):
+                if box[i][j] == '.':
+                    continue
+                elif box[i][j] == '#':
+                    while pos > j and box[i][pos] != '.':
+                        pos -= 1
+                    if box[i][pos] == '.':
+                        box[i][pos] = '#'
+                        box[i][j] = '.'
+                else:  # box[i][j] == '*', obstacle
+                    pos = j
+
+        res = []
+        for j in range(len(box[0])):
+            col = []
+            for i in range(len(box) - 1, -1, -1): # up side down
+                col.append(box[i][j])
+            res.append(col)
+
+        return res
+
+class Solution2:
     def rotateTheBox(self, box: List[List[str]]) -> List[List[str]]:
         for row in box:  # each row can be processed separately
             avl_ptr = len(row) - 1  # actually it's the potential available spot

@@ -4,6 +4,7 @@
 #   house is one of the houses.
 # From houses to reach empty land -> faster when there are fewer houses than land
 
+# Create a m * n array to save min_dist from each empty land to all buildings
 from collections import deque
 
 

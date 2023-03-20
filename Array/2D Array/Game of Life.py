@@ -1,6 +1,16 @@
 # T: O(m * n)
 # S: O(1)
 
+# Note that we only need to evaluate the very next stage!
+#   No need to repeatedly run.
+#
+# cur round live: abs(cell) == 1
+#   cur round live and next round live: 1 # unchanged
+#   cur round live and next round dead: -1
+#
+# cur round dead: abs(cell) != 1
+#   cur round dead and next round live: 2
+#   cur round dead and next round dead: 0 # unchanged
 class Solution:
     def gameOfLife(self, board: List[List[int]]) -> None:
         neighbors = [(1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1)]
