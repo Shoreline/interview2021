@@ -1,8 +1,35 @@
+# BFS from each gate
 # Avoid duplicate adding the same node to queue -> use tobe_visited(), not visited()!
 from collections import deque
 
 
 class Solution:
+    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+        """
+        Do not return anything, modify rooms in-place instead.
+        """
+        m, n = len(rooms), len(rooms[0])
+        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+        for i in range(len(rooms)):
+            for j in range(len(rooms[0])):
+                if rooms[i][j] != 0:
+                    continue
+                queue = deque([(i, j)])
+
+                while queue:
+                    size = len(queue)
+                    for _ in range(size):
+                        x, y = queue.popleft()
+                        for dx, dy in directions:
+                            if 0 <= x + dx < m and 0 <= y + dy < n and rooms[x][y] + 1 < rooms[x + dx][y + dy]:
+                                # Set new cell val while adding in to queue, not while populating it from queue!
+                                # Otherwise it's inefficient and TLE
+                                rooms[x + dx][y + dy] = rooms[x][y] + 1
+                                queue.append((x + dx, y + dy))
+
+        return
+
+class Solution2:
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
         """
         Do not return anything, modify rooms in-place instead.
@@ -34,34 +61,7 @@ class Solution:
                             lvl_len, next_lvl_len = next_lvl_len, 0
                             dist += 1
 
-    # Don't use tobe_visited() set
-    def wallsAndGates2(self, rooms: List[List[int]]) -> None:
-        """
-        Do not return anything, modify rooms in-place instead.
-        """
 
-        m, n = len(rooms), len(rooms[0])
-        for i in range(m):
-            for j in range(n):
-                if rooms[i][j] == 0:
-                    queue = deque()
-                    queue.append((i, j))
-                    lvl_len, next_lvl_len = 1, 0  # lvl_len: size of this level. Increment step while a level is done.
-
-                    while queue:
-                        r, c = queue.popleft()
-                        lvl_len -= 1
-
-                        for x, y in [[1, 0], [-1, 0], [0, 1], [0, -1]]:
-                            if 0 <= r + x < m and 0 <= c + y < n and rooms[r + x][c + y] > 0 and rooms[r][c] + 1 < \
-                                    rooms[r + x][c + y]:
-                                # Important, set next room dist here! otherwise TLE, due to duplicated adding nodes to queue
-                                rooms[r + x][c + y] = rooms[r][c] + 1
-                                queue.append((r + x, c + y))
-                                next_lvl_len += 1
-
-                        if lvl_len == 0:
-                            lvl_len, next_lvl_len = next_lvl_len, 0
 
 # DFS: TLE, used to pass until a new test was added
 # class Solution:

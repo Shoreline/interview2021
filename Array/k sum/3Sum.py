@@ -1,3 +1,4 @@
+# Ask for non-duplicated value triplets (not index triplest!)
 # Time: O(nlogn + n^2) = O(n^2)
 # space: depending on the sorting algorithm. Python's sort() is O(n)? Merging sort?
 class Solution:
@@ -18,8 +19,8 @@ class Solution:
             while mid < high:
                 # avoid duplicates
                 # No need to do the same for nums[high]. Because after de-duplicating nums[low] and nums[mid], the sum
-                # of next nums[low] + nums[mid_2] must be different from sum(nums[low], nums[mid]), meaning a there can
-                # only be a different nums[high]
+                # of next nums[low] + nums[mid_2] must be different from sum(nums[low], nums[mid]), meaning that there
+                # can only have a different nums[high]
                 if mid > low + 1 and nums[mid] == nums[mid - 1]:
                     mid += 1
                     continue

@@ -9,17 +9,26 @@ class Solution:
         # <username, list<website>> map. We want website to be added by time sequence
         user_to_sitelist = collections.defaultdict(list)
         for t, u, w in sorted(zip(timestamp, username, website)):  # sort by time
-            user_to_sitelist[u].append(w)  # note that sites in sitelist can be duplicated
+            user_to_sitelist[u].append(w) # note that sites in sitelist can be duplicated
+
+        def get_combos(sitelist):
+            res = []
+            for i in range(len(sitelist) - 2):
+                for j in range(i+1, len(sitelist) - 1):
+                    for k in range(j + 1, len(sitelist)):
+                        res.append((sitelist[i], sitelist[j], sitelist[k])) # append a tuple. can't append a list.
+            return res
 
         # Count for all patterns (all combinations of every 3 sites), how many user visited it.
         patterns = Counter()  # key is a set of 3 sites
         for sites in user_to_sitelist.values():
-            unique_site_combos = set(itertools.combinations(sites, 3))
+            # unique_site_combos = set(itertools.combinations(sites, 3))
+            unique_site_combos = set(get_combos(sites))
             patterns.update(Counter(unique_site_combos))  # we are told each pattern has 3 sites
 
         # Two sorts: 1) sort by the counter's value; 2) sort by the key
-        # return max(sorted(patterns), key=patterns.get)
-        # return min(patterns, key=lambda k: (-patterns[k], k))
+        #return max(sorted(patterns), key=patterns.get) # sorted(patterns) return sorted keys in patterns.
+        #return min(patterns, key=lambda k: (-patterns[k], k))
         return min(patterns.items(), key=lambda x: (-x[1], x[0]))[0]
 
 # Here is the complete solution without explanation.
