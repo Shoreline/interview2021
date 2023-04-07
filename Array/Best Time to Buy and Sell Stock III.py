@@ -1,5 +1,22 @@
 # At most two [buy, sell] pairs (meaning you can only buy-sell once)
 # can only allow to do [buy, sell, buy, sell], cannot do [buy, buy, sell, sell]
+# Split the prices[] into two part, then sum up the simple maximum profit of each part.
+# The question  is, where to split. -> We don't actually need to track or return that.
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        costs = [float('inf')] * 2
+        profits = [0] * 2  # profits[i]: total max profit after i transactions
+
+        for i, price in enumerate(prices):
+            costs[0] = min(costs[0], price)
+            profits[0] = max(profits[0], price - costs[0])
+
+            costs[1] = min(costs[1], price - profits[0])
+            profits[1] = max(profits[1], price - costs[1])
+
+        return profits[-1]
+
 # Note: ok to do <= 2 transactions. So if the stock keeps going south then just return 0
 # [5, 85, 84, 105, 110] -> 106
 # 1st traction is not necessarily the most profitable transaction.
@@ -35,24 +52,24 @@
 # t2_profit: the maximal profit of selling the stock in transaction #2.
 # With the help of t2_cost as we prepared so far, we would find out the maximal profits with at most two transactions at
 # each step.
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        t1_cost, t2_cost = float('inf'), float('inf')
-        t1_profit, t2_profit = 0, 0
-
-        for price in prices:
-            # the best singular transaction (sofar)
-            t1_cost = min(t1_cost, price)
-            t1_profit = max(t1_profit, price - t1_cost)
-
-            # Compute the most profitable two-separated transactions
-            # For the 2nd transaction, the cost of a stock can be treated in this way:
-            # - Since I already got some profit from the first transaction, the cost of 2nd buy is cheaper FOR ME:
-            #       it will be price[i] - current_profit
-            t2_cost = min(t2_cost, price - t1_profit)  # t2_cost can be negative
-            t2_profit = max(t2_profit, price - t2_cost)
-
-        return t2_profit
+# class Solution:
+#     def maxProfit(self, prices: List[int]) -> int:
+#         t1_cost, t2_cost = float('inf'), float('inf')
+#         t1_profit, t2_profit = 0, 0
+#
+#         for price in prices:
+#             # the best singular transaction (sofar)
+#             t1_cost = min(t1_cost, price)
+#             t1_profit = max(t1_profit, price - t1_cost)
+#
+#             # Compute the most profitable two-separated transactions
+#             # For the 2nd transaction, the cost of a stock can be treated in this way:
+#             # - Since I already got some profit from the first transaction, the cost of 2nd buy is cheaper FOR ME:
+#             #       it will be price[i] - current_profit
+#             t2_cost = min(t2_cost, price - t1_profit)  # t2_cost can be negative
+#             t2_profit = max(t2_profit, price - t2_cost)
+#
+#         return t2_profit
 
 # General solution of for k transactions
 #
