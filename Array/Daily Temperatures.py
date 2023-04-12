@@ -12,8 +12,8 @@ class Solution:
         stack = []
         ans = [0] * n
         for i in range(n - 1, -1, -1):  # going from backwards
-            # Keep poping the stack until we find a day has higher temperature than today
-            # Keep poping -> keep going to check the later days (whose index get pushed into stack earlier)
+            # Keep popping the stack until we find a day has higher temperature than today
+            # Keep popping -> keep going to check the later days (whose index get pushed into stack earlier)
             while stack and temperatures[i] >= temperatures[stack[-1]]:
                 stack.pop()
             ans[i] = 0 if not stack else stack[-1] - i
