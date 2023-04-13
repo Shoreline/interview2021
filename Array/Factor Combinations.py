@@ -1,5 +1,6 @@
 # Note that the factors are set to be in the range [2, n - 1]
 #   In math, factors shall be [1, n]
+# [3,4] and [4,3] are the same, so only scan till int(sqrt(n)) + 1
 # factor doesn't have to be a prime!
 # factor can be reused.
 class Solution:

@@ -2,7 +2,7 @@
 # return a bool, whether a knows b
 # def knows(a: int, b: int) -> bool:
 
-# O(n). Keep checking one changeable candidate and ppl[i].
+# O(2n). Keep checking one changeable candidate and ppl[i].
 # We are told that there is at most ONE celebrity, making our lives much easier
 #   - if knows(a, b) = True: a is not a celebrity;
 #   - if knows(a, b) = False: b is not a celebrity
