@@ -3,6 +3,12 @@
 #  *
 #  * Because the smallest digit in this special 26-进制 mechanism is 1 instead of 0.
 #  */
+
+# A -> 1
+# B -> 2
+# C -> 3
+# ...
+# -> There is no 0! It's 1-based instead of 0-based. Need to do columnNumber -= 1 each round
 class Solution:
     def convertToTitle(self, columnNumber: int) -> str:
         res = []

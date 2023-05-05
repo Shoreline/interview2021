@@ -17,19 +17,17 @@ class Solution:
         dp1 = 0
         dp2 = 0
         for i in range(len(nums) - 1):
-            tmp = max(dp1 + nums[i], dp2)
-            dp1 = dp2
-            dp2 = tmp
-        res1 = dp2
+            tmp = max(dp1, dp2 + nums[i])
+            dp1, dp2 = tmp, dp1
+        res1 = dp1
 
         # Never rob the first house
         dp1 = 0
         dp2 = 0
         for i in range(1, len(nums)):
-            tmp = max(dp1 + nums[i], dp2)
-            dp1 = dp2
-            dp2 = tmp
-        res2 = dp2
+            tmp = max(dp1, dp2 + nums[i])
+            dp1, dp2 = tmp, dp1
+        res2 = dp1
 
         return max(res1, res2)
 

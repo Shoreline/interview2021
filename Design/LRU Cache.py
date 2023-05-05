@@ -1,4 +1,4 @@
-# Hashmap + double linkedlist
+# Hashmap + doubly linkedlist
 # Use a map of <key, node> to access nodes in O(1) time
 # Access sequence is obtained by maintaining a double linked list that always keeps nodes in the order of operate (put/get) time.
 # Build a refresh_head(key) function and call it everytime finish accessing a node.
@@ -72,9 +72,9 @@ class LRUCache():
             self.tail.next = None
 
 # # OrderedDict combines hashmap and linkedlist (in Java it's LinkedHashMap)
+#
 # from collections import OrderedDict
 # class LRUCache(OrderedDict): # inheritance in python: parent class is OrderedDict
-
 #     def __init__(self, capacity: int):
 #         self.capacity = capacity
 

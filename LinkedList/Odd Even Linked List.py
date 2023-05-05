@@ -10,29 +10,30 @@ class Solution:
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head:
             return None
-        odd = head
-        even = ListNode()  # dummy node
-        even_head = head.next
+
+        odd_tail = head # odd_head is fixed to be the head itself.
+        EVEN_HEAD = head.next  # constant, always the head of the even list
+        even_tail = ListNode()  # dummy node, also the prehead of the even list
 
         cur = head.next
         i = 2
         while cur:
             if i % 2 == 1:
-                odd.next = cur
+                odd_tail.next = cur
 
                 cur = cur.next
-                odd = odd.next
-                odd.next = None
+                odd_tail = odd_tail.next
+                odd_tail.next = None
             else:
-                even.next = cur
+                even_tail.next = cur
 
                 cur = cur.next
-                even = even.next
-                even.next = None
+                even_tail = even_tail.next
+                even_tail.next = None
 
             i += 1
 
-        odd.next = even_head  # head next is always the head of the even list
+        odd_tail.next = EVEN_HEAD  # head next is always the head of the even list
 
         return head
 

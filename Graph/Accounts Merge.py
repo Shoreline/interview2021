@@ -1,7 +1,8 @@
 # People with multiple accounts always use the same name to register.
 # Graph problem:
-#   Each person is a tree, all people are a forest
 #   Each account is a node, let its index in accounts to be its acct_id
+#   Each person is a cluster of nodes, all people are a forest
+#       Accounts of the same person are connected
 #   Each email is an edge -> build a map<email, list<connected_acct_id>> to save edge info
 #       One account can link to another account through their shared email address.
 #   For each account, do DFS to find out connected accounts (belonging to the same person), and return their email
