@@ -21,19 +21,21 @@ class Solution:
 
             res = []
             for word in wordDict:
-                if word == s: # find an exact match
-                    res.append(word)
-                elif not s.startswith(word):
+                if not s.startswith(word):
                     continue
+
+                if word == s:  # find an exact match
+                    res.append(word)
                 else:
                     resultOfTheRest = helper(s[len(word):])
                     for item in resultOfTheRest:
-                        res.append(word + ' ' + item) # add current word back to the head of each item
+                        res.append(word + ' ' + item)  # add current word back to the head of each item
+
             return res
 
-        return helper(s)   
+        return helper(s)
 
-# 2) Use our own map as the memory
+    # 2) Use our own map as the memory
 # class Solution:
 #     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
 #         return self.helper(s, wordDict, {})

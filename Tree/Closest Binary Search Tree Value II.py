@@ -11,7 +11,8 @@ class Solution:
 
         values = deque([])
 
-        # In-order traversal of a BST will give us a sorted array
+        # In-order traverse of a BST means keep adding node moronically based on their value
+        # So, just need to maintain a k-size sublist of the in-order traverse.
         # Note that values always keep a sorted set of values.
         def inorder(root):
             if not root:

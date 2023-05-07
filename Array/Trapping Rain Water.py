@@ -1,4 +1,4 @@
-# Two approching pointers
+# Two approaching pointers
 # - For any two columns, height[left] and height[right]. Assuming height[left] <= height[right]
 # - Then for any i in [left, right], we can save max(0, height[left] - height[i]) amount of water.
 # - if height[i] > height[left], let height[i] to be the new height[left]

@@ -1,6 +1,26 @@
 # 1) Backtracking + memoization
-# time: O(n^3), size of recursion tree can go up to n^2
-# space: O(n)
+# time: O(n^3), size of recursion tree can go up to n^2 ?
+#   Computing word[:i] takes O(N)
+# space: O(n): The depth of recursion tree can go up to n
+# T & S complexities are the same for dp and backtracking
+
+# T(n) = T(n-1) + 1 (substr)
+#        + T(n-2) + 2
+#        + T(n-3) + 3
+#        + ...
+#        + T(1) + n-1
+# The left side T(x) sums up to T(n-1) + n
+#   By the time to compute T(n-1), we have computed T(n-2), T(n-3)...
+#   with memorization, each t(n-x) takes O(1) time
+#
+# The right side is 1+2+...+n-1 = n^2.
+# Then we have T(n) = T(n-1) + n + n^2
+# = T(n-2) + (n-1) + (n-1)^2 + n + n^2
+# = ...
+# = T(1) + (1+2+...+n-1) + 1^2+2^2+3^2+...+n^2
+# = n^2 + (1^2 + 2^2 + ... + n^2)
+# According to math, 1^2 + 2^2 + ... + n^2 = n(n+1)(2n+1)/6
+# So we get T(n) = O(n^3).
 from functools import lru_cache
 
 class Solution:
@@ -18,7 +38,25 @@ class Solution:
             return False
         
         return breakable(s)
-    
+
+
+# class Solution:
+#     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+#         wordset = set(wordDict)
+#
+#         @lru_cache(None)
+#         def helper(pos):
+#             if pos == len(s):
+#                 return True
+#
+#             for i in range(pos + 1, len(s) + 1):
+#
+#                 if s[pos: i] in wordset and helper(i):
+#                     return True
+#             return False
+#
+#         return helper(0)
+
 # class Solution:
 #     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
 #         word_set = frozenset(wordDict)

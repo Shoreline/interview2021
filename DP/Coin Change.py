@@ -5,7 +5,8 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         dp = [float('inf')] * (amount + 1)
-        dp[0] = 0
+        dp[0] = 0 # Need 0 coins to get $0.
+
         for amt in range(amount + 1):
             for coin in coins:
                 if amt - coin >= 0:

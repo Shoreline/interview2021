@@ -8,8 +8,10 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         dp = [0] * (amount + 1)
-        dp[0] = 1
+        dp[0] = 1 # there is only one way to get $0
 
+        # Use a specific order for picking coins.
+        #   -> because order doesn't matter and we don't want to count different order twice
         for coin in coins:
             for amt in range(amount + 1):
                 # one way to get amt from amt - coin: amt - coin + coin
