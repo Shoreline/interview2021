@@ -1,9 +1,9 @@
 from collections import defaultdict
 from collections import OrderedDict
 
+
 class Node:
     def __init__(self, key, val, count):
-        self.key = key
         self.val = val
         self.count = count
 
@@ -15,11 +15,10 @@ class LFUCache:
         """
         self.cap = capacity
         self.key2node = {}
-        # When there is a tie (i.e., two or more keys with the same frequency), the least recently used key would be
-        # invalidated. -> Use OrderedDict for simplicity.
-        self.count2nodes = defaultdict(OrderedDict) # a map of ordered map: <count,OrderedDict<key,node>>
-        self.minCount = None
+        self.count2node = defaultdict(OrderedDict)
+        self.minCount = None  # tracks the least frequency count at the moment
 
+    # Also called in put() to update frequency count for a key
     def get(self, key):
         """
         :type key: int
@@ -29,18 +28,19 @@ class LFUCache:
             return -1
 
         node = self.key2node[key]
-        del self.count2nodes[node.count][key]
 
-        # clean up empty counts
-        if not self.count2nodes[node.count]:
-            del self.count2nodes[node.count]
+        # clean memory (optional)
+        # if not self.count2node[node.count]:
+        #     del self.count2node[node.count]
 
-        node.count += 1
-        self.count2nodes[node.count][key] = node
-
-        # NOTICE check minCount!!!
-        if not self.count2nodes[self.minCount]:
+        # Update minCount if this node is the only node having minCount
+        if node.count == self.minCount and len(self.count2node[node.count]) == 1:
             self.minCount += 1
+
+        # To update count2node map (map of map), we have to remove the existing item first
+        del self.count2node[node.count][key]
+        node.count += 1
+        self.count2node[node.count][key] = node
 
         return node.val
 
@@ -61,11 +61,11 @@ class LFUCache:
         if len(self.key2node) == self.cap:
             # popitem(last=False) is FIFO, like queue
             # it return key and value!!!
-            k, n = self.count2nodes[self.minCount].popitem(last=False) # By default last=True
+            k, n = self.count2node[self.minCount].popitem(last=False)
             del self.key2node[k]
 
-        self.count2nodes[1][key] = self.key2node[key] = Node(key, value, 1)
-        self.minCount = 1
+        self.count2node[1][key] = self.key2node[key] = Node(key, value, 1)
+        self.minCount = 1  # new iteam, so new least frequency count is 1.
         return
 
 # Your LFUCache object will be instantiated and called as such:

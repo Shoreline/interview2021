@@ -15,7 +15,7 @@
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
 
-        # Returns the LCA, or p/q node any of them is found
+        # Returns one of the {LCA, p, q} node
         # We don't know what's returned (LCA, or simply just p or q) unless checking the self.count
         #
         # If root is p or q, returns root
@@ -25,6 +25,7 @@ class Solution:
             if not root:
                 return None
 
+            # Need to anyway traverse left and right subtrees
             left = find_and_count(root.left)
             right = find_and_count(root.right)
 
