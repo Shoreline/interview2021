@@ -1,6 +1,6 @@
 # Each node has two pointers:
 #    one to the next node in the same level
-#    the other to the its counterpart (node with same value) in the next level
+#    the other to its counterpart (node with same value) in the next level
 class Node:
     def __init__(self, val):
         self.val = val

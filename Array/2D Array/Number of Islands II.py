@@ -24,14 +24,14 @@ class Solution:
 
             # Tries to unite two input cells.
 
-        #   Note that we only call this function for two neighboring cells.
+        # Note that we only call this function for two neighboring cells.
         # If they already belong to the same island, returns False
         def union(c1, c2):
             pa1, pa2 = find(c1), find(c2)
             if pa1 == pa2:  # union fail, cells are already in the same union.
                 return False
 
-            cell_paths[pa1] = pa2  # connect two representative cells
+            cell_paths[pa1] = pa2  # connect two islands. cell_paths[pa2] = pa1 also works
             return True
 
         land, cell_paths, count = set(), {}, 0

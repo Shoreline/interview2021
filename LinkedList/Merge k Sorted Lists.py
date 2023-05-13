@@ -5,7 +5,7 @@
 #         self.next = next
 import queue
 
-
+# priority queue with tiebreaker
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
         pre_head = tail = ListNode(0)
@@ -26,7 +26,7 @@ class Solution:
         return pre_head.next
 
 
-# Heap alternative 1: tiebreaker
+# Heap alternative 1: heap with tiebreaker
 # class Solution:
 #     def mergeKLists(self, lists: List[ListNode]) -> ListNode:
 #         heap = []
