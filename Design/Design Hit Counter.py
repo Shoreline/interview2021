@@ -20,7 +20,7 @@
 
 # Follow up: What if the number of hits per second could be huge? Does your design scale?
 # Still use a queue, but queue element becomes [timestamp, hit_count]; also add a total_hit_counter
-# T and S for getHits() is still O(n), same as before. But that's worst case, on avarage both time and space is improved
+# T and S for getHits() is still O(n), same as before. But that's worst case, on average both time and space is improved
 from collections import deque
 
 
