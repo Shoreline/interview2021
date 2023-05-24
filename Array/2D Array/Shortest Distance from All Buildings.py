@@ -1,5 +1,7 @@
 # Similar to best meeting point, but 1) this problem has obstacles; 2) can only build (meet) on empty land
 # BFS, use queue
+# T: O(M^2 * N^2) Do m*n times of BFS, each takes m*n
+# S: O(M * N)
 # Compute the shortest total dist of each empty land to ALL buildings (sum(min_dist(a_land, house)))
 #   house is one of the houses.
 # From houses to reach empty land -> faster when there are fewer houses than land

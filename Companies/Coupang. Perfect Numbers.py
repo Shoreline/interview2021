@@ -9,7 +9,7 @@ from functools import lru_cache
 
 def perfectNumbers(n):
 
-    s = set([1])
+    s = set([1]) # all values that val is computed from i^m where i >= 1 and m >= 2 and val < n
 
     # For 1,000,000: maximum recursion depth exceeded in comparison
     # @lru_cache(None)
@@ -30,16 +30,32 @@ def perfectNumbers(n):
             y += 1
 
 
-    # print(s)
-    res = []
-    for num in range(n+1):
-        for i in s:
-            if num - i in s:
-                res.append(num)
-                # num is already a perfect number. We don't need to return all possible ways to get one perfect number.
-                break
+    print("s size: ", len(s))
+#    print(s)
+    # Slow!
+    # res = set()
+    # for num in range(n+1):
+    #     for i in s:
+    #         if num - i in s:
+    #             res.add(num)
+    #             # num is already a perfect number. We don't need to return all possible ways to get one perfect number.
+    #             break
 
+    res = set()
+    for x in s:
+        for y in s:
+            if x + y <= n:
+                res.add(x + y)
+            # else:
+            #     break
+
+    # print(len(res), len(res2))
+    # print('res', res)
+    # print('res2', res2)
     return res
 
+#perfectNumbers(10)
+
+#print(perfectNumbers(10))
 # 1e6: 283676, takes ~20s to finish
 print(len(perfectNumbers(1000000)))

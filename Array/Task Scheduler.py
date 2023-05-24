@@ -1,4 +1,4 @@
-# total time = num_tasks + min_idle_time
+# total time = num_tasks + min_idle_time (since "Each task is done in one unit of time." )
 #   min_idle_time = max_idle_time - fillable_tasks
 #   max_idle_time = (f_max - 1) * n
 # O(n) time O(n) space
