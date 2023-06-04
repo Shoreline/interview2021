@@ -1,3 +1,8 @@
+# Two maps
+# <key, (val, count)>
+# <count, OrderedDict<key, (val, count)>>
+# If don't use OrderedDict, we can also use doubly linked list (add self.pre and self.next to Node class)
+
 from collections import defaultdict
 from collections import OrderedDict
 

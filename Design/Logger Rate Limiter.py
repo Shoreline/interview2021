@@ -1,7 +1,7 @@
 class Logger:
 
     def __init__(self):
-        self.thresholds = {}
+        self.thresholds = {} # map<message, allowed_max_timestamp>
 
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
         if timestamp < self.thresholds.get(message, 0):

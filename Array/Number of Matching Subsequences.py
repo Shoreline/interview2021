@@ -1,4 +1,4 @@
-# Since length of string s is big, let's think a way to iterate chracters in string s once.
+# Since length of string s is big, let's think a way to iterate characters in string s once.
 # We can group words into buckets by their starting character.
 # Then we iterate characters c in string s, we process words in bucket[c] by trimming their starting character:
 #   If the word after trimming is empty -> then it's a subsequence of string s -> ans += 1.
@@ -9,7 +9,9 @@
 class Node:
     def __init__(self, word):
         self.word = word
-        self.index = 0
+        # current pointer. Pointing to the next unseen character of self.word.
+        # If all characters have been seen, then self.word is a matching word.
+        self.cur_pos = 0
 
 class Solution:
     def numMatchingSubseq(self, s: str, words: List[str]) -> int:
@@ -23,10 +25,10 @@ class Solution:
             currBucket = buckets[c]
             buckets[c] = []
             for node in currBucket:
-                node.index += 1  # Point to next character of node.word
-                if node.index == len(node.word):
+                node.cur_pos += 1  # Point to next character of node.word
+                if node.cur_pos == len(node.word):
                     ans += 1
                 else:
-                    startingChar = node.word[node.index]
+                    startingChar = node.word[node.cur_pos]
                     buckets[startingChar].append(node)
         return ans

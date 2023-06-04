@@ -45,11 +45,11 @@ class Skiplist:
             itr_res[i].next = node
             prev = node
 
-            # Keep a 1/2 chance of countinue adding this value to one level upper
+            # Keep a 1/2 chance of continue adding this value to one level upper
             if random.random() > 0.5:
                 break
 
-    # If num to be ereased does not exist, returns False
+    # If num to be erased does not exist, returns False
     def erase(self, num: int) -> bool:
         itr_res = self._iter(num)
         # If not found, just return False
@@ -57,7 +57,7 @@ class Skiplist:
         if not (itr_res and itr_res[-1].next and itr_res[-1].next.val == num):
             return False
 
-        # If found, erease this node from every level
+        # If found, erase this node from every level
         for pre_node in itr_res:
             if pre_node.next and pre_node.next.val == num:
                 pre_node.next = pre_node.next.next
