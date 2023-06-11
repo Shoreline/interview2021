@@ -3,7 +3,9 @@
 
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        counter = Counter({0: 1})  # So when prefix_sum == k, we get 1 from the counter.
+        # counter = Counter({0: 1})  # So when prefix_sum == k, we get 1 from the counter.
+        counter = collections.defaultdict(int)
+        counter[0] = 1 # So when prefix_sum == k, we get 1 from the counter.
 
         prefix_sum = 0
         res = 0
