@@ -4,13 +4,13 @@ from threading import Lock
 
 class BoundedBlockingQueue(object):
     def __init__(self, capacity: int):
-        self.en, self.de = Lock(), Lock()  # Both enque and deque need a lock
+        self.en, self.de = Lock(), Lock()  # Both enqueue and deque need a lock
         self.q = deque()  # the queue itself
         self.capacity = capacity
         self.de.acquire()  # lock the de first, since now the queue is empty
 
     def enqueue(self, element: int) -> None:
-        # Need to get en lock to proceed enque operation
+        # Need to get en lock to proceed enqueue operation
         self.en.acquire()
         self.q.append(element)
 
@@ -30,7 +30,7 @@ class BoundedBlockingQueue(object):
         if len(self.q):
             self.de.release()
 
-        # If there is an enque waiting, release en lock
+        # If there is an enqueue waiting, release en lock
         if self.en.locked():
             self.en.release()
 

@@ -11,7 +11,27 @@
 
 # Solution 1: two sorted_hashmap
 # to support delete we need another sorted hashmap
+
+# Race condition can happen whenever there are multiple steps of dict operations.
+#
+# Due to Global Interpreter Lock (GIL), python doesn't have concurrent hashmap equivalent.
+#
+# import threading
+#
+# my_map = {}
+# lock = threading.Lock()
+#
+# def add_to_map(key, value):
+#     with lock:
+#         my_map[key] = value
+#
+# def get_from_map(key):
+#     with lock:
+#         return my_map.get(key)
+#
+
 from sortedcontainers import SortedDict
+#from threading import Lock
 
 
 class StockPrice:
@@ -21,7 +41,12 @@ class StockPrice:
         # For returning the min/max price
         self.price_counter = SortedDict()  # sorted_map < price, num_occurrences > , always contains valid prices
 
+        # self.lock = Lock()
+
+    # lock update
     def update(self, timestamp: int, price: int) -> None:
+        # self.lock.acquire()
+
         if timestamp in self.time_to_prices:  # if this update() corrects an existing record
             legacy_price = self.time_to_prices[timestamp]
 
@@ -39,7 +64,14 @@ class StockPrice:
         self.price_counter[price] += 1
         self.time_to_prices[timestamp] = price
 
+        # self.lock.release()
+
     def current(self) -> int:
+        # self.lock.acquire()
+        # val = self.latest_price
+        # self.lock.release()
+        # return val
+
         # return self.time_to_prices.peekitem(-1)[1]
         return self.time_to_prices.peekitem()[1]  # default peekitem() returns the maximum k-v pair
 
