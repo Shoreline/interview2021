@@ -15,6 +15,7 @@ class Solution:
             if len(char_count) > k:
                 for j in range(start, i):
                     char_count[s[j]] -= 1
+                    # stop when any char's count is 0 -> after this char, there are k distinct characters
                     if char_count[s[j]] == 0:
                         del char_count[s[j]]
                         start = j + 1
