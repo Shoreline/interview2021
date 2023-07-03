@@ -1,3 +1,4 @@
+# compare two strings with two pointers, one for each string
 class Solution:
     def validWordAbbreviation(self, word: str, abbr: str) -> bool:
         i = j = 0  # two pointers for the input word and abbr

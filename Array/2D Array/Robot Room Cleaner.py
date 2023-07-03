@@ -42,16 +42,20 @@ class Solution:
             robot.clean()
             visited.add((x, y))
 
-            # 2, Clean next
+            # 2, DFS to the 4 adjacent directions
+            # Rotate left 4 times, next tile is the one in front of the robot after turnning left
+            # .move() can only move forward
             for _ in range(4):
+                # if the next position is not visited and reachable
                 if (x + dx, y + dy) not in visited and robot.move():
                     dfs(x + dx, y + dy, dx, dy)
+                # Note that dfs() will make sure the robot has returned to the original tile and direction
                 robot.turnLeft()
                 dx, dy = -dy, dx
 
             # 3, Back to previous position and direction (regardless of current direction)
             # 2 left turns + one move -> turn 180 degree and move one step -> go back one step
-            # 4 left turns -> go back to the same direction
+            # 2 more left turns -> turn another 180 degree to go back to the original direction
             robot.turnLeft(); robot.turnLeft()
             robot.move()
             robot.turnLeft(); robot.turnLeft()

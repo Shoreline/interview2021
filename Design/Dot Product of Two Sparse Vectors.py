@@ -6,7 +6,7 @@
 # Space: O(L) and O(1), respectively
 class SparseVector:
     def __init__(self, nums: List[int]):
-        self.present_items = []
+        self.present_items = []  # list<[index, val]>
         for i in range(len(nums)):
             if nums[i] != 0:
                 self.present_items.append([i, nums[i]])
@@ -20,7 +20,7 @@ class SparseVector:
                 res += self.present_items[i][1] * vec.present_items[j][1]
                 i += 1
                 j += 1
-            elif self.present_items[i][0] < vec.present_items[j][0]:
+            elif self.present_items[i][0] < vec.present_items[j][0]:  # increment i or j (check next possible match)
                 i += 1
             else:
                 j += 1

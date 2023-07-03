@@ -4,6 +4,34 @@
 # (Optional) An 'e' or 'E', followed by an integer.
 # A decimal number can be split up into these components (in order):
 
+class Solution:
+    def isNumber(self, s: str) -> bool:
+
+        seen_digit = seen_exponent = seen_dot = False
+        for i, c in enumerate(s):
+            if c.isdigit():
+                seen_digit = True
+            # + and - can only be at the very beginning, or right next to e or E
+            elif c in ["+", "-"]:
+                if i > 0 and s[i - 1] != "e" and s[i - 1] != "E":
+                    return False
+            # e/E can only show up once, plus must be after a digit
+            elif c in ["e", "E"]:
+                if seen_exponent or not seen_digit:
+                    return False
+                seen_exponent = True
+                seen_digit = False  # important, reset seen_digit
+            # dot can only show up once, and it mustn't after e/E
+            elif c == ".":
+                if seen_dot or seen_exponent:
+                    return False
+                seen_dot = True
+            # if got some other illegal character, return False
+            else:
+                return False
+
+        return seen_digit
+
 # (Optional) A sign character (either '+' or '-').
 # One of the following formats:
 # One or more digits, followed by a dot '.'.
@@ -13,11 +41,10 @@
 
 # (Optional) A sign character (either '+' or '-').
 # One or more digits.
-# For example, all the following are valid numbers: ["2", "0089", "-0.1", "+3.14", "4.", "-.9", "2e10", "-90E3", "3e+7", "+6e-1", "53.5e93", "-123.456e789"],
-# while the following are not valid numbers: ["abc", "1a", "1e", "e3", "99e2.5", "--6", "-+3", "95a54e53"].
+# For example, all the following are valid numbers: ["2", "0089", "-0.1", "+3.14", "4.", "-.9", "2e10", "-90E3", "3e+7", "+6e-1", "53.5e93", "-123.456e789"], while the following are not valid numbers: ["abc", "1a", "1e", "e3", "99e2.5", "--6", "-+3", "95a54e53"].
 
 # Deterministic Finite Automaton (DFA)
-class Solution:
+class Solution2:
     def isNumber(self, s: str) -> bool:
         # This is the DFA we have designed above
         # array as a map of <cur_state_id, map<acceptable_next_group, next_state_id>>
@@ -43,7 +70,7 @@ class Solution:
             {"digit": 7}
         ]
 
-        current_state = 0  # always start from state 0.
+        current_state = 0   # always start from state 0.
         for c in s:
             if c.isdigit():
                 group = "digit"
@@ -56,7 +83,7 @@ class Solution:
             else:
                 return False
 
-            if group not in dfa[current_state]:  # if group is not any acceptable next group
+            if group not in dfa[current_state]: # if group is not any acceptable next group
                 return False
 
             current_state = dfa[current_state][group]

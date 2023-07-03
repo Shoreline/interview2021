@@ -5,19 +5,21 @@
 #         self.left = left
 #         self.right = right
 
-# Take advantage of the fact that the tree is a BST, can skip some part of the traverse.
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
         def helper(root):
             if not root:
                 return
 
+            # Note these are not if + else, but simple if blocks
             if low <= root.val <= high:
                 self.res += root.val
+
             if root.val > low:  # this is a binary search tree
-                helper(root.left)
+                helper(root.left)  # worth checking the left tree
+
             if root.val < high:
-                helper(root.right)
+                helper(root.right)  # worth checking the right tree
 
         self.res = 0
         helper(root)

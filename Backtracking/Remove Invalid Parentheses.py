@@ -14,6 +14,7 @@ class Solution:
         self.helper(s, res, 0, 0, ['(', ')'])
         return res
 
+    # helper adds all corrected (valid) parentheses to res
     # the last removal position: If we do not have this position, we will generate duplicate by removing two ‘)’ in two steps only with a different order.
     def helper(self, s: str, res: List[str], start_pos: int, last_removal_pos: int, par: List[str]):
         cnt = 0  # counter.
@@ -23,10 +24,11 @@ class Solution:
             elif s[i] == par[1]:
                 cnt -= 1
 
-            if cnt >= 0:  # s[start_pos: i+1] is valid
+            if cnt >= 0:  # s[start_pos: i+1] is still valid
                 continue
 
-            # when cnt <0, meaning par[1] is one more than par[0]. We can remove any one of the par[1] showed earlier
+            # when cnt < 0, meaning s[start_pos: i+1] is not valid.
+            # when cnt < 0, meaning par[1] is one more than par[0]. We can remove any one of the par[1] showed earlier
             # To avoid equivalent removals,we don't need to check for the whole s[:i+1], but only the piece of s[last_removal_pos, i+1]
             # This is because before last_removal_pos has been checked by previous helper() call
             for j in range(last_removal_pos, i + 1):

@@ -3,10 +3,10 @@
 # T: O(M^2 * N^2) Do m*n times of BFS, each takes m*n
 # S: O(M * N)
 # Compute the shortest total dist of each empty land to ALL buildings (sum(min_dist(a_land, house)))
+#   use another 2d array dist_sum to save the sum of shortest distance for each empty land to all buildings.
 #   house is one of the houses.
 # From houses to reach empty land -> faster when there are fewer houses than land
 
-# Create a m * n array to save min_dist from each empty land to all buildings
 from collections import deque
 
 

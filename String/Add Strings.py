@@ -2,7 +2,7 @@
 # use a list to save the result
 class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
-        res = []  # a list of char
+        res = []  # a list of integer
 
         carry = 0
         p1 = len(num1) - 1

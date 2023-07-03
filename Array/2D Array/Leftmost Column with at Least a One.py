@@ -17,12 +17,12 @@ class Solution:
     def leftMostColumnWithOne(self, binaryMatrix: 'BinaryMatrix') -> int:
         M, N = binaryMatrix.dimensions()
 
-        r, c = 0, N - 1  # The top-right corner
+        x, y = 0, N - 1  # The top-right corner
         leftmost_col = -1
-        while r < M and c >= 0:
-            if binaryMatrix.get(r, c) == 1:
-                leftmost_col = c
-                c -= 1
+        while x < M and y >= 0:
+            if binaryMatrix.get(x, y) == 1:
+                leftmost_col = y
+                y -= 1  # try if the left cell is also 1 in the next round
             else:
-                r += 1
+                x += 1  # go check the next row
         return leftmost_col

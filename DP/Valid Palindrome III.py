@@ -49,4 +49,8 @@ class Solution:
                     dp[i][j] = dp[i - 1][j - 1]
                 else:
                     dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1])
+
+        # why <= k * 2?
+        # If one character needs to be deleted, there will be 2 chars distance between the original string and the reversed string.
+        #   Ex) "abca" and "acba" has 2 edit distance.
         return dp[n][n] <= k * 2

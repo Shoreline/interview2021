@@ -6,10 +6,9 @@ class Node:
         self.next = next
 """
 
-
 class Solution:
     def insert(self, head: 'Optional[Node]', insertVal: int) -> 'Node':
-        new_node = Node(insertVal)
+        new_node =  Node(insertVal)
 
         # Corner case
         if not head:
@@ -18,14 +17,15 @@ class Solution:
 
         prev, cur = head, head.next
 
-        #
-        while prev.next != head:  # stop to insert new_node between prev and cur
+        # Look for the insertion condition.
+        # break the while loop once found the place to insert
+        while prev.next != head: # stop to insert new_node between prev and cur
             # Case1: 1 <- Node(2) <- 3
             if prev.val <= new_node.val <= cur.val:
                 break
 
             # Case2: 3 -> 1, 3 -> Node(4) -> 1, 3 -> Node(0) -> 1
-            #   prev is the last node of the list.
+            #   prev is the last node of the list: prev.val > cur.val
             #   Add new_node between prev and cur when
             #       1) new_node is the new biggest node: new_node.val > prev.val
             #       2) new_node is the smallest node: new_node.val < cur.val

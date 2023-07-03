@@ -1,21 +1,23 @@
 # Heap: nlogk time and k space
-# import heapq
-# class Solution:
-#     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-#         res = []
-#         #for point in points:
-#         for (x,y) in points:
-#             dist = x*x + y*y
-#             if len(res)<k:
-#                 heapq.heappush(res, (-dist, (x,y))) # use -dist to get descending order
-#             else:
-#                 heapq.heappushpop(res, (-dist, (x,y)))
+import heapq
 
-#         return [(x,y) for negtive_dist, (x,y) in res]
+
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        res = []
+        # for point in points:
+        for (x, y) in points:
+            dist = x * x + y * y
+            if len(res) < k:
+                heapq.heappush(res, (-dist, (x, y)))  # use -dist to get descending order
+            else:
+                heapq.heappushpop(res, (-dist, (x, y)))
+
+        return [(x, y) for negtive_dist, (x, y) in res]
 
 # Sorting costs O(nlogn) time
 # But on average quick sort costs o(n) time
-class Solution:
+class Solution2:
     def kClosest(self, points, K):
         self.qsort(points, 0, len(points) - 1, K)
         return points[:K]

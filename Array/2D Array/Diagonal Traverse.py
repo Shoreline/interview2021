@@ -1,4 +1,5 @@
 # The key here is to realize that the sum of indices on all diagonals are equal.
+#   -> One diagonal can be uniquely represented by x + y, with any cell (x,y) on it.
 
 class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
