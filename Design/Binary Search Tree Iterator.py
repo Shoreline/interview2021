@@ -10,21 +10,22 @@
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
-        self.cur_tree = root
+        self.cur = root
         self.stack = []  # saves the parent nodes
 
     def next(self) -> int:  # PS says it is always valid
-        while self.cur_tree:
-            self.stack.append(self.cur_tree)
-            self.cur_tree = self.cur_tree.left
+        while self.cur:
+            self.stack.append(self.cur)
+            self.cur = self.cur.left
 
-        next_node = self.stack.pop()
-        self.cur_tree = next_node.right  # once we move cur_tree to a right subtree, the left subtree won't be visited again
+        self.cur = self.stack.pop()
+        res = self.cur.val
+        self.cur = self.cur.right  # once we move cur to a right subtree, the left subtree won't be visited again
 
-        return next_node.val
+        return res
 
     def hasNext(self) -> bool:
-        return self.cur_tree or self.stack
+        return self.cur or self.stack
 
 # Another solution is to do in-order traverse in constructor and saves result in a list
 # then next() takes O(1), but constructor takes O(N)

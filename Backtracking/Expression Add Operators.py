@@ -5,10 +5,7 @@
 # There are total 3 operators:
 # + operator: newResult = resSoFar + num
 # - operator: newResult = resSoFar - num. # prevNum = -num!!
-# * operator: newResult = resSoFar - prevNum + prevNum * num. 
-#   For *: * has higher priority than +/-. But we assume all operators are + until we see a * ( - val is considered + neg_val). 
-#   So at this time, preNum was added to resSoFar. Then to comply with the new *, we need to do resSoFar - preNum, then do + preNum * num.
-#   We need to keep the prevNum so that to calculate newResult we need to minus prevNum then plus with prevNum * num. So newResult = resSoFar - prevNum + prevNum * num.
+# * operator: newResult = resSoFar - prevNum + prevNum * num. We need to keep the prevNum so that to calculate newResult we need to minus prevNum then plus with prevNum * num. So newResult = resSoFar - prevNum + prevNum * num.
 
 class Solution:
     def addOperators(self, num: str, target: int) -> List[str]:
@@ -21,16 +18,16 @@ class Solution:
                 return
 
             for i in range(start + 1, len(num) + 1):
-                piece = num[start:i]  # [start,i) is the piece
-                if len(piece) > 1 and piece[0] == '0':  # Skip leading zero number
+                val = int(num[start:i])  # value of [start,i)
+                if i - start > 1 and num[start] == '0':  # Skip leading zero number
                     break
 
                 if start == 0:  # first piece, only + is possible
-                    dfs(tmp + [piece], i, cur + int(piece), int(piece))
+                    dfs(tmp + [str(val)], i, cur + val, val)
                 else:
-                    dfs(tmp + ["+", piece], i, cur + int(piece), int(piece))
-                    dfs(tmp + ["-", piece], i, cur - int(piece), -int(piece))  # pre_num = negative piece!
-                    dfs(tmp + ["*", piece], i, cur - pre_num + pre_num * int(piece), pre_num * int(piece))
+                    dfs(tmp + ["+", str(val)], i, cur + val, val)
+                    dfs(tmp + ["-", str(val)], i, cur - val, - val)  # pre_num = negative piece!
+                    dfs(tmp + ["*", str(val)], i, cur - pre_num + pre_num * val, pre_num * val)
 
         res = []
         dfs([], 0, 0, 0)

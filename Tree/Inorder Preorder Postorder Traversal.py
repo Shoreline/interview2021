@@ -77,9 +77,7 @@ def preorderTraversal3(root: Optional[TreeNode]) -> List[int]:
         root = stack.pop()
         if root:
             res.append(root.val)
-
-            # First push the node you want to pop later
-            stack.append(root.right)
+            stack.append(root.right)    # First push the node you want to pop later
             stack.append(root.left)
 
     return res

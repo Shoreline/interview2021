@@ -8,10 +8,11 @@ class Solution:
 
         w_to_p = {}
         for i, word in enumerate(words):
-            if i >= len(pattern) or (word in w_to_p and w_to_p[word] != pattern[i]):
+            if word in w_to_p and w_to_p[word] != pattern[i]:
                 return False
             else:
                 w_to_p[word] = pattern[i]
 
         return True
+
 

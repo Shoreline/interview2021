@@ -2,8 +2,8 @@
 class Solution:
     def calculate(self, s: str) -> int:
         # stack saves oprand values that will be added together for final result
-        # sign is previous sign
-        num, stack, sign = 0, [], "+"
+        # op is previous operator
+        num, stack, op = 0, [], "+"
         s += 'E'  # final wrap up when i == len(s)-1
         i = 0
         while i < len(s):
@@ -13,16 +13,17 @@ class Solution:
                 # recursively call itself to compute result between parentheses
                 num, skip = self.calculate(s[i + 1:])
                 i += skip
-            elif s[i] in '+-*/)' or i == len(s) - 1:
+                # elif s[i] in '+-*/)' or i == len(s)-1:
+            else:
                 # While meeting a new sign / ')' or end of input string
-                # Need to compute based on previous oprands and previous sign
-                if sign == '+':
+                # Need to compute based on previous oprands and previous operator
+                if op == '+':
                     stack.append(num)
-                elif sign == '-':
+                elif op == '-':
                     stack.append(-num)
-                elif sign == '*':
+                elif op == '*':
                     stack.append(stack.pop() * num)
-                else:  # sign == '/'
+                else:  # op == '/'
                     stack.append(int(stack.pop() / num))
 
                 if s[i] == ')':
@@ -30,7 +31,7 @@ class Solution:
 
                 # current operation is done, reset num and sign
                 num = 0
-                sign = s[i]
+                op = s[i]
 
             i += 1
 
