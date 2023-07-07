@@ -20,7 +20,11 @@ class Solution:
             for n in node.neighbors:
                 if n not in mapping:
                     dfs(n)  # DFS copy each unseen node
-                mapping[node].neighbors.append(mapping[n])
+
+                # Each neighbor of the original node has been cloned as well.
+                # Add the cloned neighbor to mapping[node].neighbors
+                # n's clone has been added to mapping, as mapping[n]
+                mapping[node].neighbors += [mapping[n]]
 
         if not node:
             return node

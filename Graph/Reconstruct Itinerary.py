@@ -8,7 +8,10 @@
 # Example:
 # Input: tickets = [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
 # Output: ["JFK","MUC","LHR","SFO","SJC"]
-#
+
+# DFS
+# Use stack instead of queue for DFS -> starting airport of the next round has to be the destination airport from
+# previous round
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         graph = collections.defaultdict(list)

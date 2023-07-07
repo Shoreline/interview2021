@@ -7,7 +7,7 @@ class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
         order_map = {}
         for index, val in enumerate(order):
-            order_map[val] = index
+            order_map[val] = index  # index is the ranking.
 
         # Compare first j chars between each two adjacent words. j is the length of the first word.
         for i in range(len(words) - 1):

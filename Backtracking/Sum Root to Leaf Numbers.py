@@ -14,12 +14,13 @@ class Solution:
                 return
 
             path.append(str(root.val))
-            if not (root.left or root.right):
+            if not root.left and not root.right:
                 val = str("".join(path))
                 self.res += int(val)
             else:
-                for child in (root.left, root.right):
-                    dfs(child, path)
+                dfs(root.left, path)
+                dfs(root.right, path)
+
             path.pop()
 
         dfs(root, [])

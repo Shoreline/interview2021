@@ -23,7 +23,7 @@ class Solution:
     def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
         max_heap = []  # saves vals >= median
         min_heap = []  # saves vals < median
-        heap_dict = defaultdict(int)  # <val, val_freq> in heaps
+        heap_dict = defaultdict(int)  # <val, val_freq> that tracks invalid numbers but still in heap
         result = []
 
         # construct the inital heaps based on the first k elements (first sliding window)
@@ -41,6 +41,7 @@ class Solution:
             prev_num = nums[i - k]  # the num needs to be removed from the new sliding window
             heap_dict[prev_num] += 1
 
+            # heaps' balance factor
             balance = -1 if prev_num <= median else 1
 
             if nums[i] <= median:
@@ -50,11 +51,14 @@ class Solution:
                 balance -= 1
                 heappush(min_heap, nums[i])
 
+            # if < 0 -> move one element from min_heap to max_heap
+            # if > 0 -> vice versa
             if balance < 0:
                 heappush(max_heap, -heappop(min_heap))
             elif balance > 0:
                 heappush(min_heap, -heappop(max_heap))
 
+            # clean up invalided elements which are on top of each heap
             while max_heap and heap_dict[-max_heap[0]] > 0:
                 heap_dict[-max_heap[0]] -= 1
                 heappop(max_heap)

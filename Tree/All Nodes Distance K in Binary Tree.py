@@ -14,6 +14,7 @@ class Solution:
         # parent/child doesn't matter
         graph = collections.defaultdict(list)
 
+        # helper function for building the graph
         def connect(parent, child):
             # both parent and child are not empty
             if parent and child:
@@ -27,6 +28,7 @@ class Solution:
             if child.right:
                 connect(child, child.right)
 
+        # Build the graph
         # the initial parent node of the root is None
         connect(None, root)
 

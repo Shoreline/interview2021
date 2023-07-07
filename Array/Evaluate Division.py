@@ -1,5 +1,7 @@
 # If a single answer cannot be determined, return -1.0.
-# Time Complexity: O((M+N)⋅log⁡N)).
+
+# UnionFind with weight
+# Time Complexity: O((M+N)⋅logN)).
 # space O(N)
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:

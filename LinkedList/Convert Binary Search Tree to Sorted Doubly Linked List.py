@@ -6,36 +6,60 @@ class Node:
         self.left = left
         self.right = right
 """
-
-
 # in-order traversal
-# Use a stack to save parent nodes for in-order traverse
 class Solution:
-    def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
+    def treeToDoublyList(self, root: 'Node') -> 'Node':
         if not root:
-            return None
+            return
 
-        pre_head = Node(-1)
-        pre = pre_head
-        cur = root
+        dummy = Node(0, None, None) # serves as preHead
+        pre = dummy
         stack = []
+        cur = root # current node
+        while stack or cur:
+            if cur:
+               stack.append(cur)
+               cur = cur.left
+            else:
+                cur = stack.pop()
+                pre.right = cur
+                cur.left = pre
 
+                pre = pre.right
+                cur = cur.right
+
+        # In the end, finish circular linking
+        dummy.right.left = pre # now pre is the last element. (cur is already None)
+        pre.right = dummy.right
+
+        return dummy.right
+
+class Solution2:
+    def treeToDoublyList(self, root: 'Node') -> 'Node':
+        if not root:
+            return
+
+        dummy = Node(0, None, None) # serves as preHead
+        pre = dummy
+        stack = []
+        cur = root # current node
         while stack or cur:
             while cur:
                 stack.append(cur)
                 cur = cur.left
 
-            # link pre and cur as doubly-linked list
             cur = stack.pop()
+
+            # link pre and cur as doulbly-linked list
             pre.right = cur
-            cur.left = pre
+            cur.left= pre
 
             # advance pre and cur
-            pre = cur
-            cur = cur.right  # cur.right can be null, if so cur will be stack.pop() next round
+            pre = cur # or per = pre.right
+            cur = cur.right # cur.right can be null, if so cur will be stack.pop() next round
 
         # In the end, finish circular linking
-        pre_head.right.left = pre  # now pre is the last element. (cur is already None)
-        pre.right = pre_head.right
+        dummy.right.left = pre # now pre is the last element. (cur is already None)
+        pre.right = dummy.right
 
-        return pre_head.right
+        return dummy.right

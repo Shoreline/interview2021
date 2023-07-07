@@ -36,20 +36,24 @@ class Solution:
                 break
             cur_lvl = next_lvl
 
-        # Backtracking
+        # DFS reconstruction
         res = []
 
-        def bt(word: str, tmp: list[str]):
+        def dfs(word: str, tmp: list[str], seen):
             if word == endWord:
                 res.append(tmp[:])
                 return
 
             for child_word in children[word]:
+                if child_word in seen:
+                    continue
                 tmp.append(child_word)
-                bt(child_word, tmp)
+                seen.add(child_word)
+                dfs(child_word, tmp, seen)
                 tmp.pop()
+                seen.remove(child_word)
 
-        bt(beginWord, [beginWord])
+        dfs(beginWord, [beginWord])
         return res
 
     # Use parents instead of children

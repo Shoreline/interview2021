@@ -34,6 +34,7 @@ class Solution:
 
         return pre_head.right
 
+# Need a helper to return the last element of a pre-order traversed tree.
 # class Solution:
 #     def flatten(self, root: TreeNode) -> None:
 #

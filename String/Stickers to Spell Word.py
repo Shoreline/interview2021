@@ -1,31 +1,36 @@
 # Note: each sticker can be used more than once
+
+# Back tracking
 #
-# sort the stickers according to length.
-# check whether there is one sticker to spell the target. If so, just return 1.
 # by @zestypanda's idea, check if target[0] is in sticker, if not,continue.
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
-        # Convert stickers into a stickers_freq map: <sticker_index, <char, char_freq>
-        stickers = [collections.Counter(x) for x in stickers]
+        # Convert stickers into a stickers_char_freq array: [Counter<char, char_freq]
+        stickers_char_freq_counter = [collections.Counter(x) for x in stickers]
 
         # the min num of stickers to get string "target"
         @lru_cache(None)
-        def dfs(target):
-            res = float('inf')
-            for sticker in stickers:
-                # optional optimization (why?)
-                # if target[0] not in sticker:
-                #     continue
+        def dfs(cur_target):
+            ans = float('inf')
+            # Try every sticker, see how good it is
+            for char_freq_counter in stickers_char_freq_counter:
+                # optional optimization.
+                # Only proceed if the first char of cur_target can be remove by the current sticker
+                # Avoid going through equivalent branches of DFS
+                # If there is a solution, then eventually this sticker can help remove the first char of some target
+                if cur_target[0] not in char_freq_counter:
+                    continue
 
-                new_target = target;
-                for s in sticker:
-                    # replace the first sticker[s] occurencies of char s with ""
-                    new_target = new_target.replace(s, "", sticker[s])
+                new_target = cur_target
+                # try removing all overlapping characters between target and this sticker
+                for c in char_freq_counter:
+                    new_target = new_target.replace(c, "", char_freq_counter[c])
+
                 if new_target == "":  # the best result is found, just return 1
                     return 1
-                elif new_target != target:  # part of target can be removed
-                    res = min(res, 1 + dfs(new_target))
-            return res
+                elif new_target != cur_target:  # part of target can be removed, try the rest
+                    ans = min(ans, 1 + dfs(new_target))  # recursion call
+            return ans
 
         res = dfs(target)
         return -1 if res == float('inf') else res
