@@ -4,7 +4,9 @@ class UnionFind:
     def __init__(self, n):
         # <node_id, parent_node_id> map
         # Initialize this map so that each node is its own parent_node
-        self.parent = [i for i in range(n)]
+        #self.parent = [i for i in range(n)]
+        self.parent = list(range(N))
+        
         # self.size = [1] * n
 
     def find(self, x):
