@@ -53,7 +53,7 @@ class Solution:
 
 # BFS
 # But with a different node definition: [x, y, obstacles_removed]
-# T: O(m*n*k)
+# T: O(n*k) # n: num of cells in grid
 class Solution_bfs:
     def shortestPath(self, grid: List[List[int]], k: int) -> int:
         # Node definition:[x, y, obstacles_removed]
@@ -68,6 +68,11 @@ class Solution_bfs:
             size = len(q)
             for _ in range(size):
                 x, y, removed_obs = q.popleft()
+
+                # wrong: there can be another shorter path
+                # remaining_d = abs(x - (m -1)) + abs(y - (n - 1))
+                # if k - obstacle >= remaining_d:
+                #     return dist + remaining_d
                 if x == m - 1 and y == n - 1:
                     return dist
 

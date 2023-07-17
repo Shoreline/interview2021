@@ -24,12 +24,14 @@ class UF:
         return True
 
 
+# "node" is index in accounts list
+# grouping acct_ids at owner level
 class Solution:
     # 196 ms, 82.09%.
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         uf = UF(len(accounts))
 
-        # Creat unions between indexes
+        # Creat unions between account indice
         ownership = {}  # <email, acct_id> map
         # for i, (_, *emails) in enumerate(accounts):
         #     for email in emails:

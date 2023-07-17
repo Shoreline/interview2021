@@ -18,11 +18,10 @@ class Solution:
         takeable = deque([])
         # total_time[u] is the total number of months required to finish course u
         # total_time[u] is calculated as maximum total_time of the predecessor nodes + times[u].
-        total_time = [0] * n
+        total_time = time[:]
         for u in range(n):
             if in_degrees[u] == 0:
                 takeable.append(u)
-                total_time[u] = time[u]
 
         while takeable:
             u = takeable.popleft()

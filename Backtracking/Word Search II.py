@@ -1,10 +1,13 @@
 # Build a TrieTree with the given words
 # DFS to find a match
+
+# ["oath","pea","eat","rain"]
+# -> trie form: {'o': {'a': {'t': {'h': {'$$': 'oath'}}}}, 'p': {'e': {'a': {'$$': 'pea'}}}, 'e': {'a': {'t': {'$$': 'eat'}}}, 'r': {'a': {'i': {'n': {'$$': 'rain'}}}}}
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         END_OF_WORD = '$$'  # any string with >1 character works
 
-        # TrieNode is simplified from a custom class to a <char, {}> map
+        # TrieNode is simplified from a custom class to a <char, <char, {char, <...>>>> map
         #   Specially, TrieNode.isEndofWord = True is represented by having a k-v pair of {END_OF_WORD, word}
         trie_root = {}  # root of trie tree
         for word in words:

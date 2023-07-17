@@ -3,14 +3,16 @@
 # Time complexity : O(n∗log(m)). Heapification of m elements requires O(log(m)) time. This step could be done
 class Solution:
     def smallestRange(self, nums: List[List[int]]) -> List[int]:
-        pq = []
+        # nums: a list of num;
+        # num: a list of values
+        pq = []  # (a_val_in_num, index_in_nums_list, index_in_num_list)
         right = nums[0][0]
         for i, num_list in enumerate(nums):
             heapq.heappush(pq, (num_list[0], i, 0))
             right = max(right, nums[i][0])
 
         # initial range is [min, max] of the first elements of each list in nums
-        # Note that this is not the [min, max] of all elements in nums, which is unnecssary.
+        # Note that this is not the [min, max] of all elements in nums, which is unnecessary.
         res = pq[0][0], right
 
         # Keep shrinking the result range.
