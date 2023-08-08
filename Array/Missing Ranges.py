@@ -11,10 +11,9 @@ class Solution:
 
         # Only react when there is a gap (nums[i+1] - nums[i] > 1)
         for i in range(len(nums) - 1):
-            if nums[i + 1] - nums[i] == 2:  # gap is only 1
-                res.append([nums[i] + 1, nums[i] + 1])
-            elif nums[i + 1] - nums[i] > 2:
+            if nums[i] != nums[i + 1] - 1:
                 res.append([nums[i] + 1, nums[i + 1] - 1])
+
         # for i in range(len(nums)-1):
         #     if nums[i+1] - nums[i] == 2: # Gap is only 1, so no need to use "->"
         #         res.append(str(nums[i]+1))

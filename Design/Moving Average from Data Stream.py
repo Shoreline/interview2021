@@ -27,12 +27,17 @@ class MovingAverage2:
 
     def next(self, val: int) -> float:
         self.count += 1
-        # calculate the new sum by shifting the window
-        tail = (self.head + 1) % self.size
-        self.window_sum = self.window_sum - self.queue[tail] + val
-        # move on to the next head
+
+        # Increment the head
         self.head = (self.head + 1) % self.size
+
+        # calculate the new sum by shifting the window
+        # the new head will be overriden by the new value
+        self.window_sum = self.window_sum - self.queue[self.head] + val
+
+        # Override the index pointed by the incremented new head
         self.queue[self.head] = val
+
         return self.window_sum / min(self.size, self.count)
 
 # Your MovingAverage object will be instantiated and called as such:

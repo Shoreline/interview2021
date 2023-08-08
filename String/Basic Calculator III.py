@@ -11,11 +11,13 @@ class Solution:
                 num = num * 10 + int(s[i])
             elif s[i] == '(':
                 # recursively call itself to compute result between parentheses
+                # Note that skip will never be NULL.
+                # Since for a '(' there is guaranteed to be another ')', and we always return a skip value for ')'
                 num, skip = self.calculate(s[i + 1:])
                 i += skip
                 # elif s[i] in '+-*/)' or i == len(s)-1:
             else:
-                # While meeting a new sign / ')' or end of input string
+                # Meet one of '+-*/)E'
                 # Need to compute based on previous oprands and previous operator
                 if op == '+':
                     stack.append(num)

@@ -19,10 +19,13 @@ class Solution:
         # dist_sum only has valid value for empty lands
         dist_sum = [[0] * cols for _ in range(rows)]
 
+        # Instead of using a visited_set, simply modify the value representing empty_land for each complete BFS-loop
+        # (one BFS-loop per house, it has many rounds of BFS iterations).
+        #
         # The value that represents an empty land. Will decrement once done traversing a house
-        # The reason to change value representing empty land is to differenciate rounds of BFS
+        # The reason to change value representing empty land is to differentiate rounds of BFS
         # Initial value is defined by the problem statement (which is 0)
-        empty_land = 0  # will go from 0, to -1, -2, -3, ...
+        empty_land = 0  # will go from 0, to -1, -2, -3, ... no need to reset
 
         for i in range(rows):
             for j in range(cols):

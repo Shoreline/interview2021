@@ -29,7 +29,7 @@ class Solution:
             left = find_and_count(root.left)
             right = find_and_count(root.right)
 
-            if root.val == p.val or root.val == q.val:
+            if root == p or root == q:
                 self.count += 1
                 return root
 

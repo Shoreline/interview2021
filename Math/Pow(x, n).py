@@ -11,4 +11,4 @@ class Solution:
 
         half = self.myPow(x, n // 2)
 
-        return half * half if n % 2 == 0 else half * half * x
+        return half ** 2 if n % 2 == 0 else half ** 2 * x

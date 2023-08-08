@@ -1,3 +1,7 @@
+# Backtracking
+# Once finding the current substring becomes illegal (more right brackets then left brackets), remove one of the right
+# brackets seen so far.
+
 # Need to make sure there are equivalent number of '(' and ')'
 #   -> There is no more ( than ); and vice versa
 # First, make sure there is no more ( than ), then reverse the string to check there is no more ) than (

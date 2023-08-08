@@ -22,7 +22,7 @@ class Solution:
                 if i - start > 1 and num[start] == '0':  # Skip leading zero number
                     break
 
-                if start == 0:  # first piece, only + is possible
+                if start == 0:  # The first value, no sign before it
                     dfs(tmp + [str(val)], i, cur + val, val)
                 else:
                     dfs(tmp + ["+", str(val)], i, cur + val, val)

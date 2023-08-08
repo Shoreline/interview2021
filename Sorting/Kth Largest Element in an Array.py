@@ -60,10 +60,10 @@ class Solution:
             count[num - min_value] += 1
 
         remain = k
-        for num in range(len(count) - 1, -1, -1):
-            remain -= count[num]
+        for i in range(len(count) - 1, -1, -1):
+            remain -= count[i]
             if remain <= 0:
-                return min_value + num
+                return min_value + i
 
         return -1
 
