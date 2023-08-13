@@ -54,7 +54,9 @@ class Solution:
                 dx, dy = -dy, dx
 
         visited = set()
-        return dfs(0, 0, 1, 0)  # can start with any direction
+        # Note: the initial direction of the robot will be facing up
+        # But actually we can start with any direction
+        return dfs(0, 0, 0, 1)
 
 # backtrack
 # both T and S: o(n - m) n,m is the number of cells and obstacles

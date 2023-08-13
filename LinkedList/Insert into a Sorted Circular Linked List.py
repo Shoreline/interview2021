@@ -19,7 +19,7 @@ class Solution:
 
         # Look for the insertion condition.
         # break the while loop once found the place to insert
-        while prev.next != head: # stop to insert new_node between prev and cur
+        while cur != head: # stop to insert new_node between prev and cur
             # Case1: 1 <- Node(2) <- 3
             if prev.val <= new_node.val <= cur.val:
                 break
@@ -36,7 +36,7 @@ class Solution:
 
         # Insert node.
         # Case 4: [3, 3, 3] & new_node == 3 as well.
-        new_node.next = cur
         prev.next = new_node
+        new_node.next = cur
 
         return head

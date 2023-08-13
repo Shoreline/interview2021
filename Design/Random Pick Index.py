@@ -9,6 +9,7 @@ class Solution:
 
 
 # Reservoir Sampling solution (TLE)
+#   For each matching value, give it 1 / num_matches_sofar chance to keep
 # pick: O(n) -> tle for new tests
 class Solution2:
 

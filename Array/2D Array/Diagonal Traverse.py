@@ -15,6 +15,7 @@ class Solution:
             # we're done with the pass, let's build our answer array
         ans = []
         # look at the diagonal and each diagonal's elements
+        # d's items are in the order of key insertion -> sorted by key!
         for k, v in d.items():
             # each entry looks like (diagonal level (sum of indices), [elem1, elem2, elem3, ...])
             # snake time, look at the diagonal level

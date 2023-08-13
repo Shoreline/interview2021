@@ -26,7 +26,6 @@
 # if last characters are not the same then delete either one
 
 
-
 # bottom up dp
 # f(i,j) is the edit distance of s1[:i] and s2[:j] (i.e. the number of operations to make s1[:i] and s2[:j] the same)
 #   Here s2 is reverted s1. So s2[x] = s1[n-x]
@@ -45,12 +44,13 @@ class Solution:
                     dp[i][j] = j
                 elif j == 0:
                     dp[i][j] = i
-                elif s[i-1] == s2[j-1]:
+                elif s[i - 1] == s2[j - 1]:  # the last chars of s1[:i] and s2[:j]
                     dp[i][j] = dp[i - 1][j - 1]
                 else:
                     dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1])
 
         # why <= k * 2?
-        # If one character needs to be deleted, there will be 2 chars distance between the original string and the reversed string.
+        # If one character needs to be deleted, there will be 2 chars distance between the original string and the
+        # reversed string.
         #   Ex) "abca" and "acba" has 2 edit distance.
         return dp[n][n] <= k * 2

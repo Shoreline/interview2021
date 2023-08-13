@@ -28,7 +28,7 @@ class Solution:
         elif diff == 0:
             if i < len(s1) and j < len(s2) and s1[i] == s2[j] and self.dfs(s1, s2, i + 1, j + 1, diff):
                 return True
-        elif diff > 0:
+        elif diff > 0:  # if diff > 0, try reducing diff, by move i ahead
             if i < len(s1) and self.dfs(s1, s2, i + 1, j, diff - 1):
                 return True
         elif diff < 0:
@@ -69,4 +69,4 @@ class Solution2:
                 if j < len(s2): return fn(i, j + 1, diff + 1)
             return False
 
-        return fn(0, 0, 0)        
+        return fn(0, 0, 0)

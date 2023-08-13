@@ -12,27 +12,41 @@ class Solution:
         if not root:
             return
 
-        dummy = Node(0, None, None) # serves as preHead
+        dummy = Node(0, None, None)  # serves as preHead
         pre = dummy
         stack = []
-        cur = root # current node
+        cur = root  # current node
+
+        # while cur or stack:
+        # if not cur:
+        #     cur = stack.pop()
+        #     res.append(cur.val)
+        #     cur = cur.right
+        # else:
+        #     stack.append(cur)  # not cur.left nor cur.right!
+        #     cur = cur.left
+
         while stack or cur:
             if cur:
-               stack.append(cur)
-               cur = cur.left
+                stack.append(cur)
+                cur = cur.left
             else:
                 cur = stack.pop()
+
+                # Append cur node to pre node
+                # this part is different from simply traverse
                 pre.right = cur
                 cur.left = pre
-
                 pre = pre.right
+
                 cur = cur.right
 
         # In the end, finish circular linking
-        dummy.right.left = pre # now pre is the last element. (cur is already None)
-        pre.right = dummy.right
+        head = dummy.right
+        head.left = pre  # now pre is the last element. (cur is already None)
+        pre.right = head
 
-        return dummy.right
+        return head
 
 class Solution2:
     def treeToDoublyList(self, root: 'Node') -> 'Node':

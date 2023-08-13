@@ -28,21 +28,20 @@ class Solution:
             elif s[i] == par[1]:
                 cnt -= 1
 
-            if cnt >= 0:  # s[start_pos: i+1] is still valid
-                continue
-
-            # when cnt < 0, meaning s[start_pos: i+1] is not valid.
-            # when cnt < 0, meaning par[1] is one more than par[0]. We can remove any one of the par[1] showed earlier
-            # To avoid equivalent removals,we don't need to check for the whole s[:i+1], but only the piece of s[last_removal_pos, i+1]
-            # This is because before last_removal_pos has been checked by previous helper() call
-            for j in range(last_removal_pos, i + 1):
-                # To avoid equivalent removals (when there are consecutive par[1])
-                if s[j] == par[1] and (j == last_removal_pos or s[j - 1] != par[1]):
-                    # remove s[j]. Now s[:i+1] is valid, but we still need to continue checking s[i+1:]
-                    # But note that after dropping s[j], s is one charachter less,
-                    # so old s[i+1:] becomes s[i:], therefore the next start_pos is i
-                    self.helper(s[:j] + s[j + 1:], res, i, j, par)
-            return
+            if cnt < 0:  # if cnt >=0, means s[start_pos: i+1] is still valid
+                # when cnt < 0, meaning s[start_pos: i+1] is not valid.
+                # when cnt < 0, meaning par[1] is one more than par[0]. We can remove any one of the par[1] showed earlier
+                # To avoid equivalent removals,we don't need to check for the whole s[:i+1], but only the piece of s[last_removal_pos, i+1]
+                # This is because before last_removal_pos has been checked by previous helper() call
+                for j in range(last_removal_pos, i + 1):
+                    # To avoid equivalent removals (when there are consecutive par[1])
+                    if s[j] == par[1] and (j == last_removal_pos or s[j - 1] != par[1]):
+                        # remove s[j]. Now s[:i+1] is valid, but we still need to continue checking s[i+1:]
+                        # But note that after dropping s[j], s is one charachter less,
+                        # so old s[i+1:] becomes s[i:], therefore the next start_pos is i
+                        self.helper(s[:j] + s[j + 1:], res, i, j, par)
+                        # since cnt < 0 means s[start_pos: i+1] is not valid, return.
+                return
 
         # When reaching here, we only confirmed that there is no more par[1] than par[0]
         # But we still need to check there is also no more par[0] than par[1]. So reverse the string and call run helper again

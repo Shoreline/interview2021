@@ -26,7 +26,7 @@ def preorderTraversal(root: Optional[TreeNode]) -> List[int]:
 # Iterative methods
 def inorderTraversal2(root: TreeNode) -> List[int]:
     res = []
-    stack = []
+    stack = []  # saves cur
     cur = root
     while cur or stack:
         if not cur:
@@ -42,7 +42,7 @@ def inorderTraversal2(root: TreeNode) -> List[int]:
 
 def preorderTraversal2(root: Optional[TreeNode]) -> List[int]:
     res = []
-    stack = []
+    stack = []  # saves cur.right if it exists
     cur = root
     while cur or stack:
         if not cur:

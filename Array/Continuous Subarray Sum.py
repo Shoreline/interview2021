@@ -6,16 +6,16 @@
 
 # if prefix_sum_j % k == prefix_sum_i % k, and i < j then sum(nums[i:j]) % k == 0 -> shall return True
 # If sum(nums[:j]) % k == sum(nums[:i]) % k, and i < j, then sum(nums[i:j]) % k == 0 -> shall return True
-# So we just need to have a map to track the remainers
+# So we just need to have a map to track the remainders
 
 # Time complexity: O(n), space complexity: O(min(k, n)) if k != 0, else O(n).
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         if k == 0:
             return len(nums) >= 2
-        # <prefix_sum % k, first_shown_index>
-        # 0:-1: to catch sum[nums[:i]] % k == 0
-        remainder_to_index = {0:-1}
+        # <prefix_sum % k, first_seen_index>
+        # 0:-1: when the subarray starts from nums[0] -> to catch sum[nums[:i]] % k == 0
+        remainder_to_index = {0: -1}
         prefix_sum = 0
         for i in range(len(nums)):
             prefix_sum += nums[i]
@@ -24,10 +24,9 @@ class Solution:
             if remainder not in remainder_to_index:
                 remainder_to_index[remainder] = i
             elif i - remainder_to_index[remainder] >= 2:
-                 # need >=2 since the problem says subarray must have at least 2 elements
+                # need >=2 since the problem says subarray must have at least 2 elements
                 return True
         return False
-
 
     # class Solution:
 #     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
