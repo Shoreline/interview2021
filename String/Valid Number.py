@@ -8,17 +8,19 @@ class Solution:
     def isNumber(self, s: str) -> bool:
 
         # reset seen_digit after a valid 'e' or 'E'
-        seen_digit = seen_exponent = seen_dot = False
+        seen_digit = False
+        seen_exponent = False
+        seen_dot = False
         for i, c in enumerate(s):
             if c.isdigit():
                 seen_digit = True
             # + and - can only be at the very beginning, or right next to e or E
             # if + or - is not at the very beginning, or right next to 'e' or 'E', then invalid
             elif c in ["+", "-"]:
-                if i > 0 and s[i - 1] != "e" and s[i - 1] != "E":
+                if i > 0 and s[i - 1] not in "eE":
                     return False
-            # e/E can only show up once, plus must be after a digit
-            elif c in ["e", "E"]:
+            # e/E can show up at most once, and must after a digit
+            elif c in "eE":
                 if seen_exponent or not seen_digit:
                     return False
                 seen_exponent = True
