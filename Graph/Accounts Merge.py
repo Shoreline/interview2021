@@ -44,7 +44,8 @@ class Solution:
                 if email in ownership:
                     # union the new acct_id with the existing acct_id (ownership[email])
                     uf.union(acct_id, ownership[email])
-                ownership[email] = acct_id
+                else:
+                    ownership[email] = acct_id
 
         # Append emails to correct index
         ans = collections.defaultdict(list)

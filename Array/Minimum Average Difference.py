@@ -1,3 +1,6 @@
+# "avg diff": avg_of_the_former_part - avg_of_the_latter_part
+# We are asked to Return the index with the minimum average difference.
+
 # prefix sum
 class Solution:
     def minimumAverageDifference(self, nums: List[int]) -> int:

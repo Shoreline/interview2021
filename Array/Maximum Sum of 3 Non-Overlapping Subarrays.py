@@ -3,39 +3,41 @@
 
 # Return the result as a list of indices representing the starting position of each interval (0-indexed). If there
 # are multiple answers, return the lexicographically smallest one.
+
+# Brute force
 class Solution:
     def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
-        win_sums = []  # array of {sums of sliding_window}
-        cur_window_sum = 0
+        W = []  # array#1: every size_k_sliding_window_sum
+        curr_sum = 0
         for i, x in enumerate(nums):
-            cur_window_sum += x
+            curr_sum += x
             if i >= k:
-                cur_window_sum -= nums[i - k]
+                curr_sum -= nums[i - k]
             if i >= k - 1:
-                win_sums.append(cur_window_sum)
+                W.append(curr_sum)
 
-        left = [0] * len(win_sums)  # index of sofar the biggest sliding_window from left
+        left = [0] * len(W)  # Array#2: saves each index of {sofar the biggest sliding_window from left}
         best = 0
-        for i in range(len(win_sums)):
-            if win_sums[i] > win_sums[best]:
+        for i in range(len(W)):
+            if W[i] > W[best]:
                 best = i
             left[i] = best
 
-        right = [0] * len(win_sums)  # index of sofar the biggest sliding_window from right
-        best = len(win_sums) - 1
-        for i in range(len(win_sums) - 1, -1, -1):
-            if win_sums[i] >= win_sums[best]:
+        right = [0] * len(W)  # Array#3: index of sofar the biggest sliding_window from right
+        best = len(W) - 1
+        for i in range(len(W) - 1, -1, -1):
+            if W[i] >= W[best]:
                 best = i
             right[i] = best
 
-        res = None
-        # i: index of current sliding window
-        # j: index of the biggest sliding window starting before i - k
-        # l: index of the biggest sliding window starting after i + k
-        for j in range(k, len(win_sums) - k):
+        ans = None
+        # j: index of current sliding window
+        # i: index of the biggest sliding window starting before j - k | before j - k -> no overlap with cur window
+        # l: index of the biggest sliding window starting after j + k | after j + k -> no overlap with cur window
+        for j in range(k, len(W) - k):
             i, l = left[j - k], right[j + k]
 
             # Found a bigger solution.
-            if res is None or (win_sums[i] + win_sums[j] + win_sums[l] > win_sums[res[0]] + win_sums[res[1]] + win_sums[res[2]]):
-                res = [i, j, l]
-        return res
+            if ans is None or (W[i] + W[j] + W[l] > W[ans[0]] + W[ans[1]] + W[ans[2]]):
+                ans = [i, j, l]
+        return ans

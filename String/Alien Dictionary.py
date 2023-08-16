@@ -5,6 +5,8 @@
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
         # <character, set<children_characters>> to represent a graph. Each character is a node.
+        # The value children_characters are nodes coming out of the key character
+        #   (children classes can be taken after taking the key class)
         graph = collections.defaultdict(set)
         # in_degrees = Counter({c : 0 for word in words for c in word}) # only have keys for shown characters
         in_degrees = {c: 0 for word in words for c in word}
@@ -15,27 +17,27 @@ class Solution:
             idx = 0
             for j in range(min(len(word1), len(word2))):
                 c1, c2 = word1[j], word2[j]
-                if c1 != c2:  # word1[j] is ahead of word2[j]
+                if c1 != c2:  # c1 is ahead of c2 -> similar to class c1 must be taken before class c2
                     if c2 not in graph[c1]:  # found a new edge in graph, from c1 to c2
                         graph[c1].add(c2)
                         in_degrees[c2] += 1
-                    break
+                    break  # can only deduce the first unmatching c1,c2 pair
 
                 if len(word1) > len(word2) and j == len(word2) - 1:  # for corner cases like ["abc", "ab"]
                     return ""
 
-        q = collections.deque()
+        queue = collections.deque()
         for c in in_degrees:
             if in_degrees[c] == 0:
-                q.append(c)
+                queue.append(c)
 
         res = []
-        while q:
-            c = q.popleft()
+        while queue:
+            c = queue.popleft()
             for child in graph[c]:
                 in_degrees[child] -= 1
                 if in_degrees[child] == 0:
-                    q.append(child)
+                    queue.append(child)
 
             res.append(c)
 

@@ -3,6 +3,9 @@
 # 'B' represents a revealed blank square that has no adjacent mines (i.e., above, below, left, right, and all 4 diagonals),
 # digit ('1' to '8') represents how many mines are adjacent to this revealed square, and
 # 'X' represents a revealed mine.
+#   can only be converted from an unrevealed mine 'M'
+
+# Note that we are just trying to show the concequence of ONE given click
 class Solution:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
         d = [(-1, 0), (1, 0), (0, 1), (0, -1), (1, -1), (1, 1), (-1, 1), (-1, -1)]

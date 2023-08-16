@@ -1,7 +1,10 @@
 # You can choose any index of the array and start jumping. Return the maximum number of indices you can visit.
 import functools
 
-
+# Recursion (slower, but still pass)
+# It doesn't matter to have the rule "can't jump from i to j if there is k in between having arr[k] > arr[j]".
+# It doesn't affect our solution. Just jump from i to k first, then k to j, eventually we can still reach j from i.
+#   As long as arr[i] > arr[k]
 class Solution:
     def maxJumps(self, arr: List[int], d: int) -> int:
 

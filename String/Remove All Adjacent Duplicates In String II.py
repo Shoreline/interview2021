@@ -4,7 +4,7 @@
 
 class Solution:
     def removeDuplicates(self, s: str, k: int) -> str:
-        stack = []
+        stack = [] # saves [char, adjacent_count]
         for c in s:
             if stack and stack[-1][0] == c and stack[-1][1] == k - 1:
                 stack.pop()
