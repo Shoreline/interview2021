@@ -1,5 +1,5 @@
 # BFS from each gate
-# Avoid duplicate adding the same node to queue -> use tobe_visited(), not visited()!
+# Use roms[i][j] to save min_dist_to_a_gate_so_far, no need to have visited() set
 from collections import deque
 
 

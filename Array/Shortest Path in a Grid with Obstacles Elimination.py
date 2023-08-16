@@ -59,7 +59,7 @@ class Solution_bfs:
         # Node definition:[x, y, obstacles_removed]
         # To be used in the queue and visited set.
         q = collections.deque([(0, 0, 0)])
-        visited = set()
+        visited = set()  # (i, j, obstacles_removed)
 
         m, n = len(grid), len(grid[0])
         dist = 0

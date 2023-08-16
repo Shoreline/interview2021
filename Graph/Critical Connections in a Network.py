@@ -32,6 +32,8 @@
 # disc = [1, 2, 3, 4]
 # low = [1, 1, 1, 4]
 # Output: [[1,3]]
+
+# Basically, do a DFS traverse, and track the discovery time of each node and each loop.
 class Solution:
     def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
         # construct the graph with given edges
@@ -40,29 +42,29 @@ class Solution:
             graph[a].append(b)
             graph[b].append(a)
 
-        time = [1]  # timer
-        disc = [0] * n  # discovery time
-        low = [0] * n   # lowest future node
-
+        disc = [0] * n  # node discovery time
+        loop = [0] * n  # loop discovery time. Each node i in a loop has the same loop[i] value
         ans = []
 
-        def dfs(curr: int, prev: int):
-            disc[curr] = low[curr] = time[0]
-            time[0] += 1
+        # curr: current node
+        # prev: previous node we visited
+        def dfs(curr: int, prev: int, timer: int):
+            disc[curr] = loop[curr] = timer  # first time seeing curr node
             # If one of the possible next nodes is an earlier node (disc[next] < low[curr]),
-            # then we've found a loop and we should update the low value for the current node.
-            for next in graph[curr]:
-                if disc[next] == 0: # next is not yet visited
-                    dfs(next, curr)
-                    low[curr] = min(low[curr], low[next]) # propagate the value of low back from next to curr
-                elif next != prev:  # next is already visited -> cycle
-                    low[curr] = min(low[curr], disc[next]) # propagate the value of low back from next to curr
+            # then we've found a loop, and we should update the low value for the current node.
+            for next_node in graph[curr]:
+                if disc[next_node] == 0:  # next is not yet visited
+                    dfs(next_node, curr, timer + 1)
+                    loop[curr] = min(loop[curr], loop[next_node])  # propagate the value of low back from next to curr
+                elif next_node != prev:  # next is already visited -> cycle
+                    # Now next_node is already visited and its discovery time will be set to loop[curr]
+                    loop[curr] = min(loop[curr], disc[next_node])
 
-                # all nodes in a cycle will have the same low[i] value
-                # so if low[next] > disc[curr], then curr,next is a critical edge
-                if low[next] > disc[curr]:
-                    ans.append([curr, next])
+                # all nodes in a cycle will have the same loop[i] value
+                # so if loop[next] > disc[curr], then curr,next is a critical edge
+                if loop[next_node] > disc[curr]:
+                    ans.append([curr, next_node])
 
-        dfs(0, -1)
+        dfs(0, -1, 1)
 
         return ans
