@@ -6,14 +6,15 @@
 #         self.right = right
 
 # time complexity is O(n), space complexity is O(h)
-# Use a class member to save isBalanced and do quick return to avoid unnecessary computation
+# Use Boolean balanced and do quick return to avoid unnecessary computation
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        self.balanced = True
+        balanced = True
 
         # Returns subtree height, AND also modifies self.balanced
         def dfs(root: TreeNode) -> int:
-            if not self.balanced:  # if so, no need to proceed
+            nonlocal balanced
+            if not balanced:  # if so, no need to proceed
                 return -1
 
             if not root:
@@ -23,13 +24,13 @@ class Solution:
             right = dfs(root.right)
 
             if abs(left - right) > 1:
-                self.balanced = False
+                balanced = False
                 return -1
 
             return 1 + max(left, right)
 
         dfs(root)
-        return self.balanced
+        return balanced
 
 # Same execution speed (49ms)
 # class Solution:

@@ -17,14 +17,16 @@ class Solution:
         # dfs() deep copies ALL subgraph originating from the input node
         def dfs(node):
             mapping[node] = Node(node.val)  # creates a new node and connects it with the original node
-            for n in node.neighbors:
-                if n not in mapping:
-                    dfs(n)  # DFS copy each unseen node
+            if node.neighbors:
+                mapping[node].neighbors = []
+                for n in node.neighbors:
+                    if n not in mapping:
+                        dfs(n)  # DFS copy each unseen node
 
-                # Each neighbor of the original node has been cloned as well.
-                # Add the cloned neighbor to mapping[node].neighbors
-                # n's clone has been added to mapping, as mapping[n]
-                mapping[node].neighbors += [mapping[n]]
+                    # Each neighbor of the original node has been cloned as well.
+                    # Add the cloned neighbor to mapping[node].neighbors
+                    # n's clone has been added to mapping, as mapping[n]
+                    mapping[node].neighbors.append(mapping[n])
 
         if not node:
             return node

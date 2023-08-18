@@ -22,9 +22,11 @@ class Solution:
             # a constant in this while loop
             right = i - 1
 
-            # Check all possible big rectangles ends at i - 1
-            # Note the bar of heights[i] is not included! These rectangles end at heights[i-1] (inclusive)
-            while len(stack) > 0 and heights[i] < heights[stack[-1]]:
+            # Create a new rectangular that ends at i
+            #   Check all possible big rectangles ends at i - 1
+            #   For the poped indices, compute the areas of their rectangulars and update res
+            #   Note the bar of heights[i] is not included! These rectangles end at heights[i-1] (inclusive)
+            while stack and heights[i] < heights[stack[-1]]:
                 h = heights[stack.pop()]
                 left = 0 if len(stack) == 0 else stack[-1] + 1
                 res = max(res, (right - left + 1) * h)

@@ -10,19 +10,19 @@
 # and so on.
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
-        color = {}  # also served as visited set
+        colored = {}  # also served as visited set
         for node in range(len(graph)):
-            if node not in color:
-                stack = [node]
-                color[node] = 0
+            if node not in colored:
+                stack = [node]  # used for DFS traverse. Save nodes of the current path.
+                colored[node] = 0
                 while stack:
                     node = stack.pop()
-                    for nei in graph[node]:
-                        if nei not in color:
-                            stack.append(nei)
+                    for neighbor in graph[node]:
+                        if neighbor not in colored:
+                            stack.append(neighbor)
                             # color[nei] = color[node] ^ 1
-                            color[nei] = int(not color[node])
+                            colored[neighbor] = int(not colored[node])
 
-                        elif color[nei] == color[node]:
+                        elif colored[neighbor] == colored[node]:
                             return False
         return True

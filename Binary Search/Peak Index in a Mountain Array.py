@@ -8,8 +8,8 @@ class Solution:
         l, r = 0, len(A) - 1
         while l < r:
             m = (l + r) // 2
-            if A[m] < A[m + 1]:
+            if A[m] < A[m + 1]:  # A[m] to A[m+1] is ascending trend, peak can only be A[m+1] or after A[m+1]
                 l = m + 1
-            else:
+            else:  # # A[m] to A[m+1] is descending trend, peak can only be A[m] or before A[m]
                 r = m
         return l

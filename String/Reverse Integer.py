@@ -1,5 +1,7 @@
+# -2^31 <= x <= 2^31 - 1
+
 # Hard part is that the reversed number may overflow.
-# Use int(x/10) instead of x//10 since they are different when x is a neagtive number.
+# Use int(x/10) instead of x//10 since they are different when x is a negative number.
 # Do do x = abs(x) since it may overflow
 class Solution:
     def reverse(self, x: int) -> int:

@@ -13,9 +13,9 @@ class Solution:
             if mid > 0 and nums[mid] < nums[mid - 1]:  # early return, optional
                 return nums[mid]
 
-            if nums[mid] > nums[high]:
+            if nums[mid] > nums[high]:  # the former part is sorted
                 low = mid + 1
-            else:
+            else:   # the latter part is sorted
                 high = mid
         return nums[low]
 

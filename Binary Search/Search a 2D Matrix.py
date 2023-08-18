@@ -1,3 +1,6 @@
+# Each row is sorted in non-decreasing order.
+# The first integer of each row is greater than the last integer of the previous row.
+
 # The 2d array can be treated as a 1d sorted array.
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:

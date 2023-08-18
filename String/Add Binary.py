@@ -9,8 +9,8 @@ class Solution:
         p1 = len(num1) - 1
         p2 = len(num2) - 1
         while p1 >= 0 or p2 >= 0:
-            x1 = ord(num1[p1]) - ord('0') if p1 >= 0 else 0
-            x2 = ord(num2[p2]) - ord('0') if p2 >= 0 else 0
+            x1 = int(num1[p1]) if p1 >= 0 else 0
+            x2 = int(num2[p2]) if p2 >= 0 else 0
             sum = x1 + x2 + carry
             value = sum % 2
             carry = sum // 2

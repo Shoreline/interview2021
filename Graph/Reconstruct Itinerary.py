@@ -1,4 +1,6 @@
 # PS:
+# We are told to always begin with "JFK".
+
 # tickets[i] = [from_i, to_i]
 # Reconstruct the itinerary in order and return it.
 # All tickets belong to a man who departs from "JFK", thus, the itinerary must begin with "JFK"
@@ -10,6 +12,7 @@
 # Output: ["JFK","MUC","LHR","SFO","SJC"]
 
 # DFS
+# Keep seeking the last destination and add it to res[], eventually returns res[::-1]
 # Use stack instead of queue for DFS -> starting airport of the next round has to be the destination airport from
 # previous round
 class Solution:
